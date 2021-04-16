@@ -1,0 +1,16 @@
+introduction
+linear-regression-predicting-course-evaluation-scores
+processing-the-data
+importing-the-data
+checking-for-missing-values
+exploratory-data-analysis
+the-response-variable
+potential-explanatory-variables
+professor-related-explanatory-variables
+continuous-variables
+binary-variables
+course-related-explanatory-variables
+relationships-between-variables
+relationships-between-continuous-variables
+relationships-between-discrete-variables-and-continuous-variables
+modelling
