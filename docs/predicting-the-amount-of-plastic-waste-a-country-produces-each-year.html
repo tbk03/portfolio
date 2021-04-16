@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 2 Predicting the amount of plastic waste a country produces each year | Data Science Portfolio</title>
+  <meta name="description" content="holding text" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 2 Predicting the amount of plastic waste a country produces each year | Data Science Portfolio" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="holding text" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 Predicting the amount of plastic waste a country produces each year | Data Science Portfolio" />
+  
+  <meta name="twitter:description" content="holding text" />
+  
+
+<meta name="author" content="Chris J. Martin" />
+
+
+<meta name="date" content="2021-04-16" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html"/>
+<script src="libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="/">Portfolio - Chris J. Martin</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="part"><span><b>I Linear Regression Projects</b></span></li>
+<li class="chapter" data-level="2" data-path="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"><i class="fa fa-check"></i><b>2</b> Predicting the amount of plastic waste a country produces each year</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#data-importing"><i class="fa fa-check"></i><b>2.1</b> Data importing</a></li>
+<li class="chapter" data-level="2.2" data-path="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#data-cleaning"><i class="fa fa-check"></i><b>2.2</b> Data cleaning</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#missing-data"><i class="fa fa-check"></i><b>2.2.1</b> Missing data</a></li>
+<li class="chapter" data-level="2.2.2" data-path="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#inspecting-the-data-for-the-country-variable"><i class="fa fa-check"></i><b>2.2.2</b> Inspecting the data for the country variable</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>2.3</b> Exploratory data analysis</a></li>
+<li class="chapter" data-level="2.4" data-path="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#modelling-a-simple-regression-model"><i class="fa fa-check"></i><b>2.4</b> Modelling: A simple regression model</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#model-fitting"><i class="fa fa-check"></i><b>2.4.1</b> Model fitting</a></li>
+<li class="chapter" data-level="2.4.2" data-path="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#uncertainty-in-the-model-fit"><i class="fa fa-check"></i><b>2.4.2</b> Uncertainty in the model fit</a></li>
+<li class="chapter" data-level="2.4.3" data-path="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#reviewing-the-residuals"><i class="fa fa-check"></i><b>2.4.3</b> Reviewing the residuals</a></li>
+<li class="chapter" data-level="2.4.4" data-path="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#bayesian-r-squared"><i class="fa fa-check"></i><b>2.4.4</b> Bayesian R squared</a></li>
+<li class="chapter" data-level="2.4.5" data-path="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cross-validation-and-log-scores"><i class="fa fa-check"></i><b>2.4.5</b> Cross validation and log scores</a></li>
+<li class="chapter" data-level="2.4.6" data-path="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#graphical-posterior-predictive-checks"><i class="fa fa-check"></i><b>2.4.6</b> Graphical posterior predictive checks</a></li>
+<li class="chapter" data-level="2.4.7" data-path="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#summary-of-the-model-fitting-process"><i class="fa fa-check"></i><b>2.4.7</b> Summary of the model fitting process</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#applying-the-model-to-new-data"><i class="fa fa-check"></i><b>2.5</b> Applying the model to new data</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="estimating-the-proportion-of-plastic-waste-countries-mismanage.html"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html"><i class="fa fa-check"></i><b>3</b> Estimating the proportion of plastic waste countries mismanage</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="estimating-the-proportion-of-plastic-waste-countries-mismanage.html"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#data-importing-and-cleaning"><i class="fa fa-check"></i><b>3.1</b> Data importing and cleaning</a></li>
+<li class="chapter" data-level="3.2" data-path="estimating-the-proportion-of-plastic-waste-countries-mismanage.html"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#exploratory-data-analysis-1"><i class="fa fa-check"></i><b>3.2</b> Exploratory data analysis</a></li>
+<li class="chapter" data-level="3.3" data-path="estimating-the-proportion-of-plastic-waste-countries-mismanage.html"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#modelling-piecewise-linear-regression"><i class="fa fa-check"></i><b>3.3</b> Modelling: Piecewise linear regression</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="estimating-the-proportion-of-plastic-waste-countries-mismanage.html"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#fitting-the-model"><i class="fa fa-check"></i><b>3.3.1</b> Fitting the model</a></li>
+<li class="chapter" data-level="3.3.2" data-path="estimating-the-proportion-of-plastic-waste-countries-mismanage.html"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#interpreting-the-model-coefficients"><i class="fa fa-check"></i><b>3.3.2</b> Interpreting the model coefficients</a></li>
+<li class="chapter" data-level="3.3.3" data-path="estimating-the-proportion-of-plastic-waste-countries-mismanage.html"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#some-quick-diagnostics"><i class="fa fa-check"></i><b>3.3.3</b> Some quick diagnostics</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="estimating-the-proportion-of-plastic-waste-countries-mismanage.html"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#reflections-and-next-steps"><i class="fa fa-check"></i><b>3.4</b> Reflections and next steps</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="linear-regression-predicting-course-evaluation-scores.html"><a href="linear-regression-predicting-course-evaluation-scores.html"><i class="fa fa-check"></i><b>4</b> Linear regression: Predicting course evaluation scores</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="linear-regression-predicting-course-evaluation-scores.html"><a href="linear-regression-predicting-course-evaluation-scores.html#data-importing-and-cleaning-1"><i class="fa fa-check"></i><b>4.1</b> Data importing and cleaning</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="linear-regression-predicting-course-evaluation-scores.html"><a href="linear-regression-predicting-course-evaluation-scores.html#importing-the-data"><i class="fa fa-check"></i><b>4.1.1</b> Importing the data</a></li>
+<li class="chapter" data-level="4.1.2" data-path="linear-regression-predicting-course-evaluation-scores.html"><a href="linear-regression-predicting-course-evaluation-scores.html#checking-for-missing-values"><i class="fa fa-check"></i><b>4.1.2</b> Checking for missing values</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="linear-regression-predicting-course-evaluation-scores.html"><a href="linear-regression-predicting-course-evaluation-scores.html#exploratory-data-analysis-2"><i class="fa fa-check"></i><b>4.2</b> Exploratory data analysis</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="linear-regression-predicting-course-evaluation-scores.html"><a href="linear-regression-predicting-course-evaluation-scores.html#the-response-variable"><i class="fa fa-check"></i><b>4.2.1</b> The response variable</a></li>
+<li class="chapter" data-level="4.2.2" data-path="linear-regression-predicting-course-evaluation-scores.html"><a href="linear-regression-predicting-course-evaluation-scores.html#potential-explanatory-variables"><i class="fa fa-check"></i><b>4.2.2</b> Potential explanatory variables</a></li>
+<li class="chapter" data-level="4.2.3" data-path="linear-regression-predicting-course-evaluation-scores.html"><a href="linear-regression-predicting-course-evaluation-scores.html#relationships-between-variables"><i class="fa fa-check"></i><b>4.2.3</b> Relationships between variables</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="linear-regression-predicting-course-evaluation-scores.html"><a href="linear-regression-predicting-course-evaluation-scores.html#modelling"><i class="fa fa-check"></i><b>4.3</b> Modelling</a></li>
+</ul></li>
+<li class="part"><span><b>II Data Vizualisation Projects</b></span></li>
+<li class="chapter" data-level="5" data-path="visualising-green-space-deprivation-across-the-english-regions.html"><a href="visualising-green-space-deprivation-across-the-english-regions.html"><i class="fa fa-check"></i><b>5</b> Visualising green space deprivation across the English regions</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Science Portfolio</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="predicting-the-amount-of-plastic-waste-a-country-produces-each-year" class="section level1" number="2">
+<h1><span class="header-section-number">Chapter 2</span> Predicting the amount of plastic waste a country produces each year</h1>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># core libraries</span></span>
+<span id="cb1-2"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-3"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rstanarm)</span>
+<span id="cb1-4"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># helper packages</span></span>
+<span id="cb1-6"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)    <span class="co"># for clean names</span></span>
+<span id="cb1-7"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(bayesplot)  <span class="co"># posterior predictive graphic checks</span></span>
+<span id="cb1-8"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># global settings</span></span>
+<span id="cb1-10"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_light</span>())</span></code></pre></div>
+<p>In this notebook I try out and apply some of the concepts, tools and techniques I have been learning as I read through the excellent <a href="https://avehtari.github.io/ROS-Examples/">Regression and Other Stories</a>. To do this I needed a dataset to work with. I decided to work with some data I had found (via #TidyTuesday) on <a href="https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-05-21">how much plastic waste countries produce</a>. So with this dataset to hand, my more specific aims were to:</p>
+<ul>
+<li><p>To develop a simple (Bayesian) regression model to predict the amount of plastic waste created by a country;</p></li>
+<li><p>To use appropriate metrics to compare the performance of several regression models;</p></li>
+<li><p>To use a simple regression to predict ‘future’ plastic waste production.</p></li>
+</ul>
+<p>In his introductory section (1), I add a few reflections on what I learnt throughout the process of working with the plastic waste data and developing a simple regression model. The following sections of the notebook then address in turn (2) data import, (3) data cleaning, (4) exploratory data analysis, (5) model fitting and evaluation, and (6) applying the model to make predictions.</p>
+<p>It quickly became clear to me that I was probably not actually working with observed data of how much plastic waste countries had produced in 2011. Rather I was actually working with the outputs of model which estimated how much plastic waste countries had produced in 2011. So, in a very simplistic way I was actually trying to recreate a model developed by a team of researchers (<a href="https://jambeck.engr.uga.edu/landplasticinput">Jambeck et al. 2015</a>) probably over the course of months and months of work.</p>
+<p>Fortunately, I had not read the paper detailing the construction of the model I was in effect trying to recreate. If I had read it I would have known in advance too much about the predictors to use, which in turn might well have reduced my opportunities for learning.</p>
+<p>The simple two predictor model developed in this notebook used a countries population and GDP to estimate it’s annual plastic waste production. Disappointingly, the model developed performed badly when attempting to make predictions for countries which produce large amounts of plastic waste. However, the process of developing the model provided a great opportunity for me to develop more hand-on experience of the practicalities of regression modeling.</p>
+<p>The next steps to developing a more nuanced and hopefully more effective model for predicting a country’s annual plastic waste production would be to review approaches used to developing plastic waste models by <a href="https://jambeck.engr.uga.edu/landplasticinput">Jambeck et al. 2015</a> and other researchers. This would hopefully provide me with greater insights into which variables (beyond population and GDP) would be helpful in estimating a country’s annual plastic waste production.</p>
+<p><strong>The dataset used:</strong></p>
+<p>All data files are located in <code>/data/</code></p>
+<table>
+<colgroup>
+<col width="16%" />
+<col width="18%" />
+<col width="65%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>File Name</th>
+<th>Variable name in this notebook</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>‘../data/waste_vs_gdp.csv’</td>
+<td>waste_vs_gdp*</td>
+<td><p><a href="https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-05-21">Data provided by #tidytuesday</a></p>
+<ul>
+<li><p>via our <a href="https://ourworldindata.org/plastic-pollution#summary">world in data</a>;</p></li>
+<li><p>original sources: <a href="https://jambeck.engr.uga.edu/landplasticinput">Jambeck et al. 2015</a> and gapminder.</p></li>
+</ul></td>
+</tr>
+</tbody>
+</table>
+<div id="data-importing" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Data importing</h2>
+<p>The data was provided by #TidyTuesday, a collaborative weekly data science project run the R for Data Science Community. Each week a dataset is posted for data scientists to practice their data wrangling and visualisation skills. <a href="https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-05-21">In May 2019 #TidyTuesday posted three datasets</a> (sourced from our world in data) providing three datasets focussing on plastic waste production, coastal populations and economic activity. The data is provided (mainly) at the country scale.</p>
+<p>In this analysis I work with only one of the three datasets. Below I read in the dataset relating to plastic waste production and GDP and quickly clean up some of the variable names to make them easier to work with.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># read dataset</span></span>
+<span id="cb2-2"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb2-2" aria-hidden="true" tabindex="-1"></a>waste_vs_gdp <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&#39;data/waste_vs_gdp.csv&#39;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-3"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb2-4"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">country =</span> entity,</span>
+<span id="cb2-5"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb2-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">country_code =</span> code,</span>
+<span id="cb2-6"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb2-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">population =</span> total_population_gapminder,</span>
+<span id="cb2-7"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb2-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">gdp_per_cap =</span></span>
+<span id="cb2-8"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb2-8" aria-hidden="true" tabindex="-1"></a>           gdp_per_capita_ppp_constant_2011_international_constant_2011_international,</span>
+<span id="cb2-9"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb2-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">plastic_waste_per_cap =</span></span>
+<span id="cb2-10"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb2-10" aria-hidden="true" tabindex="-1"></a>           per_capita_plastic_waste_kilograms_per_person_per_day)</span></code></pre></div>
+</div>
+<div id="data-cleaning" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> Data cleaning</h2>
+<div id="missing-data" class="section level3" number="2.2.1">
+<h3><span class="header-section-number">2.2.1</span> Missing data</h3>
+<p>I started the analysis with the idea that there could be relationship between the amount of plastic waste produced by a country and the size of its economy. So, I focused on just one of the three #TidyTuesday datasets <code>waste_vs_gdp</code>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># show data for initial inspection</span></span>
+<span id="cb3-2"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb3-2" aria-hidden="true" tabindex="-1"></a>waste_vs_gdp</span></code></pre></div>
+<pre><code>## # A tibble: 22,204 x 6
+##    country     country_code  year plastic_waste_per_cap gdp_per_cap population
+##    &lt;chr&gt;       &lt;chr&gt;        &lt;dbl&gt;                 &lt;dbl&gt;       &lt;dbl&gt;      &lt;dbl&gt;
+##  1 Afghanistan AFG           1800                    NA          NA    3280000
+##  2 Afghanistan AFG           1820                    NA          NA    3280000
+##  3 Afghanistan AFG           1870                    NA          NA    4207000
+##  4 Afghanistan AFG           1913                    NA          NA    5730000
+##  5 Afghanistan AFG           1950                    NA          NA    8151455
+##  6 Afghanistan AFG           1951                    NA          NA    8276820
+##  7 Afghanistan AFG           1952                    NA          NA    8407148
+##  8 Afghanistan AFG           1953                    NA          NA    8542906
+##  9 Afghanistan AFG           1954                    NA          NA    8684494
+## 10 Afghanistan AFG           1955                    NA          NA    8832253
+## # ... with 22,194 more rows</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># visualise missing data across variables</span></span>
+<span id="cb5-2"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb5-2" aria-hidden="true" tabindex="-1"></a>waste_vs_gdp <span class="sc">%&gt;%</span> </span>
+<span id="cb5-3"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(country, year) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-4"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb5-4" aria-hidden="true" tabindex="-1"></a>  visdat<span class="sc">::</span><span class="fu">vis_dat</span>()</span></code></pre></div>
+<p><img src="01_plastics_regression_1_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>Quickly looking at the data and plot above:</p>
+<ul>
+<li><p>I am happy the data types for each variable are appropriate and that the variables look to be in tidy format.</p></li>
+<li><p>I can see that it is presented as a longitudinal dataset with each row consisting of an observation for a country (or another entity - e.g. a group of countries) for a specific year.</p></li>
+<li><p>However, the variable I am interesting in predicting (plastic waste) most of the data is missing …</p></li>
+</ul>
+<p>There is data on plastic waste production for 2010 (see below). So, data for other years can be removed.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># find out what plastic waste data is actually available</span></span>
+<span id="cb6-2"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb6-2" aria-hidden="true" tabindex="-1"></a>waste_vs_gdp <span class="sc">%&gt;%</span> </span>
+<span id="cb6-3"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(plastic_waste_per_cap)) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-4"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(year)</span></code></pre></div>
+<pre><code>## # A tibble: 1 x 1
+##    year
+##   &lt;dbl&gt;
+## 1  2010</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># remove observations where there is no plastic waste data available</span></span>
+<span id="cb8-2"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb8-2" aria-hidden="true" tabindex="-1"></a>waste_vs_gdp_cleaned <span class="ot">&lt;-</span> waste_vs_gdp <span class="sc">%&gt;%</span> </span>
+<span id="cb8-3"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(plastic_waste_per_cap))</span></code></pre></div>
+<p>Taking another at the missing data (just for the year 2010):</p>
+<ul>
+<li><p>I can see there is some missing data for <code>gdp_per_cap</code> . I’m thinking that this variable will be used as a predictor later on in a linear regression model, so I looked at the missing data in a more detail.</p></li>
+<li><p>Based on a quick inspect, the 38 entities without <code>gdp_per_cap</code> data (see below) look to fall into two categories:</p>
+<ul>
+<li><p>small dependencies, territories and islands which form part of larger countries, for example Gibraltar which is part of the UK.</p></li>
+<li><p>countries where is it might be difficult to quantify GDP, for example North Korea and Cuba.</p></li>
+</ul></li>
+<li><p>Although, it means losing approximately 20% of the dataset I think the best option is to omit these countries from the analysis. As at the moment I can’t think of a way to reliably impute GDP values for these 38 entities (particularly as they may have different economic characteristics from typical larger countries).</p></li>
+</ul>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># look again at where things are at in terms of missing data</span></span>
+<span id="cb9-2"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb9-2" aria-hidden="true" tabindex="-1"></a>waste_vs_gdp_cleaned <span class="sc">%&gt;%</span> </span>
+<span id="cb9-3"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb9-3" aria-hidden="true" tabindex="-1"></a>  visdat<span class="sc">::</span><span class="fu">vis_miss</span>()</span></code></pre></div>
+<p><img src="01_plastics_regression_1_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># check which countries/entities have no GDP data</span></span>
+<span id="cb10-2"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb10-2" aria-hidden="true" tabindex="-1"></a>waste_vs_gdp_cleaned <span class="sc">%&gt;%</span> </span>
+<span id="cb10-3"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">is.na</span>(gdp_per_cap)) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-4"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(country, country_code)</span></code></pre></div>
+<pre><code>## # A tibble: 38 x 2
+##    country                country_code
+##    &lt;chr&gt;                  &lt;chr&gt;       
+##  1 Anguilla               AIA         
+##  2 Aruba                  ABW         
+##  3 British Virgin Islands VGB         
+##  4 Cayman Islands         CYM         
+##  5 Channel Islands        OWID_CIS    
+##  6 Christmas Island       CXR         
+##  7 Cocos Islands          CCK         
+##  8 Cook Islands           COK         
+##  9 Cuba                   CUB         
+## 10 Curacao                CUW         
+## # ... with 28 more rows</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># remove countries with no GDP data</span></span>
+<span id="cb12-2"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb12-2" aria-hidden="true" tabindex="-1"></a>waste_vs_gdp_cleaned <span class="ot">&lt;-</span> waste_vs_gdp_cleaned <span class="sc">%&gt;%</span> </span>
+<span id="cb12-3"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(gdp_per_cap))</span></code></pre></div>
+<p>So, looking for the last time at missing data there is just the missing data for population to consider:</p>
+<ul>
+<li>As it is just three countries without population data I am comfortable with omitting these from the analysis.</li>
+</ul>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># look again at where things are at in terms of missing data</span></span>
+<span id="cb13-2"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb13-2" aria-hidden="true" tabindex="-1"></a>waste_vs_gdp_cleaned <span class="sc">%&gt;%</span> </span>
+<span id="cb13-3"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb13-3" aria-hidden="true" tabindex="-1"></a>  visdat<span class="sc">::</span><span class="fu">vis_miss</span>()</span></code></pre></div>
+<p><img src="01_plastics_regression_1_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># check which entities/countries don&#39;t have population data</span></span>
+<span id="cb14-2"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb14-2" aria-hidden="true" tabindex="-1"></a>waste_vs_gdp_cleaned <span class="sc">%&gt;%</span> </span>
+<span id="cb14-3"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">is.na</span>(population)) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-4"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(country, country_code)</span></code></pre></div>
+<pre><code>## # A tibble: 3 x 2
+##   country              country_code
+##   &lt;chr&gt;                &lt;chr&gt;       
+## 1 Micronesia (country) FSM         
+## 2 Palestine            PSE         
+## 3 Yemen                YEM</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># remove observations without population information  </span></span>
+<span id="cb16-2"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb16-2" aria-hidden="true" tabindex="-1"></a>waste_vs_gdp_cleaned <span class="ot">&lt;-</span> waste_vs_gdp_cleaned <span class="sc">%&gt;%</span> </span>
+<span id="cb16-3"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(population))</span></code></pre></div>
+</div>
+<div id="inspecting-the-data-for-the-country-variable" class="section level3" number="2.2.2">
+<h3><span class="header-section-number">2.2.2</span> Inspecting the data for the country variable</h3>
+<p>Given the raw data used the variable name (geographic) entity rather than <code>country</code> I wanted to check that the cleaned data only contains countries. Given there are only 145 observations remaining in the dataset, I did this check manually. There were no obvious non-country entities (e.g. continents such as Europe or Asia, or high/middle/low income country groups) remaining.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># confirm there are no non-country entities within the dataset</span></span>
+<span id="cb17-2"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb17-2" aria-hidden="true" tabindex="-1"></a>waste_vs_gdp_cleaned <span class="sc">%&gt;%</span> </span>
+<span id="cb17-3"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(country, country_code)</span></code></pre></div>
+<pre><code>## # A tibble: 145 x 2
+##    country             country_code
+##    &lt;chr&gt;               &lt;chr&gt;       
+##  1 Albania             ALB         
+##  2 Algeria             DZA         
+##  3 Angola              AGO         
+##  4 Antigua and Barbuda ATG         
+##  5 Argentina           ARG         
+##  6 Australia           AUS         
+##  7 Bahamas             BHS         
+##  8 Bahrain             BHR         
+##  9 Bangladesh          BGD         
+## 10 Barbados            BRB         
+## # ... with 135 more rows</code></pre>
+<p>I also confirmed there are no duplicates of countries within the dataset.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># confirm there are no duplicate countries</span></span>
+<span id="cb19-2"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb19-2" aria-hidden="true" tabindex="-1"></a>assertthat<span class="sc">::</span><span class="fu">are_equal</span>(<span class="fu">nrow</span>(waste_vs_gdp_cleaned),</span>
+<span id="cb19-3"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb19-3" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">nrow</span>(waste_vs_gdp_cleaned <span class="sc">%&gt;%</span> </span>
+<span id="cb19-4"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb19-4" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">distinct</span>(country))</span>
+<span id="cb19-5"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb19-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+</div>
+</div>
+<div id="exploratory-data-analysis" class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> Exploratory data analysis</h2>
+<p>The plastic waste and gdp data are represented on a per capita basis (<code>plastic_waste_per_cap</code> and <code>gdp_per_cap</code> respectively). During the modelling process I think it will be useful to have the absolute values for plastic waste and gdp. Fortunately, population data is provide so it is easy to calculate these figures.</p>
+<p>Having calculated <code>plastic_waste_tot</code>, I think it make sense to adjust the units to tonnes of waste per year (<code>plastic_waste_per_cap</code> was in kg per day per person). Just to confirm that the transformation I sum <code>plastic_waste_tot</code> to give global plastic waste for 2010 (which is approx. 269 million tonnes ). This is close enough to the headline figure of 275 million tonnes of global plastic waste for 2010 given by <a href="https://jambeck.engr.uga.edu/landplasticinput">Jambeck et al.</a> (), to be confident nothing major has gone wrong in my calculation.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create new variables for eda and regression</span></span>
+<span id="cb21-2"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb21-2" aria-hidden="true" tabindex="-1"></a>waste_vs_gdp_eda <span class="ot">&lt;-</span> waste_vs_gdp_cleaned <span class="sc">%&gt;%</span> </span>
+<span id="cb21-3"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">plastic_waste_tot =</span> plastic_waste_per_cap <span class="sc">*</span> population,</span>
+<span id="cb21-4"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb21-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">gdp =</span> gdp_per_cap <span class="sc">*</span> population,</span>
+<span id="cb21-5"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb21-5" aria-hidden="true" tabindex="-1"></a>         </span>
+<span id="cb21-6"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb21-6" aria-hidden="true" tabindex="-1"></a>         <span class="co"># adjust units</span></span>
+<span id="cb21-7"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb21-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">plastic_waste_tot =</span> (plastic_waste_tot <span class="sc">/</span> <span class="dv">1000</span>) <span class="sc">*</span> <span class="dv">365</span></span>
+<span id="cb21-8"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb21-8" aria-hidden="true" tabindex="-1"></a>         )</span>
+<span id="cb21-9"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb21-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-10"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate global plastic waste total</span></span>
+<span id="cb21-11"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb21-11" aria-hidden="true" tabindex="-1"></a>waste_vs_gdp_eda <span class="sc">%&gt;%</span> </span>
+<span id="cb21-12"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb21-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">sum</span>(plastic_waste_tot)) <span class="sc">%&gt;%</span> </span>
+<span id="cb21-13"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb21-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>()</span></code></pre></div>
+<pre><code>## [1] 268899757</code></pre>
+<p>From the summary statistics (see below) for the outcome variable (<code>plastic_waste_tot</code>) and the two potential predictor variables (<code>gdp</code> and <code>population</code>), it looks like all three will be heavily right-skewed. And, this is confirmed by the plots below which apply a log scale to the x axis.</p>
+<p>So, I start with a little bit of very basic feature engineering and take logs of the three variables to produce outcome and predictors with more normal-like distributions.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># produce summary statistics</span></span>
+<span id="cb23-2"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb23-2" aria-hidden="true" tabindex="-1"></a>waste_vs_gdp_eda <span class="sc">%&gt;%</span> </span>
+<span id="cb23-3"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>year) <span class="sc">%&gt;%</span> </span>
+<span id="cb23-4"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb23-4" aria-hidden="true" tabindex="-1"></a>  skimr<span class="sc">::</span><span class="fu">skim</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb23-5"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb23-5" aria-hidden="true" tabindex="-1"></a>  skimr<span class="sc">::</span><span class="fu">yank</span>(<span class="st">&quot;numeric&quot;</span>)</span></code></pre></div>
+<p><strong>Variable type: numeric</strong></p>
+<table style="width:100%;">
+<colgroup>
+<col width="12%" />
+<col width="5%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="6%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="23%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">skim_variable</th>
+<th align="right">n_missing</th>
+<th align="right">complete_rate</th>
+<th align="right">mean</th>
+<th align="right">sd</th>
+<th align="right">p0</th>
+<th align="right">p25</th>
+<th align="right">p50</th>
+<th align="right">p75</th>
+<th align="right">p100</th>
+<th align="left">hist</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">plastic_waste_per_cap</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">2.000000e-01</td>
+<td align="right">3.100000e-01</td>
+<td align="right">0.01</td>
+<td align="right">9.000000e-02</td>
+<td align="right">1.400000e-01</td>
+<td align="right">2.200000e-01</td>
+<td align="right">3.600000e+00</td>
+<td align="left">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td align="left">gdp_per_cap</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">1.924042e+04</td>
+<td align="right">2.018923e+04</td>
+<td align="right">660.21</td>
+<td align="right">4.984190e+03</td>
+<td align="right">1.212384e+04</td>
+<td align="right">2.922199e+04</td>
+<td align="right">1.251408e+05</td>
+<td align="left">▇▂▁▁▁</td>
+</tr>
+<tr class="odd">
+<td align="left">population</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4.338416e+07</td>
+<td align="right">1.546056e+08</td>
+<td align="right">9827.00</td>
+<td align="right">1.341140e+06</td>
+<td align="right">6.192993e+06</td>
+<td align="right">3.167159e+07</td>
+<td align="right">1.341335e+09</td>
+<td align="left">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td align="left">plastic_waste_tot</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">1.854481e+06</td>
+<td align="right">6.075795e+06</td>
+<td align="right">516.51</td>
+<td align="right">6.079521e+04</td>
+<td align="right">3.322850e+05</td>
+<td align="right">1.355185e+06</td>
+<td align="right">5.924007e+07</td>
+<td align="left">▇▁▁▁▁</td>
+</tr>
+<tr class="odd">
+<td align="left">gdp</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">5.966166e+11</td>
+<td align="right">1.805967e+12</td>
+<td align="right">29347842.73</td>
+<td align="right">1.247826e+10</td>
+<td align="right">6.955141e+10</td>
+<td align="right">3.872508e+11</td>
+<td align="right">1.532495e+13</td>
+<td align="left">▇▁▁▁▁</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># define labels for plotting</span></span>
+<span id="cb24-2"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb24-2" aria-hidden="true" tabindex="-1"></a>x_lab_pop <span class="ot">&lt;-</span> <span class="st">&quot;Plastic waste produced (tonnes per year)&quot;</span></span>
+<span id="cb24-3"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb24-3" aria-hidden="true" tabindex="-1"></a>x_lab_gdp <span class="ot">&lt;-</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st">2010 GDP (USD)</span><span class="sc">\n\n</span><span class="st">adjusted for inflation (2011 benchmark year) and purchaing power parity&quot;</span></span>
+<span id="cb24-4"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb24-4" aria-hidden="true" tabindex="-1"></a>y_lab <span class="ot">&lt;-</span> <span class="st">&quot;Number of countries&quot;</span></span>
+<span id="cb24-5"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb24-5" aria-hidden="true" tabindex="-1"></a>caption_lab <span class="ot">&lt;-</span> <span class="st">&quot;Source: ourworldindata / gapminder&quot;</span></span>
+<span id="cb24-6"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb24-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-7"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="co"># plot histograms for the two predictors and the outcome</span></span>
+<span id="cb24-8"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb24-8" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(waste_vs_gdp_eda)</span>
+<span id="cb24-9"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb24-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-10"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb24-10" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(plastic_waste_tot), <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb24-11"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb24-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>(<span class="at">labels =</span> scales<span class="sc">::</span>comma) <span class="sc">+</span></span>
+<span id="cb24-12"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb24-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> x_lab_pop,</span>
+<span id="cb24-13"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb24-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> y_lab,</span>
+<span id="cb24-14"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb24-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> caption_lab )</span></code></pre></div>
+<p><img src="01_plastics_regression_1_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb25-1" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(gdp), <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb25-2"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_number_si</span>(<span class="at">accuracy=</span><span class="fl">0.1</span>)) <span class="sc">+</span></span>
+<span id="cb25-3"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> x_lab_gdp,</span>
+<span id="cb25-4"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb25-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> y_lab,</span>
+<span id="cb25-5"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb25-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> caption_lab)</span></code></pre></div>
+<p><img src="01_plastics_regression_1_files/figure-html/unnamed-chunk-11-2.png" width="672" /></p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb26-1" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(population), <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb26-2"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>(<span class="at">labels =</span> scales<span class="sc">::</span>comma) <span class="sc">+</span></span>
+<span id="cb26-3"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Population&quot;</span>,</span>
+<span id="cb26-4"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb26-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> y_lab,</span>
+<span id="cb26-5"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb26-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> caption_lab)</span></code></pre></div>
+<p><img src="01_plastics_regression_1_files/figure-html/unnamed-chunk-11-3.png" width="672" /></p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># log transform skewed variables</span></span>
+<span id="cb27-2"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb27-2" aria-hidden="true" tabindex="-1"></a>waste_vs_gdp_eda <span class="ot">&lt;-</span> waste_vs_gdp_eda <span class="sc">%&gt;%</span> </span>
+<span id="cb27-3"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="at">.cols =</span> population<span class="sc">:</span>gdp,</span>
+<span id="cb27-4"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb27-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">.fns =</span> log,</span>
+<span id="cb27-5"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb27-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">.names =</span> <span class="st">&quot;log_{.col}&quot;</span>)</span>
+<span id="cb27-6"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb27-6" aria-hidden="true" tabindex="-1"></a>         )</span></code></pre></div>
+<p>There is a high degree of correlation between the logs each of the predictor variables (<code>population</code> and <code>gdp</code>) and the log of the outcome variable (<code>plastic_waste_tot</code>)(see below). This is promising in terms of developing a predictive linear regression model).</p>
+<p>However, there is also evidence of multicollinearity (i.e. a high degree of correlation between the two predictor variable). If both are included in a linear regression model there is the potential for standard errors of the regression coefficients to increase (relative to a model containing only one of the two predictors). This is something to come back to in the comparision of model performance below.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># pair plot to review correlation between predictors and outcome variables</span></span>
+<span id="cb28-2"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb28-2" aria-hidden="true" tabindex="-1"></a>GGally<span class="sc">::</span><span class="fu">ggpairs</span>(waste_vs_gdp_eda <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="fu">starts_with</span>(<span class="st">&quot;log_&quot;</span>)))</span></code></pre></div>
+<p><img src="01_plastics_regression_1_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+</div>
+<div id="modelling-a-simple-regression-model" class="section level2" number="2.4">
+<h2><span class="header-section-number">2.4</span> Modelling: A simple regression model</h2>
+<div id="model-fitting" class="section level3" number="2.4.1">
+<h3><span class="header-section-number">2.4.1</span> Model fitting</h3>
+<p>Below I fit three linear models (using a Bayesian linear regression algorithm from the <code>rstanarm</code> package) with <code>plastic_waste_tot</code> as the outcome variable. The three models have different predictors as follows:</p>
+<ol style="list-style-type: decimal">
+<li><p>Using <code>gdp</code> as a single predictor;</p></li>
+<li><p>Using <code>population</code> as a single predictor;</p></li>
+<li><p>Using both <code>gdp</code> and <code>population</code> as predictors.</p></li>
+</ol>
+<p>Reviewing the outputs of the three model fits I noted the following:</p>
+<ul>
+<li><p>The residual standard deviation (sigma in the output below) is highest for model 1 and lowest for model 3.</p></li>
+<li><p>The uncertainty around the values of the regression coefficients (MAD_SD in the output below) is smallest for model 2.</p></li>
+</ul>
+<p>Below I explore these two points further by visualising the residuals and the uncertainty around the regression coefficients.</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># reassign data at the start of modelling section</span></span>
+<span id="cb29-2"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb29-2" aria-hidden="true" tabindex="-1"></a>waste_vs_gdp_mod <span class="ot">&lt;-</span> waste_vs_gdp_eda </span>
+<span id="cb29-3"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co"># fit models</span></span>
+<span id="cb29-5"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb29-5" aria-hidden="true" tabindex="-1"></a>lm_1 <span class="ot">&lt;-</span> <span class="fu">stan_glm</span>(<span class="at">formula =</span> log_plastic_waste_tot <span class="sc">~</span> log_gdp, </span>
+<span id="cb29-6"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb29-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> waste_vs_gdp_mod,</span>
+<span id="cb29-7"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb29-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">refresh =</span> <span class="dv">0</span>)</span>
+<span id="cb29-8"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb29-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-9"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb29-9" aria-hidden="true" tabindex="-1"></a>lm_2 <span class="ot">&lt;-</span> <span class="fu">update</span>(lm_1, <span class="at">formula =</span> log_plastic_waste_tot <span class="sc">~</span> log_population)</span>
+<span id="cb29-10"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb29-10" aria-hidden="true" tabindex="-1"></a>lm_3 <span class="ot">&lt;-</span> <span class="fu">update</span>(lm_1, <span class="at">formula =</span> log_plastic_waste_tot <span class="sc">~</span> log_gdp <span class="sc">+</span> log_population)</span>
+<span id="cb29-11"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb29-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-12"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb29-12" aria-hidden="true" tabindex="-1"></a><span class="co"># display model outputs</span></span>
+<span id="cb29-13"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb29-13" aria-hidden="true" tabindex="-1"></a>lm_1</span></code></pre></div>
+<pre><code>## stan_glm
+##  family:       gaussian [identity]
+##  formula:      log_plastic_waste_tot ~ log_gdp
+##  observations: 145
+##  predictors:   2
+## ------
+##             Median MAD_SD
+## (Intercept) -7.1    0.7  
+## log_gdp      0.8    0.0  
+## 
+## Auxiliary parameter(s):
+##       Median MAD_SD
+## sigma 0.9    0.1   
+## 
+## ------
+## * For help interpreting the printed output see ?print.stanreg
+## * For info on the priors used see ?prior_summary.stanreg</code></pre>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb31-1" aria-hidden="true" tabindex="-1"></a>lm_2</span></code></pre></div>
+<pre><code>## stan_glm
+##  family:       gaussian [identity]
+##  formula:      log_plastic_waste_tot ~ log_population
+##  observations: 145
+##  predictors:   2
+## ------
+##                Median MAD_SD
+## (Intercept)    -1.3    0.5  
+## log_population  0.9    0.0  
+## 
+## Auxiliary parameter(s):
+##       Median MAD_SD
+## sigma 0.8    0.0   
+## 
+## ------
+## * For help interpreting the printed output see ?print.stanreg
+## * For info on the priors used see ?prior_summary.stanreg</code></pre>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb33-1" aria-hidden="true" tabindex="-1"></a>lm_3</span></code></pre></div>
+<pre><code>## stan_glm
+##  family:       gaussian [identity]
+##  formula:      log_plastic_waste_tot ~ log_gdp + log_population
+##  observations: 145
+##  predictors:   3
+## ------
+##                Median MAD_SD
+## (Intercept)    -4.8    0.6  
+## log_gdp         0.4    0.0  
+## log_population  0.5    0.1  
+## 
+## Auxiliary parameter(s):
+##       Median MAD_SD
+## sigma 0.7    0.0   
+## 
+## ------
+## * For help interpreting the printed output see ?print.stanreg
+## * For info on the priors used see ?prior_summary.stanreg</code></pre>
+</div>
+<div id="uncertainty-in-the-model-fit" class="section level3" number="2.4.2">
+<h3><span class="header-section-number">2.4.2</span> Uncertainty in the model fit</h3>
+<p>For the first two models (those with just a single continuous predictor) it is straight-forward to plot the regression line alongside the raw data. The uncertainty associated with the regression line was added by plotting randomly sampled draws from the posterior distribution (for the regression coefficients).</p>
+<p>For both these simple single predictor models a good fit between the model and the data can be observed. Additionally the uncertainty around the intercept and gradient terms of the regression line appears to be relatively limited.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># define a function for plotting a regression line with</span></span>
+<span id="cb35-2"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="co"># draws from posterior distribution</span></span>
+<span id="cb35-3"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb35-3" aria-hidden="true" tabindex="-1"></a>plot_lm_with_uncertainty <span class="ot">&lt;-</span> <span class="cf">function</span>(model, data, x, y){</span>
+<span id="cb35-4"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb35-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb35-5"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb35-5" aria-hidden="true" tabindex="-1"></a>  lm_coef <span class="ot">&lt;-</span> <span class="fu">coef</span>(model)</span>
+<span id="cb35-6"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb35-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb35-7"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb35-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># sample draws from the posterior distribution</span></span>
+<span id="cb35-8"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb35-8" aria-hidden="true" tabindex="-1"></a>  posterior_coef_draws <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(model) <span class="sc">%&gt;%</span> </span>
+<span id="cb35-9"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb35-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rename</span>(<span class="at">a =</span> <span class="st">`</span><span class="at">(Intercept)</span><span class="st">`</span>,</span>
+<span id="cb35-10"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb35-10" aria-hidden="true" tabindex="-1"></a>           <span class="at">b =</span> {{x}}) <span class="sc">%&gt;%</span> </span>
+<span id="cb35-11"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb35-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sample_n</span>(<span class="dv">100</span>)</span>
+<span id="cb35-12"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb35-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb35-13"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb35-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># produce regression plot (including uncertainty)</span></span>
+<span id="cb35-14"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb35-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(data,</span>
+<span id="cb35-15"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb35-15" aria-hidden="true" tabindex="-1"></a>         <span class="fu">aes</span>({{x}}, {{y}})) <span class="sc">+</span></span>
+<span id="cb35-16"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb35-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb35-17"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb35-17" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb35-18"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb35-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_abline</span>(<span class="at">data =</span> posterior_coef_draws,</span>
+<span id="cb35-19"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb35-19" aria-hidden="true" tabindex="-1"></a>                <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">intercept =</span> a,</span>
+<span id="cb35-20"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb35-20" aria-hidden="true" tabindex="-1"></a>                              <span class="at">slope =</span> b),</span>
+<span id="cb35-21"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb35-21" aria-hidden="true" tabindex="-1"></a>                <span class="at">colour =</span> <span class="st">&#39;skyblue&#39;</span>,</span>
+<span id="cb35-22"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb35-22" aria-hidden="true" tabindex="-1"></a>                <span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">size =</span> <span class="fl">0.2</span>) <span class="sc">+</span>  <span class="co"># a sample of posterior to show                                                    uncertainty</span></span>
+<span id="cb35-23"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb35-23" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb35-24"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb35-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_abline</span>(<span class="at">intercept =</span> lm_coef[<span class="dv">1</span>], <span class="at">slope =</span> lm_coef[<span class="dv">2</span>],</span>
+<span id="cb35-25"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb35-25" aria-hidden="true" tabindex="-1"></a>                <span class="at">size =</span> <span class="dv">1</span>) <span class="co"># estimated regression line</span></span>
+<span id="cb35-26"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb35-26" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb35-27"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb35-27" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb35-28"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb35-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-29"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb35-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Produce plots of fitted model (+ uncertainty)</span></span>
+<span id="cb35-30"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb35-30" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_lm_with_uncertainty</span>(lm_1, waste_vs_gdp_mod, </span>
+<span id="cb35-31"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb35-31" aria-hidden="true" tabindex="-1"></a>                         log_gdp, log_plastic_waste_tot) <span class="sc">+</span></span>
+<span id="cb35-32"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb35-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Log GDP&quot;</span>,</span>
+<span id="cb35-33"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb35-33" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Log total annual plastic waste&quot;</span>,</span>
+<span id="cb35-34"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb35-34" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;lm_1 (log_plastic_waste_tot ~ log_gdp)&quot;</span>)</span></code></pre></div>
+<p><img src="01_plastics_regression_1_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_lm_with_uncertainty</span>(lm_2, waste_vs_gdp_mod, </span>
+<span id="cb36-2"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb36-2" aria-hidden="true" tabindex="-1"></a>                         log_population, log_plastic_waste_tot) <span class="sc">+</span></span>
+<span id="cb36-3"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Log Population&quot;</span>,</span>
+<span id="cb36-4"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb36-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Log total annual plastic waste&quot;</span>,</span>
+<span id="cb36-5"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb36-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;lm_2 (log_plastic_waste_tot ~ log_population)&quot;</span>)</span></code></pre></div>
+<p><img src="01_plastics_regression_1_files/figure-html/unnamed-chunk-14-2.png" width="672" /></p>
+<p>Additionally, I quickly looked at the uncertainty around the parameters of each of three the models (i.e. uncertainty around the intercept, and the coefficients for the predictor/s). See plots below, where the point represents the central estimate for the parameter, and the thick dark blue line represents a 50% uncertainty interval and the thin blue line a 90% uncertainty interval. Reviewing the plots for the three models I noted that:</p>
+<ul>
+<li><p>In all the models there is very little uncertainty associated with the co-efficents of the predictor variable/s.</p></li>
+<li><p>So, the uncertainty around the parameterisation of each model is effectively restricted to uncertainty around the value of the intercept of the regression line.</p></li>
+</ul>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># define a function for producing plots of model parameter uncertainty</span></span>
+<span id="cb37-2"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb37-2" aria-hidden="true" tabindex="-1"></a>plot_coef_uncertainty_int <span class="ot">&lt;-</span> <span class="cf">function</span>(mod, ...){</span>
+<span id="cb37-3"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># process posterior for interval plots</span></span>
+<span id="cb37-4"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb37-4" aria-hidden="true" tabindex="-1"></a>  posterior <span class="ot">&lt;-</span> <span class="fu">as.array</span>(mod)</span>
+<span id="cb37-5"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb37-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb37-6"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb37-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># plot uncertainty around model parameters</span></span>
+<span id="cb37-7"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb37-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mcmc_intervals</span>(posterior, ...)</span>
+<span id="cb37-8"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb37-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb37-9"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb37-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-10"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb37-10" aria-hidden="true" tabindex="-1"></a><span class="co"># produce plots of model parameter uncertainty</span></span>
+<span id="cb37-11"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb37-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_coef_uncertainty_int</span>(lm_1, <span class="at">pars =</span> <span class="fu">c</span>(<span class="st">&quot;(Intercept)&quot;</span>, <span class="st">&quot;log_gdp&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb37-12"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb37-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="st">&quot;lm_1 (log_plastic_waste_tot ~ log_gdp)&quot;</span>)</span></code></pre></div>
+<p><img src="01_plastics_regression_1_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_coef_uncertainty_int</span>(lm_2, <span class="at">pars =</span> <span class="fu">c</span>(<span class="st">&quot;(Intercept)&quot;</span>, <span class="st">&quot;log_population&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb38-2"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="st">&quot;lm_2 (log_plastic_waste_tot ~ log_population)&quot;</span>)</span></code></pre></div>
+<p><img src="01_plastics_regression_1_files/figure-html/unnamed-chunk-15-2.png" width="672" /></p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_coef_uncertainty_int</span>(lm_3, <span class="at">pars =</span> <span class="fu">c</span>(<span class="st">&quot;(Intercept)&quot;</span>, <span class="st">&quot;log_gdp&quot;</span>, </span>
+<span id="cb39-2"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb39-2" aria-hidden="true" tabindex="-1"></a>                                     <span class="st">&quot;log_population&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb39-3"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="st">&quot;lm_3 (log_plastic_waste_tot ~ log_gdp + log_population)&quot;</span>)</span></code></pre></div>
+<p><img src="01_plastics_regression_1_files/figure-html/unnamed-chunk-15-3.png" width="672" /></p>
+</div>
+<div id="reviewing-the-residuals" class="section level3" number="2.4.3">
+<h3><span class="header-section-number">2.4.3</span> Reviewing the residuals</h3>
+<p>Looking at the residuals for each of the three models (see below) a similar pattern is present. As the amount of plastic waste produced by a country grows so do the residuals. In all three models the residuals diverge from 0 from predictions of approximately 0.5 million tonnes of plastic per year upwards. This suggest that for countries producing larger amounts of plastic the models are</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># set theme again as seemed to be getting forgetten for some reason</span></span>
+<span id="cb40-2"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_light</span>())</span>
+<span id="cb40-3"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb40-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-4"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate residuals</span></span>
+<span id="cb40-5"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb40-5" aria-hidden="true" tabindex="-1"></a>residuals <span class="ot">&lt;-</span> waste_vs_gdp_mod <span class="sc">%&gt;%</span> </span>
+<span id="cb40-6"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb40-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pred_lm_1 =</span> <span class="fu">exp</span>(<span class="fu">predict</span>(lm_1)),</span>
+<span id="cb40-7"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb40-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">pred_lm_2 =</span> <span class="fu">exp</span>(<span class="fu">predict</span>(lm_2)),</span>
+<span id="cb40-8"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb40-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">pred_lm_3 =</span> <span class="fu">exp</span>(<span class="fu">predict</span>(lm_3))) <span class="sc">%&gt;%</span> </span>
+<span id="cb40-9"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb40-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb40-10"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb40-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(plastic_waste_tot,</span>
+<span id="cb40-11"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb40-11" aria-hidden="true" tabindex="-1"></a>         <span class="fu">starts_with</span>(<span class="st">&quot;pred_&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb40-12"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb40-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb40-13"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb40-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">resid_lm_1 =</span> plastic_waste_tot <span class="sc">-</span> pred_lm_1,</span>
+<span id="cb40-14"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb40-14" aria-hidden="true" tabindex="-1"></a>         <span class="at">resid_lm_2 =</span> plastic_waste_tot <span class="sc">-</span> pred_lm_2,</span>
+<span id="cb40-15"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb40-15" aria-hidden="true" tabindex="-1"></a>         <span class="at">resid_lm_3 =</span> plastic_waste_tot <span class="sc">-</span> pred_lm_3)</span>
+<span id="cb40-16"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb40-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-17"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb40-17" aria-hidden="true" tabindex="-1"></a><span class="co"># define residual plotting functions</span></span>
+<span id="cb40-18"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb40-18" aria-hidden="true" tabindex="-1"></a>plot_residuals <span class="ot">&lt;-</span> <span class="cf">function</span>(data, x, y, ...){</span>
+<span id="cb40-19"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb40-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(residuals,</span>
+<span id="cb40-20"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb40-20" aria-hidden="true" tabindex="-1"></a>         <span class="fu">aes</span>({{x}}, {{y}})) <span class="sc">+</span></span>
+<span id="cb40-21"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb40-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">colour =</span> <span class="st">&quot;grey50&quot;</span>) <span class="sc">+</span></span>
+<span id="cb40-22"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb40-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb40-23"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb40-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_log10</span>(<span class="at">labels =</span> scales<span class="sc">::</span>comma) <span class="sc">+</span></span>
+<span id="cb40-24"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb40-24" aria-hidden="true" tabindex="-1"></a>    <span class="co">#coord_cartesian(ylim = c(-4.25e7, 4.25e7)) +</span></span>
+<span id="cb40-25"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb40-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;Residual</span><span class="sc">\n</span><span class="st">(Tonnes of plastic waster per year)&quot;</span>)</span>
+<span id="cb40-26"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb40-26" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb40-27"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb40-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-28"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb40-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-29"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb40-29" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_residuals</span>(residuals, pred_lm_1, resid_lm_1) <span class="sc">+</span></span>
+<span id="cb40-30"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb40-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;predicted value&quot;</span>,</span>
+<span id="cb40-31"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb40-31" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;lm_1 (log_plastic_waste_tot ~ log_gdp)&quot;</span>)</span></code></pre></div>
+<p><img src="01_plastics_regression_1_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_residuals</span>(residuals, pred_lm_2, resid_lm_2) <span class="sc">+</span></span>
+<span id="cb41-2"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;predicted value&quot;</span>,</span>
+<span id="cb41-3"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb41-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;lm_2 (log_plastic_waste_tot ~ log_population)&quot;</span>)</span></code></pre></div>
+<p><img src="01_plastics_regression_1_files/figure-html/unnamed-chunk-16-2.png" width="672" /></p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_residuals</span>(residuals, pred_lm_3, resid_lm_3) <span class="sc">+</span></span>
+<span id="cb42-2"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;predicted value&quot;</span>,</span>
+<span id="cb42-3"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb42-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;lm_3 (log_plastic_waste_tot ~ log_gdp + log_population)&quot;</span>)</span></code></pre></div>
+<p><img src="01_plastics_regression_1_files/figure-html/unnamed-chunk-16-3.png" width="672" /></p>
+<p>I was wondering if the trend above would remain if I plotted the residuals as a proportion of the observed value (see below). This allowed me to get a sense of the errors in the models accounting for the wide variation in the amounts of plastic waste produced by the countries in the dataset (ranging from below 1000 tonnes per year to over 10 million tonnes). There is some indication in the plots below that all three of the models perform better for countries producing small amounts of plastic waste and worse for countries producing large amounts. However, the trend is less pronounced than in the plots of the raw residuals.</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co">#define a function for plotting residuals as a proportion of observed values</span></span>
+<span id="cb43-2"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb43-2" aria-hidden="true" tabindex="-1"></a>plot_residuals_perc <span class="ot">&lt;-</span> <span class="cf">function</span>(data, x, y, ...){</span>
+<span id="cb43-3"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(residuals,</span>
+<span id="cb43-4"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb43-4" aria-hidden="true" tabindex="-1"></a>         <span class="fu">aes</span>({{x}}, {{y}} <span class="sc">/</span> plastic_waste_tot)) <span class="sc">+</span></span>
+<span id="cb43-5"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb43-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">colour =</span> <span class="st">&quot;grey50&quot;</span>) <span class="sc">+</span></span>
+<span id="cb43-6"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb43-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb43-7"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb43-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_log10</span>(<span class="at">labels =</span> scales<span class="sc">::</span>comma) <span class="sc">+</span></span>
+<span id="cb43-8"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb43-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;Residual / observed value&quot;</span>)</span>
+<span id="cb43-9"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb43-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb43-10"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb43-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-11"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb43-11" aria-hidden="true" tabindex="-1"></a><span class="co"># plot residuals as a proportion of observed values</span></span>
+<span id="cb43-12"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb43-12" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_residuals_perc</span>(residuals, pred_lm_1, resid_lm_1) <span class="sc">+</span></span>
+<span id="cb43-13"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb43-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;predicted value&quot;</span>,</span>
+<span id="cb43-14"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb43-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;lm_1 (log_plastic_waste_tot ~ log_gdp)&quot;</span>)</span></code></pre></div>
+<p><img src="01_plastics_regression_1_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_residuals_perc</span>(residuals, pred_lm_2, resid_lm_2) <span class="sc">+</span></span>
+<span id="cb44-2"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;predicted value&quot;</span>,</span>
+<span id="cb44-3"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb44-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;lm_1 (log_plastic_waste_tot ~ log_population)&quot;</span>)</span></code></pre></div>
+<p><img src="01_plastics_regression_1_files/figure-html/unnamed-chunk-17-2.png" width="672" /></p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_residuals_perc</span>(residuals, pred_lm_3, resid_lm_3) <span class="sc">+</span></span>
+<span id="cb45-2"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;predicted value&quot;</span>,</span>
+<span id="cb45-3"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb45-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;lm_1 (log_plastic_waste_tot ~ log_gdp + log_population)&quot;</span>)</span></code></pre></div>
+<p><img src="01_plastics_regression_1_files/figure-html/unnamed-chunk-17-3.png" width="672" /></p>
+</div>
+<div id="bayesian-r-squared" class="section level3" number="2.4.4">
+<h3><span class="header-section-number">2.4.4</span> Bayesian R squared</h3>
+<p>Next I took a look at the R<sup>2</sup> values for each of three models. Just to note as this is a Bayesian regression analysis, the calculation of R<sup>2</sup> is slight different from the standard (frequentist) calculation. Bayesian R<sup>2</sup> is defined as:</p>
+<p><span class="math inline">\(\frac{\text{Explained Variance}}{\text{Explained Variance + Residual Variance}} = \frac{var_{fit}}{var_{fit} + var_{res}}\)</span></p>
+<p>The table below shows the model three (including both <code>gdp</code> and <code>population</code> as predictors) has the largest R<sup>2</sup> value and hence explain more of the variance in the dataset than the other two models.</p>
+<p>In histograms showing draws from the posterior distribution of Bayesian R<sup>2</sup> there are some overlaps between the lower tail of model 3, and the upper tails of models 1 and 2. I’ll leave formal analysis of confidence intervals for the R<sup>2</sup> values, as these overlaps appear to be relatively small.</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># display Bayesian R2 values for the three models</span></span>
+<span id="cb46-2"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tribble</span>(</span>
+<span id="cb46-3"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>model, <span class="sc">~</span>r2,</span>
+<span id="cb46-4"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb46-4" aria-hidden="true" tabindex="-1"></a>  <span class="dv">1</span>, <span class="fu">median</span>(<span class="fu">bayes_R2</span>(lm_1)),</span>
+<span id="cb46-5"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb46-5" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2</span>, <span class="fu">median</span>(<span class="fu">bayes_R2</span>(lm_2)),</span>
+<span id="cb46-6"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb46-6" aria-hidden="true" tabindex="-1"></a>  <span class="dv">3</span>, <span class="fu">median</span>(<span class="fu">bayes_R2</span>(lm_3))</span>
+<span id="cb46-7"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb46-7" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span> </span>
+<span id="cb46-8"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb46-8" aria-hidden="true" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">kbl</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb46-9"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb46-9" aria-hidden="true" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">kable_styling</span>()</span></code></pre></div>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+model
+</th>
+<th style="text-align:right;">
+r2
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.8499685
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+0.8701244
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+0.9089521
+</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># define r2 plots</span></span>
+<span id="cb47-2"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb47-2" aria-hidden="true" tabindex="-1"></a>plot_bayes_r2 <span class="ot">&lt;-</span> <span class="cf">function</span>(mod){</span>
+<span id="cb47-3"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb47-3" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb47-4"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bayes_R2</span>(mod) <span class="sc">%&gt;%</span></span>
+<span id="cb47-5"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb47-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb47-6"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb47-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(value)) <span class="sc">+</span></span>
+<span id="cb47-7"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb47-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="at">colour =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb47-8"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb47-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> <span class="fu">median</span>(value)),</span>
+<span id="cb47-9"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb47-9" aria-hidden="true" tabindex="-1"></a>               <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb47-10"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb47-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Bayesian R Squared&quot;</span>,</span>
+<span id="cb47-11"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb47-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">y =</span> <span class="st">&quot;Number of draws from posterior&quot;</span>) <span class="sc">+</span></span>
+<span id="cb47-12"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb47-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_light</span>()</span>
+<span id="cb47-13"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb47-13" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb47-14"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb47-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-15"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb47-15" aria-hidden="true" tabindex="-1"></a><span class="co"># produce plots for the three models</span></span>
+<span id="cb47-16"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb47-16" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_bayes_r2</span>(lm_1) <span class="sc">+</span></span>
+<span id="cb47-17"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb47-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="st">&quot;lm_1 (log_plastic_waste_tot ~ log_gdp)&quot;</span>)</span></code></pre></div>
+<p><img src="01_plastics_regression_1_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_bayes_r2</span>(lm_2) <span class="sc">+</span></span>
+<span id="cb48-2"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="st">&quot;lm_2 (log_plastic_waste_tot ~ log_population)&quot;</span>)</span></code></pre></div>
+<p><img src="01_plastics_regression_1_files/figure-html/unnamed-chunk-18-2.png" width="672" /></p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_bayes_r2</span>(lm_3) <span class="sc">+</span></span>
+<span id="cb49-2"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="st">&quot;lm_3 (log_plastic_waste_tot ~ log_gdp + log_population&quot;</span>)</span></code></pre></div>
+<p><img src="01_plastics_regression_1_files/figure-html/unnamed-chunk-18-3.png" width="672" /></p>
+</div>
+<div id="cross-validation-and-log-scores" class="section level3" number="2.4.5">
+<h3><span class="header-section-number">2.4.5</span> Cross validation and log scores</h3>
+<p>To assess the likely relative performance of the three models on out-of-sample data I ran LOO (leave-one-out) cross-validation for each model. The accuracy of the each models predictions across the cross validations was compared using log scores. The output of the log score comparison (see below) shows that model 3 (including <code>gdp</code> and <code>population</code> as predictors) offered the best performance. With model 1 (only <code>gdp</code> as a predictor) offering the worst performance of the three models. The relative performance of the models in cross validation is the same could be see above when considering the residual standard deviation and R<sup>2</sup> values for each model. So, we can be relatively confident that model 3 is the best performing of the three simple models.</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># run loo cross validation</span></span>
+<span id="cb50-2"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb50-2" aria-hidden="true" tabindex="-1"></a>loo_1 <span class="ot">&lt;-</span> <span class="fu">loo</span>(lm_1)</span>
+<span id="cb50-3"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb50-3" aria-hidden="true" tabindex="-1"></a>loo_2 <span class="ot">&lt;-</span> <span class="fu">loo</span>(lm_2)</span>
+<span id="cb50-4"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb50-4" aria-hidden="true" tabindex="-1"></a>loo_3 <span class="ot">&lt;-</span> <span class="fu">loo</span>(lm_3)</span>
+<span id="cb50-5"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb50-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-6"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb50-6" aria-hidden="true" tabindex="-1"></a><span class="co"># compare performance of model using log scores</span></span>
+<span id="cb50-7"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb50-7" aria-hidden="true" tabindex="-1"></a><span class="fu">loo_compare</span>(loo_1, loo_2, loo_3)</span></code></pre></div>
+<pre><code>##      elpd_diff se_diff
+## lm_3   0.0       0.0  
+## lm_2 -24.6       8.3  
+## lm_1 -35.2       9.0</code></pre>
+</div>
+<div id="graphical-posterior-predictive-checks" class="section level3" number="2.4.6">
+<h3><span class="header-section-number">2.4.6</span> Graphical posterior predictive checks</h3>
+<p>Focusing now just on the model that performed best in the leave-one-out cross-validation tests above (model 3 - which includes the two predictors <code>gdp</code> and <code>population</code>). I completed some basic graphical posterior predictive checks. The idea behind these checks is that a model that is performing reasonable well should be able to produce data with a distribution that reasonably closely resembles the distribution of the observed (i.e. in-sample data).</p>
+<p>The plot below shows the density estimate for observed values of (log) total annual plastic waste in dark blue (labeled as y). Also shown (in light blue) are density estimates for predicted values of (log) total annual plastic waste. 75 randomly selected draws from the posterior distribution of regression coefficients (labeled as y<sub>rep</sub>) are shown to give a sense of the uncertainty in the model predictions.</p>
+<p>This visual comparison shows that the density of observed values has a broader, wider peak than the model values. So, in effect the model is pushing prediction toward the center of the distribution a bit too much. If I was performing a more in-depth study it would be worth exploring further if the model could be developed further to produce predictions with a distribution more closely resembling the observed values.</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># prepare vectors for using bayesplot functions</span></span>
+<span id="cb52-2"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb52-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> waste_vs_gdp_mod<span class="sc">$</span>log_plastic_waste_tot     <span class="co"># observed values of y</span></span>
+<span id="cb52-3"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb52-3" aria-hidden="true" tabindex="-1"></a>y_rep <span class="ot">&lt;-</span> <span class="fu">posterior_predict</span>(lm_3, <span class="at">draws =</span> <span class="dv">500</span>)   <span class="co"># predicted values of v </span></span>
+<span id="cb52-4"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb52-4" aria-hidden="true" tabindex="-1"></a>                                                <span class="co"># for 500 draws from the posterior</span></span>
+<span id="cb52-5"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb52-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-6"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb52-6" aria-hidden="true" tabindex="-1"></a><span class="co"># confirm dimensions are as expected</span></span>
+<span id="cb52-7"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb52-7" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(y_rep)</span></code></pre></div>
+<pre><code>## [1] 500 145</code></pre>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot </span></span>
+<span id="cb54-2"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="fu">color_scheme_set</span>(<span class="st">&quot;brightblue&quot;</span>)</span>
+<span id="cb54-3"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb54-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ppc_dens_overlay</span>(y,</span>
+<span id="cb54-4"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb54-4" aria-hidden="true" tabindex="-1"></a>                 <span class="co"># sample 50 rows of matrix at random</span></span>
+<span id="cb54-5"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb54-5" aria-hidden="true" tabindex="-1"></a>                 y_rep[<span class="fu">sample</span>(<span class="fu">nrow</span>(y_rep), <span class="at">size =</span> <span class="dv">75</span>),]) <span class="sc">+</span></span>
+<span id="cb54-6"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb54-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb54-7"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb54-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Log total annual plastic waste&quot;</span>,</span>
+<span id="cb54-8"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb54-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Density estimate&quot;</span>,</span>
+<span id="cb54-9"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb54-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Observed data: y (dark blue)</span><span class="sc">\n</span><span class="st">Model prediction: y_rep (light blue)&quot;</span>)</span></code></pre></div>
+<p><img src="01_plastics_regression_1_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+<p>To understand in a little more details how the model is performing I looked at three test statistics (the median, maximum and minimum values). For each statistic the observed value (shown as a single vertical line, labeled T(y)) is overlaid on a histogram showing the predicted values produced by a sample of draws from the posterior predictive. Reviewing the three plots for the three test statistics I noted:</p>
+<ul>
+<li><p>The observed test statistics values are approximately in the center of the distributions of test statistics produced by the model. So, the model is predicting median, min and maximum values fairly accurately.</p></li>
+<li><p>However, the observed maximum is slightly displaced from the center of the distribution produced by the model. Suggesting that model has a tendency to under-predict for countries where the largest amount of plastic waste are produced.</p></li>
+</ul>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co"># define a function for adding standard labels to test statistic plots</span></span>
+<span id="cb55-2"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb55-2" aria-hidden="true" tabindex="-1"></a>test_stat_labs <span class="ot">&lt;-</span> <span class="cf">function</span>(){</span>
+<span id="cb55-3"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb55-3" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb55-4"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb55-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(<span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Log(total annual plastic waste)&quot;</span>,</span>
+<span id="cb55-5"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb55-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">y =</span> <span class="st">&quot;Number of draws from posterior</span><span class="sc">\n</span><span class="st">predictive distriubtion&quot;</span>,</span>
+<span id="cb55-6"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb55-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">subtitle =</span> <span class="st">&quot;Observed data: y (dark blue)</span><span class="sc">\n</span><span class="st">Model prediction: y_rep (light blue)&quot;</span>))</span>
+<span id="cb55-7"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb55-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb55-8"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb55-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-9"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb55-9" aria-hidden="true" tabindex="-1"></a><span class="co"># define functions for test statistics</span></span>
+<span id="cb55-10"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb55-10" aria-hidden="true" tabindex="-1"></a>max_value <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">max</span>(x)</span>
+<span id="cb55-11"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb55-11" aria-hidden="true" tabindex="-1"></a>min_value <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">min</span>(x)</span>
+<span id="cb55-12"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb55-12" aria-hidden="true" tabindex="-1"></a>median_value <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">median</span>(x)</span>
+<span id="cb55-13"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb55-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-14"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb55-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-15"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb55-15" aria-hidden="true" tabindex="-1"></a><span class="co"># plot districutions of test statistics</span></span>
+<span id="cb55-16"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb55-16" aria-hidden="true" tabindex="-1"></a><span class="fu">ppc_stat</span>(y, y_rep, <span class="at">stat =</span> median_value) <span class="sc">+</span></span>
+<span id="cb55-17"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb55-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">test_stat_labs</span>()</span></code></pre></div>
+<p><img src="01_plastics_regression_1_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ppc_stat</span>(y, y_rep, <span class="at">stat =</span> max_value) <span class="sc">+</span></span>
+<span id="cb56-2"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb56-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">test_stat_labs</span>()</span></code></pre></div>
+<p><img src="01_plastics_regression_1_files/figure-html/unnamed-chunk-21-2.png" width="672" /></p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ppc_stat</span>(y, y_rep, <span class="at">stat =</span> min_value) <span class="sc">+</span></span>
+<span id="cb57-2"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb57-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">test_stat_labs</span>()</span></code></pre></div>
+<p><img src="01_plastics_regression_1_files/figure-html/unnamed-chunk-21-3.png" width="672" /></p>
+</div>
+<div id="summary-of-the-model-fitting-process" class="section level3" number="2.4.7">
+<h3><span class="header-section-number">2.4.7</span> Summary of the model fitting process</h3>
+<p>I think the key points to draw out of analysis of the model fit presented above are as follows.</p>
+<ul>
+<li><p>The two predictor model (including <code>gdp</code> and <code>population</code> as predictors ) produced more accurate in-sample predictions than either of the models containing only one predictor. The two predictors are closely correlated , however than did not appear to de-stablise the model.</p></li>
+<li><p>Leave-one-out cross validation showed that the two predictor model is also likely to perform better on out-of-sample data than either of the other one predictor models.</p></li>
+<li><p>There is little uncertainty around the parameters (intercept and the predictor coefficients) of the two predictor model.</p></li>
+<li><p>The residuals for the two predictor model show the accuracy of the model declining as the value of y (i.e. total annual amount of plastic waste produced by a country) increases.</p></li>
+<li><p>Graphical posterior predictive checks for the two predictor model showed a tendency for the model make predictions with higher narrower peak than the observed data.</p></li>
+</ul>
+</div>
+</div>
+<div id="applying-the-model-to-new-data" class="section level2" number="2.5">
+<h2><span class="header-section-number">2.5</span> Applying the model to new data</h2>
+<p>The regression model for predicting the annual amount of plastic waste produced by country (based on its GDP and population) developed above considered a single year of observed data (2010). This was because it was the only year for which data was available for the outcome variable (annual amount of plastic waste) and the predictor variables (GDP and population). However, within the dataset there is data available for the predictors for the period 2011 to 2013 (inclusive). So, I thought it would be interesting to apply the model over this period to (retrospectively) predict the total global production.</p>
+<p>Before doing so, I need to return to the original data and process it to be used in this prediction exercise. Due to gaps in the <code>gdp</code> and <code>population</code> data, I decided just to focus on just the four highest plastic waste producing countries in 2010.</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># identify the top n waste producers in 2010</span></span>
+<span id="cb58-2"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb58-2" aria-hidden="true" tabindex="-1"></a>top_waste_2010 <span class="ot">&lt;-</span> waste_vs_gdp_mod <span class="sc">%&gt;%</span> </span>
+<span id="cb58-3"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb58-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(<span class="at">order_by =</span> plastic_waste_tot,</span>
+<span id="cb58-4"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb58-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">n =</span> <span class="dv">4</span>)</span>
+<span id="cb58-5"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb58-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-6"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb58-6" aria-hidden="true" tabindex="-1"></a>top_waste_2010_countries <span class="ot">&lt;-</span> top_waste_2010 <span class="sc">%&gt;%</span> </span>
+<span id="cb58-7"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb58-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(country) <span class="sc">%&gt;%</span> </span>
+<span id="cb58-8"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb58-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>()</span>
+<span id="cb58-9"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb58-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-10"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb58-10" aria-hidden="true" tabindex="-1"></a><span class="co"># process source data to focus on 2011 to 2013 where</span></span>
+<span id="cb58-11"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb58-11" aria-hidden="true" tabindex="-1"></a><span class="co"># data for both predictors is available</span></span>
+<span id="cb58-12"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb58-12" aria-hidden="true" tabindex="-1"></a>pred_plastic_waste <span class="ot">&lt;-</span> waste_vs_gdp <span class="sc">%&gt;%</span></span>
+<span id="cb58-13"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb58-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&gt;</span> <span class="dv">2010</span>,</span>
+<span id="cb58-14"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb58-14" aria-hidden="true" tabindex="-1"></a>         country <span class="sc">%in%</span> top_waste_2010_countries) <span class="sc">%&gt;%</span></span>
+<span id="cb58-15"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb58-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gdp =</span> gdp_per_cap <span class="sc">*</span> population,</span>
+<span id="cb58-16"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb58-16" aria-hidden="true" tabindex="-1"></a>         <span class="at">log_gdp =</span> <span class="fu">log</span>(gdp),</span>
+<span id="cb58-17"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb58-17" aria-hidden="true" tabindex="-1"></a>         <span class="at">log_population =</span> <span class="fu">log</span>(population)) <span class="sc">%&gt;%</span> </span>
+<span id="cb58-18"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb58-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(gdp)) <span class="sc">%&gt;%</span> </span>
+<span id="cb58-19"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb58-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>plastic_waste_per_cap)</span></code></pre></div>
+<p>Then I used the model to predict annual plastic waste production for these four countries for 2011-2013.</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate the median prediction from the posterior predictive distribution</span></span>
+<span id="cb59-2"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb59-2" aria-hidden="true" tabindex="-1"></a>preds <span class="ot">&lt;-</span> <span class="fu">posterior_predict</span>(lm_3, <span class="at">newdata =</span> pred_plastic_waste) </span></code></pre></div>
+<p>A little more data wrangling is need to get everything into shape for plotting.</p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co"># process predictions for plotting</span></span>
+<span id="cb60-2"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb60-2" aria-hidden="true" tabindex="-1"></a>plotting_df <span class="ot">&lt;-</span> pred_plastic_waste <span class="sc">%&gt;%</span> </span>
+<span id="cb60-3"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb60-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_cols</span>(<span class="fu">as_tibble</span>(<span class="fu">t</span>(preds))) <span class="sc">%&gt;%</span> </span>
+<span id="cb60-4"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb60-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> V1<span class="sc">:</span><span class="fu">last_col</span>(), <span class="at">names_to =</span> <span class="st">&quot;draw_num&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;pred&quot;</span>) </span></code></pre></div>
+<p>Finally, I can plot the predictions of the model for 2011-2013 for the four of the top waste producing countries. These are shown as combined violin and boxplots showing the distributions of predicted annual plastic waste production draw from posterior predictive. The central line of the boxplots shows the median which can be taken as a point estimate of the model’s prediction. The blue points show the observed value of annual plastic waste production calculated from the original dataset.</p>
+<p>In terms of the validity of the model predictions two points jump out when reviewing the plot.</p>
+<ul>
+<li><p>Considering the median prediction the model shows the expected trend over 2011-2013 for each country, with a small steady rise in plastic production.</p></li>
+<li><p>However, comparing the observed data (i.e. the blue point) with the prediction shows the model is systematically underestimating the amounts of plastic waste produced in each country. In retrospect, this issue could have been anticipated as the analysis of the model residuals (see above) showed a strong tendency for the model to underestimate growing as the scale of plastic waste production grows.</p></li>
+</ul>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="co"># produce plot</span></span>
+<span id="cb61-2"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb61-2" aria-hidden="true" tabindex="-1"></a>plotting_df <span class="sc">%&gt;%</span></span>
+<span id="cb61-3"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb61-3" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb61-4"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb61-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> <span class="fu">exp</span>(pred),</span>
+<span id="cb61-5"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb61-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">group =</span> year)) <span class="sc">+</span></span>
+<span id="cb61-6"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb61-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb61-7"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb61-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>(<span class="at">fill =</span> <span class="st">&quot;grey70&quot;</span>, <span class="at">colour =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb61-8"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb61-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">alpha =</span> <span class="dv">0</span>, <span class="at">width =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
+<span id="cb61-9"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb61-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> top_waste_2010,</span>
+<span id="cb61-10"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb61-10" aria-hidden="true" tabindex="-1"></a>             <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> plastic_waste_tot),</span>
+<span id="cb61-11"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb61-11" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="dv">2</span>, <span class="at">colour =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb61-12"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb61-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb61-13"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb61-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_log10</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_number_si</span>(<span class="at">accuracy=</span><span class="fl">0.1</span>)) <span class="sc">+</span></span>
+<span id="cb61-14"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb61-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb61-15"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb61-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> <span class="fu">factor</span>(country, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;China&quot;</span>, <span class="st">&quot;United States&quot;</span>, <span class="st">&quot;Germany&quot;</span>,       <span class="st">&quot;Brazil&quot;</span>)),  <span class="at">scales =</span> <span class="st">&quot;free_y&quot;</span>) <span class="sc">+</span></span>
+<span id="cb61-16"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb61-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb61-17"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb61-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>,</span>
+<span id="cb61-18"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cb61-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Predicted annual plastic waste production (tonnes)</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<p><img src="01_plastics_regression_1_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/01_plastics_regression_1.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

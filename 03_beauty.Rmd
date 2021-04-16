@@ -3,8 +3,8 @@
 ```{r, include = FALSE}
 # global settings for producing html output
 knitr::opts_chunk$set(warning = FALSE,  # remove for readability
-                      message = FALSE)  # remove for readability
-                      #cache = TRUE)   # for inclusion during coding
+                      message = FALSE,  # remove for readability
+                      cache = TRUE)   # for inclusion during coding
 ```
 
 
@@ -35,7 +35,7 @@ theme_set(theme_light())
 source("plotting_functions.R")
 ```
 
-## Processing the data
+## Data importing and cleaning
 
 ### Importing the data
 

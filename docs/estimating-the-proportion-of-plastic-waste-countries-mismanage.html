@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 Estimating the proportion of plastic waste countries mismanage | Data Science Portfolio</title>
+  <meta name="description" content="holding text" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 Estimating the proportion of plastic waste countries mismanage | Data Science Portfolio" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="holding text" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 Estimating the proportion of plastic waste countries mismanage | Data Science Portfolio" />
+  
+  <meta name="twitter:description" content="holding text" />
+  
+
+<meta name="author" content="Chris J. Martin" />
+
+
+<meta name="date" content="2021-04-16" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"/>
+<link rel="next" href="linear-regression-predicting-course-evaluation-scores.html"/>
+<script src="libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="/">Portfolio - Chris J. Martin</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="part"><span><b>I Linear Regression Projects</b></span></li>
+<li class="chapter" data-level="2" data-path="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"><i class="fa fa-check"></i><b>2</b> Predicting the amount of plastic waste a country produces each year</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#data-importing"><i class="fa fa-check"></i><b>2.1</b> Data importing</a></li>
+<li class="chapter" data-level="2.2" data-path="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#data-cleaning"><i class="fa fa-check"></i><b>2.2</b> Data cleaning</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#missing-data"><i class="fa fa-check"></i><b>2.2.1</b> Missing data</a></li>
+<li class="chapter" data-level="2.2.2" data-path="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#inspecting-the-data-for-the-country-variable"><i class="fa fa-check"></i><b>2.2.2</b> Inspecting the data for the country variable</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>2.3</b> Exploratory data analysis</a></li>
+<li class="chapter" data-level="2.4" data-path="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#modelling-a-simple-regression-model"><i class="fa fa-check"></i><b>2.4</b> Modelling: A simple regression model</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#model-fitting"><i class="fa fa-check"></i><b>2.4.1</b> Model fitting</a></li>
+<li class="chapter" data-level="2.4.2" data-path="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#uncertainty-in-the-model-fit"><i class="fa fa-check"></i><b>2.4.2</b> Uncertainty in the model fit</a></li>
+<li class="chapter" data-level="2.4.3" data-path="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#reviewing-the-residuals"><i class="fa fa-check"></i><b>2.4.3</b> Reviewing the residuals</a></li>
+<li class="chapter" data-level="2.4.4" data-path="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#bayesian-r-squared"><i class="fa fa-check"></i><b>2.4.4</b> Bayesian R squared</a></li>
+<li class="chapter" data-level="2.4.5" data-path="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cross-validation-and-log-scores"><i class="fa fa-check"></i><b>2.4.5</b> Cross validation and log scores</a></li>
+<li class="chapter" data-level="2.4.6" data-path="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#graphical-posterior-predictive-checks"><i class="fa fa-check"></i><b>2.4.6</b> Graphical posterior predictive checks</a></li>
+<li class="chapter" data-level="2.4.7" data-path="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#summary-of-the-model-fitting-process"><i class="fa fa-check"></i><b>2.4.7</b> Summary of the model fitting process</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#applying-the-model-to-new-data"><i class="fa fa-check"></i><b>2.5</b> Applying the model to new data</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="estimating-the-proportion-of-plastic-waste-countries-mismanage.html"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html"><i class="fa fa-check"></i><b>3</b> Estimating the proportion of plastic waste countries mismanage</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="estimating-the-proportion-of-plastic-waste-countries-mismanage.html"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#data-importing-and-cleaning"><i class="fa fa-check"></i><b>3.1</b> Data importing and cleaning</a></li>
+<li class="chapter" data-level="3.2" data-path="estimating-the-proportion-of-plastic-waste-countries-mismanage.html"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#exploratory-data-analysis-1"><i class="fa fa-check"></i><b>3.2</b> Exploratory data analysis</a></li>
+<li class="chapter" data-level="3.3" data-path="estimating-the-proportion-of-plastic-waste-countries-mismanage.html"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#modelling-piecewise-linear-regression"><i class="fa fa-check"></i><b>3.3</b> Modelling: Piecewise linear regression</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="estimating-the-proportion-of-plastic-waste-countries-mismanage.html"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#fitting-the-model"><i class="fa fa-check"></i><b>3.3.1</b> Fitting the model</a></li>
+<li class="chapter" data-level="3.3.2" data-path="estimating-the-proportion-of-plastic-waste-countries-mismanage.html"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#interpreting-the-model-coefficients"><i class="fa fa-check"></i><b>3.3.2</b> Interpreting the model coefficients</a></li>
+<li class="chapter" data-level="3.3.3" data-path="estimating-the-proportion-of-plastic-waste-countries-mismanage.html"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#some-quick-diagnostics"><i class="fa fa-check"></i><b>3.3.3</b> Some quick diagnostics</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="estimating-the-proportion-of-plastic-waste-countries-mismanage.html"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#reflections-and-next-steps"><i class="fa fa-check"></i><b>3.4</b> Reflections and next steps</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="linear-regression-predicting-course-evaluation-scores.html"><a href="linear-regression-predicting-course-evaluation-scores.html"><i class="fa fa-check"></i><b>4</b> Linear regression: Predicting course evaluation scores</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="linear-regression-predicting-course-evaluation-scores.html"><a href="linear-regression-predicting-course-evaluation-scores.html#data-importing-and-cleaning-1"><i class="fa fa-check"></i><b>4.1</b> Data importing and cleaning</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="linear-regression-predicting-course-evaluation-scores.html"><a href="linear-regression-predicting-course-evaluation-scores.html#importing-the-data"><i class="fa fa-check"></i><b>4.1.1</b> Importing the data</a></li>
+<li class="chapter" data-level="4.1.2" data-path="linear-regression-predicting-course-evaluation-scores.html"><a href="linear-regression-predicting-course-evaluation-scores.html#checking-for-missing-values"><i class="fa fa-check"></i><b>4.1.2</b> Checking for missing values</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="linear-regression-predicting-course-evaluation-scores.html"><a href="linear-regression-predicting-course-evaluation-scores.html#exploratory-data-analysis-2"><i class="fa fa-check"></i><b>4.2</b> Exploratory data analysis</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="linear-regression-predicting-course-evaluation-scores.html"><a href="linear-regression-predicting-course-evaluation-scores.html#the-response-variable"><i class="fa fa-check"></i><b>4.2.1</b> The response variable</a></li>
+<li class="chapter" data-level="4.2.2" data-path="linear-regression-predicting-course-evaluation-scores.html"><a href="linear-regression-predicting-course-evaluation-scores.html#potential-explanatory-variables"><i class="fa fa-check"></i><b>4.2.2</b> Potential explanatory variables</a></li>
+<li class="chapter" data-level="4.2.3" data-path="linear-regression-predicting-course-evaluation-scores.html"><a href="linear-regression-predicting-course-evaluation-scores.html#relationships-between-variables"><i class="fa fa-check"></i><b>4.2.3</b> Relationships between variables</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="linear-regression-predicting-course-evaluation-scores.html"><a href="linear-regression-predicting-course-evaluation-scores.html#modelling"><i class="fa fa-check"></i><b>4.3</b> Modelling</a></li>
+</ul></li>
+<li class="part"><span><b>II Data Vizualisation Projects</b></span></li>
+<li class="chapter" data-level="5" data-path="visualising-green-space-deprivation-across-the-english-regions.html"><a href="visualising-green-space-deprivation-across-the-english-regions.html"><i class="fa fa-check"></i><b>5</b> Visualising green space deprivation across the English regions</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Science Portfolio</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="estimating-the-proportion-of-plastic-waste-countries-mismanage" class="section level1" number="3">
+<h1><span class="header-section-number">Chapter 3</span> Estimating the proportion of plastic waste countries mismanage</h1>
+<p>In this notebook I am again working with some datasets I had found (via #TidyTuesday) which detail <a href="https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-05-21">how much plastic waste countries produce</a>. See the table below for a few more details on the datasets including the source of the data.</p>
+<p>My objective was to develop a model estimates the proportion of plastic waste mismanaged by a country. There is limited documentation available with the datasets, so at the moment I am assuming that mismanagement is being used as a synonym for various forms of disposal activities that have a high environmental impact (dumping plastics in the sea etc.).</p>
+<p>I started the modeling process with the idea that GDP per capita might be a helpful feature for estimating the proportion of plastic waste mismanaged. This idea was based economic theories (such as <a href="https://en.wikipedia.org/wiki/Jevons_paradox">Jevon’s paradox)</a> that suggest:</p>
+<ul>
+<li><p>on one hand that as economies develop their environmental impact can increase through increased resource consumption.</p></li>
+<li><p>While on the other hand, that as economies develop they can use resources more efficient, so reducing the environmental impact of each unit of a resource that is consumed.</p></li>
+</ul>
+<p>This notebook has five sections:</p>
+<ol style="list-style-type: decimal">
+<li><p>(This Introduction section) outlining the basic ideas that motivated the analysis;</p></li>
+<li><p>Importing and cleaning the two datasets needed to develop a model.</p></li>
+<li><p>Conducting an exploratory data analysis to understand the association between the proportion of plastic waste mismanaged by a country and it’s GDP per capita.</p></li>
+<li><p>Developing a ‘piecewise’ linear regression model to estimate he proportion of plastic waste mismanaged by a country based on it’s GDP per capita.</p></li>
+<li><p>Reflecting on the modeling process and identifying next steps.</p></li>
+</ol>
+<p><strong>Dataset used:</strong></p>
+<table>
+<colgroup>
+<col width="16%" />
+<col width="18%" />
+<col width="65%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>File Names</th>
+<th>Variable name in this notebook</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>‘data/waste_vs_gdp.csv’</p>
+<p>data/mismanaged_vs_gdp.csv</p></td>
+<td><p>waste_vs_gdp</p>
+<p>mismanaged_vs_gdp</p></td>
+<td><p><a href="https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-05-21">Data provided by #tidytuesday</a></p>
+<ul>
+<li><p>via our <a href="https://ourworldindata.org/plastic-pollution#summary">world in data</a>;</p></li>
+<li><p>original sources: <a href="https://jambeck.engr.uga.edu/landplasticinput">Jambeck et al. 2015</a> and gapminder.</p></li>
+</ul></td>
+</tr>
+</tbody>
+</table>
+<div id="data-importing-and-cleaning" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> Data importing and cleaning</h2>
+<p>In order to understand the proportion of plastic waste mismanaged by country, I needed to import two datasets: (1) focuses on the total amount of plastic waste produced; and, (2) focuses on the amount of plastic waste mismanaged. Below I do some very basic cleaning of the data around the variable names to make them easier to work with in the analysis and modeling.</p>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co"># read in the dataset on waste and gdp</span></span>
+<span id="cb62-2"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb62-2" aria-hidden="true" tabindex="-1"></a>waste_vs_gdp <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&#39;data/waste_vs_gdp.csv&#39;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb62-3"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb62-3" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb62-4"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb62-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># make variables names consistent in terms of case etc.</span></span>
+<span id="cb62-5"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb62-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb62-6"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb62-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb62-7"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb62-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># clean up variable names including shortening variables names to make them</span></span>
+<span id="cb62-8"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb62-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># easier to work with</span></span>
+<span id="cb62-9"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb62-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">country =</span> entity,</span>
+<span id="cb62-10"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb62-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">country_code =</span> code,</span>
+<span id="cb62-11"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb62-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">population =</span> total_population_gapminder,</span>
+<span id="cb62-12"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb62-12" aria-hidden="true" tabindex="-1"></a>         <span class="at">gdp_per_cap =</span> gdp_per_capita_ppp_constant_2011_international_constant_2011_international,</span>
+<span id="cb62-13"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb62-13" aria-hidden="true" tabindex="-1"></a>         <span class="at">plastic_waste_per_cap =</span> per_capita_plastic_waste_kilograms_per_person_per_day)</span>
+<span id="cb62-14"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb62-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-15"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb62-15" aria-hidden="true" tabindex="-1"></a><span class="co"># read in the dataset on mismanaged waste and gdp</span></span>
+<span id="cb62-16"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb62-16" aria-hidden="true" tabindex="-1"></a>mismanaged_vs_gdp <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&#39;data/mismanaged_vs_gdp.csv&#39;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb62-17"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb62-17" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb62-18"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb62-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># make variables names consistent in terms of case etc.</span></span>
+<span id="cb62-19"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb62-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb62-20"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb62-20" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb62-21"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb62-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># clean up variable names including shortening variables names to make them</span></span>
+<span id="cb62-22"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb62-22" aria-hidden="true" tabindex="-1"></a>  <span class="co"># easier to work with</span></span>
+<span id="cb62-23"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb62-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">country =</span> entity,</span>
+<span id="cb62-24"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb62-24" aria-hidden="true" tabindex="-1"></a>         <span class="at">country_code =</span> code,</span>
+<span id="cb62-25"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb62-25" aria-hidden="true" tabindex="-1"></a>         <span class="at">population =</span> total_population_gapminder,</span>
+<span id="cb62-26"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb62-26" aria-hidden="true" tabindex="-1"></a>         <span class="at">mismanaged_plastic_per_cap =</span></span>
+<span id="cb62-27"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb62-27" aria-hidden="true" tabindex="-1"></a>           per_capita_mismanaged_plastic_waste_kilograms_per_person_per_day,</span>
+<span id="cb62-28"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb62-28" aria-hidden="true" tabindex="-1"></a>         <span class="at">gdp_per_cap =</span> gdp_per_capita_ppp_constant_2011_international_rate)</span></code></pre></div>
+<p>I know from having previously worked with these datasets that plastic waste data is only available for 2010. Also, there are a few countries with missing values for plastic waste, GDP and population variables. So, in the code below I process the two datasets according removing observations for years other than 2010, and observations where missing data could provide problematic during the modeling process. Then all that remains is to joining the two datasets, which is easy enough given they come from the same source and share primary keys.</p>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="co"># focus down on countries where plastic waste and gdp data is available</span></span>
+<span id="cb63-2"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb63-2" aria-hidden="true" tabindex="-1"></a>waste_vs_gdp_2010 <span class="ot">&lt;-</span> waste_vs_gdp <span class="sc">%&gt;%</span> </span>
+<span id="cb63-3"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb63-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2010</span>,</span>
+<span id="cb63-4"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb63-4" aria-hidden="true" tabindex="-1"></a>         <span class="sc">!</span><span class="fu">is.na</span>(plastic_waste_per_cap),</span>
+<span id="cb63-5"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb63-5" aria-hidden="true" tabindex="-1"></a>         <span class="sc">!</span><span class="fu">is.na</span>(gdp_per_cap))</span>
+<span id="cb63-6"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb63-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-7"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb63-7" aria-hidden="true" tabindex="-1"></a><span class="co"># focus down on countries where mismanaged waste and gdp data is available</span></span>
+<span id="cb63-8"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb63-8" aria-hidden="true" tabindex="-1"></a>mismanaged_vs_gdp_2010 <span class="ot">&lt;-</span> mismanaged_vs_gdp <span class="sc">%&gt;%</span> </span>
+<span id="cb63-9"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb63-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2010</span>,</span>
+<span id="cb63-10"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb63-10" aria-hidden="true" tabindex="-1"></a>         <span class="sc">!</span><span class="fu">is.na</span>(mismanaged_plastic_per_cap),</span>
+<span id="cb63-11"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb63-11" aria-hidden="true" tabindex="-1"></a>         <span class="sc">!</span><span class="fu">is.na</span>(gdp_per_cap))</span>
+<span id="cb63-12"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb63-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-13"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb63-13" aria-hidden="true" tabindex="-1"></a><span class="co"># join the two datasets ahead of analysis</span></span>
+<span id="cb63-14"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb63-14" aria-hidden="true" tabindex="-1"></a>waste_mismanaged_gdp <span class="ot">&lt;-</span> waste_vs_gdp_2010 <span class="sc">%&gt;%</span> </span>
+<span id="cb63-15"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb63-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(mismanaged_vs_gdp_2010)</span></code></pre></div>
+</div>
+<div id="exploratory-data-analysis-1" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> Exploratory data analysis</h2>
+<p>I started this analysis with a fairly clear idea of what I wanted to do, based on: some theoretical ideas around economic development and environmental impact; and, a previous exploratory data analysis I done with the plastic waste data. So, in this notebook I will keep the exploratory data analysis fairly focused on the task at hand: estimating the proportion of plastic waste mismanaged by country based on economic data available.</p>
+<p>The first I thing I need to do is create a few new variables (see code below). This allows me to then calculated the proportion of plastic waste mismanaged by a country (i.e. the variable to estimated).</p>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="co"># reshape data to create target feature </span></span>
+<span id="cb64-2"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb64-2" aria-hidden="true" tabindex="-1"></a>waste_mismanaged_gdp_plot <span class="ot">&lt;-</span> waste_mismanaged_gdp <span class="sc">%&gt;%</span> </span>
+<span id="cb64-3"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb64-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">plastic_waste_tot =</span> plastic_waste_per_cap <span class="sc">*</span> </span>
+<span id="cb64-4"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb64-4" aria-hidden="true" tabindex="-1"></a>           population,</span>
+<span id="cb64-5"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb64-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">misman_plastic_waste_tot =</span> mismanaged_plastic_per_cap <span class="sc">*</span></span>
+<span id="cb64-6"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb64-6" aria-hidden="true" tabindex="-1"></a>           population,</span>
+<span id="cb64-7"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb64-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">prop_plastic_waste_misman =</span> misman_plastic_waste_tot <span class="sc">/</span> </span>
+<span id="cb64-8"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb64-8" aria-hidden="true" tabindex="-1"></a>           plastic_waste_tot) </span></code></pre></div>
+<p>Finally before creating some exploratory visualisation, I just needed to identify the top waste producing countries so these can be labeled within the plot.</p>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="co"># identify top n waste producing country for labelling in plot</span></span>
+<span id="cb65-2"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb65-2" aria-hidden="true" tabindex="-1"></a>top_waste_producing_countries <span class="ot">&lt;-</span> waste_mismanaged_gdp_plot <span class="sc">%&gt;%</span> </span>
+<span id="cb65-3"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb65-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(plastic_waste_tot, <span class="at">n =</span> <span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="co"># set colour palette for the plot</span></span>
+<span id="cb66-2"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb66-2" aria-hidden="true" tabindex="-1"></a>plot_colour_pal <span class="ot">&lt;-</span> RColorBrewer<span class="sc">::</span><span class="fu">brewer.pal</span>(<span class="dv">9</span>, <span class="st">&quot;Blues&quot;</span>)</span>
+<span id="cb66-3"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb66-3" aria-hidden="true" tabindex="-1"></a>text_colour <span class="ot">&lt;-</span> plot_colour_pal[<span class="dv">9</span>] </span>
+<span id="cb66-4"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb66-4" aria-hidden="true" tabindex="-1"></a>bg_colour <span class="ot">&lt;-</span> plot_colour_pal[<span class="dv">2</span>]</span>
+<span id="cb66-5"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb66-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-6"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb66-6" aria-hidden="true" tabindex="-1"></a><span class="co"># specify plot annoations</span></span>
+<span id="cb66-7"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb66-7" aria-hidden="true" tabindex="-1"></a>annotations <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb66-8"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb66-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">label =</span> <span class="fu">c</span>(<span class="st">&quot;No association&quot;</span>, <span class="st">&quot;**Negative association**&quot;</span>, <span class="st">&quot;No association&quot;</span>),</span>
+<span id="cb66-9"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb66-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">gdp_per_cap =</span> <span class="fu">c</span>(<span class="dv">1300</span>, <span class="dv">10000</span>, <span class="dv">80000</span>),</span>
+<span id="cb66-10"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb66-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">prop_plastic_waste_misman =</span> <span class="fu">c</span>(<span class="fl">0.98</span>, <span class="fl">0.98</span>, <span class="fl">0.98</span>)</span>
+<span id="cb66-11"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb66-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb66-12"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb66-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-13"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb66-13" aria-hidden="true" tabindex="-1"></a><span class="co"># specify boundaries of shaded background layer</span></span>
+<span id="cb66-14"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb66-14" aria-hidden="true" tabindex="-1"></a>group_boundaries <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3000</span>, <span class="dv">35000</span>)</span>
+<span id="cb66-15"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb66-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-16"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb66-16" aria-hidden="true" tabindex="-1"></a><span class="co"># create the plot</span></span>
+<span id="cb66-17"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb66-17" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> waste_mismanaged_gdp_plot <span class="sc">%&gt;%</span> </span>
+<span id="cb66-18"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb66-18" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb66-19"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb66-19" aria-hidden="true" tabindex="-1"></a>  <span class="co"># create the base for the plot</span></span>
+<span id="cb66-20"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb66-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> gdp_per_cap, </span>
+<span id="cb66-21"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb66-21" aria-hidden="true" tabindex="-1"></a>                       <span class="at">y =</span> prop_plastic_waste_misman)) <span class="sc">+</span></span>
+<span id="cb66-22"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb66-22" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb66-23"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb66-23" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add background colour which emphasis three potential trends</span></span>
+<span id="cb66-24"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb66-24" aria-hidden="true" tabindex="-1"></a>  <span class="co"># dependent of gdp_per_capita</span></span>
+<span id="cb66-25"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb66-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_rect</span>(<span class="fu">aes</span>(<span class="at">xmin =</span> group_boundaries[<span class="dv">1</span>], <span class="at">xmax =</span> group_boundaries[<span class="dv">2</span>], </span>
+<span id="cb66-26"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb66-26" aria-hidden="true" tabindex="-1"></a>                <span class="at">ymin =</span> <span class="sc">-</span><span class="fl">0.05</span>, <span class="at">ymax =</span> <span class="fl">1.05</span>),</span>
+<span id="cb66-27"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb66-27" aria-hidden="true" tabindex="-1"></a>            <span class="at">fill =</span> bg_colour, <span class="at">alpha =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
+<span id="cb66-28"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb66-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-29"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb66-29" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add observations from source data</span></span>
+<span id="cb66-30"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb66-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.8</span>, <span class="at">colour =</span> <span class="st">&quot;grey40&quot;</span>, <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb66-31"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb66-31" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb66-32"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb66-32" aria-hidden="true" tabindex="-1"></a>  <span class="co"># adjust scales to (hopefully) make the plot easier to interpret</span></span>
+<span id="cb66-33"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb66-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">dollar_format</span>(<span class="at">accuracy =</span> <span class="dv">2</span>)) <span class="sc">+</span></span>
+<span id="cb66-34"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb66-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span></span>
+<span id="cb66-35"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb66-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_c</span>(<span class="at">option =</span> <span class="st">&#39;magma&#39;</span>, <span class="at">direction =</span> <span class="sc">-</span><span class="dv">1</span>, </span>
+<span id="cb66-36"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb66-36" aria-hidden="true" tabindex="-1"></a>                       <span class="at">end =</span> <span class="fl">0.85</span>, <span class="at">begin =</span> <span class="fl">0.15</span>) <span class="sc">+</span></span>
+<span id="cb66-37"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb66-37" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb66-38"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb66-38" aria-hidden="true" tabindex="-1"></a>  <span class="co"># remove unneccesary legends which might make the plot more confusing to look at</span></span>
+<span id="cb66-39"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb66-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">size =</span> <span class="cn">FALSE</span>, <span class="at">fill =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb66-40"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb66-40" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb66-41"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb66-41" aria-hidden="true" tabindex="-1"></a>  <span class="co"># adjust y axis slightly to accomadate annotations</span></span>
+<span id="cb66-42"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb66-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb66-43"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb66-43" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb66-44"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb66-44" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add plot labels </span></span>
+<span id="cb66-45"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb66-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> glue<span class="sc">::</span><span class="fu">glue</span>(<span class="st">&quot;Is an increase in GDP per capita &lt;span style = &#39;color:{text_colour};&#39;&gt;**associated**&lt;/span&gt; with a reduction&lt;br&gt;in the percentage of plastic waste a country mismanages?&lt;br&gt;&quot;</span>),</span>
+<span id="cb66-46"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb66-46" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st">GDP per capita</span><span class="sc">\n</span><span class="st">(on a log scale)&quot;</span>,</span>
+<span id="cb66-47"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb66-47" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st">Plastic waste mismanaged</span><span class="sc">\n</span><span class="st">&quot;</span>) <span class="sc">+</span></span>
+<span id="cb66-48"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb66-48" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb66-49"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb66-49" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add annotations</span></span>
+<span id="cb66-50"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb66-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_richtext</span>(<span class="at">data =</span> annotations,</span>
+<span id="cb66-51"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb66-51" aria-hidden="true" tabindex="-1"></a>                <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> gdp_per_cap,</span>
+<span id="cb66-52"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb66-52" aria-hidden="true" tabindex="-1"></a>                              <span class="at">y =</span> prop_plastic_waste_misman,</span>
+<span id="cb66-53"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb66-53" aria-hidden="true" tabindex="-1"></a>                              <span class="at">label =</span> label),</span>
+<span id="cb66-54"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb66-54" aria-hidden="true" tabindex="-1"></a>                <span class="at">fill =</span> <span class="cn">NA</span>, <span class="at">label.color =</span> <span class="cn">NA</span>,</span>
+<span id="cb66-55"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb66-55" aria-hidden="true" tabindex="-1"></a>                <span class="at">colour =</span> text_colour, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb66-56"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb66-56" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb66-57"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb66-57" aria-hidden="true" tabindex="-1"></a>  <span class="co"># tweak visual appearance of the plot</span></span>
+<span id="cb66-58"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb66-58" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid =</span> <span class="fu">element_blank</span>(),     <span class="co"># clean up plot background</span></span>
+<span id="cb66-59"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb66-59" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title =</span> <span class="fu">element_markdown</span>())  <span class="co"># allow text formating</span></span></code></pre></div>
+<p>The first plot (below) shows GDP per capita on a log scale verses the proportion of plastic waste mismanaged. The overall relationship between the two variables is clearly non-linear.</p>
+<p>However, alternatively, I could view the plot as showing three different groups of countries each with a different linear relationships between the log of GDP per capita and the proportion of plastic waste mismanaged. The grey vertical lines in the plot below highlight where I estimated by eye the boundaries between these groups to fall. The groups themselves could be described as follows.</p>
+<ul>
+<li><p>Group 1: The ‘lowest’ income countries where up to a threshold (approx. $3,000) increasing GDP per capita does not appear to associated with reductions in plastic waste mismanagement.</p></li>
+<li><p>Group 2: The ‘middle’ income countries where up to another threshold (approx. $35,000) increasing GDP does appear to be associated with reductions in plastic waste mismanagement.</p></li>
+<li><p>Group 3: The ‘highest’ income countries where above the second threshold (approx. $35,000) increasing GDP does not appear to be associated with further reductions in plastic waste mismanagement.</p></li>
+</ul>
+<p>These groupings could be explained in terms of countries needing to reach a certain level of economic development before the infrastructure, capabilities and political imperative to effectively manage plastic waste emerge. Beyond this level of economic development a county’s increasing income and wealth allow it to reduce the proportion of plastic waste which is mismanaged. However, as the proportion of waste mismanaged gets closer to the natural limit of zero, reductions in waste mismanagement become harder to achieve. So, beyond a second level of economic development there are few further gains to made in terms of reducing plastic waste mismanagement.</p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="co"># display the plot</span></span>
+<span id="cb67-2"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb67-2" aria-hidden="true" tabindex="-1"></a>p</span></code></pre></div>
+<p><img src="02_plastics_regression_2_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>Revising the plot helps to highlight the multiple potential trends amongst ‘middle’ income countries. This requires a little the original plot to be tweaked a little in the code below.</p>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="co"># remove layers from previous plot which are not needed for revised plot</span></span>
+<span id="cb68-2"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb68-2" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> p</span>
+<span id="cb68-3"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb68-3" aria-hidden="true" tabindex="-1"></a>p1<span class="sc">$</span>layers[[<span class="dv">3</span>]] <span class="ot">=</span> <span class="cn">NULL</span></span>
+<span id="cb68-4"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb68-4" aria-hidden="true" tabindex="-1"></a><span class="co">#p1$layers[[2]] = NULL</span></span>
+<span id="cb68-5"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb68-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-6"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb68-6" aria-hidden="true" tabindex="-1"></a><span class="co"># subset the data to approximate groups which appear to show different trends</span></span>
+<span id="cb68-7"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb68-7" aria-hidden="true" tabindex="-1"></a>trend_1_df <span class="ot">&lt;-</span> waste_mismanaged_gdp_plot <span class="sc">%&gt;%</span> </span>
+<span id="cb68-8"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb68-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(gdp_per_cap <span class="sc">&gt;</span> group_boundaries[<span class="dv">1</span>] <span class="sc">&amp;</span> gdp_per_cap <span class="sc">&lt;</span> group_boundaries[<span class="dv">2</span>]) <span class="sc">%&gt;%</span> </span>
+<span id="cb68-9"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb68-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(prop_plastic_waste_misman <span class="sc">&gt;</span> <span class="fl">0.5</span>)</span>
+<span id="cb68-10"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb68-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-11"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb68-11" aria-hidden="true" tabindex="-1"></a>trend_2_df <span class="ot">&lt;-</span> waste_mismanaged_gdp_plot <span class="sc">%&gt;%</span> </span>
+<span id="cb68-12"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb68-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(gdp_per_cap <span class="sc">&gt;</span> group_boundaries[<span class="dv">1</span>] <span class="sc">&amp;</span> gdp_per_cap <span class="sc">&lt;</span> group_boundaries[<span class="dv">2</span>]) <span class="sc">%&gt;%</span> </span>
+<span id="cb68-13"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb68-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(prop_plastic_waste_misman <span class="sc">&lt;</span> <span class="fl">0.5</span>)</span>
+<span id="cb68-14"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb68-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-15"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb68-15" aria-hidden="true" tabindex="-1"></a>trend_3_df <span class="ot">&lt;-</span> waste_mismanaged_gdp_plot <span class="sc">%&gt;%</span> </span>
+<span id="cb68-16"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb68-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(gdp_per_cap <span class="sc">&lt;</span> group_boundaries[<span class="dv">1</span>])</span>
+<span id="cb68-17"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb68-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-18"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb68-18" aria-hidden="true" tabindex="-1"></a>trend_4_df <span class="ot">&lt;-</span> waste_mismanaged_gdp_plot <span class="sc">%&gt;%</span> </span>
+<span id="cb68-19"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb68-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(gdp_per_cap <span class="sc">&gt;</span> group_boundaries[<span class="dv">2</span>])</span>
+<span id="cb68-20"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb68-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-21"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb68-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-22"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb68-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; Creates a linear regression line to add to a plot (given subset of the plotting data)</span></span>
+<span id="cb68-23"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb68-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;</span></span>
+<span id="cb68-24"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb68-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @param df: a subset of the waste_mismanaged_gdp_plot dataframe</span></span>
+<span id="cb68-25"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb68-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @param c: colour name or hexadecimal reference</span></span>
+<span id="cb68-26"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb68-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @param ...: used to pass additional arguments to geom_line </span></span>
+<span id="cb68-27"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb68-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;</span></span>
+<span id="cb68-28"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb68-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @return: a ggplot2 layer object</span></span>
+<span id="cb68-29"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb68-29" aria-hidden="true" tabindex="-1"></a>add_trend_reg_line <span class="ot">&lt;-</span> <span class="cf">function</span>(df, <span class="at">c =</span> plot_colour_pal[<span class="dv">9</span>], ...){</span>
+<span id="cb68-30"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb68-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> df,</span>
+<span id="cb68-31"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb68-31" aria-hidden="true" tabindex="-1"></a>            <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> gdp_per_cap, <span class="at">y =</span> prop_plastic_waste_misman),</span>
+<span id="cb68-32"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb68-32" aria-hidden="true" tabindex="-1"></a>            <span class="at">stat =</span> <span class="st">&quot;smooth&quot;</span>, <span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, </span>
+<span id="cb68-33"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb68-33" aria-hidden="true" tabindex="-1"></a>            <span class="at">se =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb68-34"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb68-34" aria-hidden="true" tabindex="-1"></a>            <span class="at">colour =</span> c, <span class="at">size =</span> <span class="fl">1.5</span>,</span>
+<span id="cb68-35"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb68-35" aria-hidden="true" tabindex="-1"></a>            ...)</span>
+<span id="cb68-36"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb68-36" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb68-37"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb68-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-38"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb68-38" aria-hidden="true" tabindex="-1"></a><span class="co"># revise the plot to highlight the sub trends within the data</span></span>
+<span id="cb68-39"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb68-39" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> p1 <span class="sc">+</span> </span>
+<span id="cb68-40"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb68-40" aria-hidden="true" tabindex="-1"></a>  <span class="co"># a linear regression lines to highlight the four trends</span></span>
+<span id="cb68-41"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb68-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_trend_reg_line</span>(trend_1_df) <span class="sc">+</span></span>
+<span id="cb68-42"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb68-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_trend_reg_line</span>(trend_2_df) <span class="sc">+</span></span>
+<span id="cb68-43"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb68-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-44"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb68-44" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add labels and annotations</span></span>
+<span id="cb68-45"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb68-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Potential sub-groups of &#39;middle&#39; income countries</span><span class="sc">\n</span><span class="st">&quot;</span>) <span class="sc">+</span></span>
+<span id="cb68-46"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb68-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x =</span> <span class="dv">10000</span>, <span class="at">y =</span> <span class="fl">0.95</span>, </span>
+<span id="cb68-47"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb68-47" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="st">&quot;</span><span class="sc">\&#39;</span><span class="st">Middle</span><span class="sc">\&#39;</span><span class="st"> income</span><span class="sc">\n</span><span class="st"> countries&quot;</span>, </span>
+<span id="cb68-48"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb68-48" aria-hidden="true" tabindex="-1"></a>           <span class="at">size =</span> <span class="fl">3.5</span>) <span class="sc">+</span> </span>
+<span id="cb68-49"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb68-49" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb68-50"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb68-50" aria-hidden="true" tabindex="-1"></a>  <span class="co"># apply additional plot styling</span></span>
+<span id="cb68-51"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb68-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>()  <span class="co"># add back in grid lines a useful reference in this version</span></span></code></pre></div>
+<p>Re-plotting highlights that there are two (or potentially three) sub-group of interest within the group of ‘middle’ income countries. Indicating the potential for an interaction between <code>gdp_per_cap</code> and another as yet unidentified (categorical) predictor. I did some quick exploratory plotting with the data to hand and was not able to identify a good candidate for the additional predictor. So, I leave this potential additional predictor and the interaction aside for now and proceed to start the modeling section of this notebook.</p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="co"># replot</span></span>
+<span id="cb69-2"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb69-2" aria-hidden="true" tabindex="-1"></a>p1</span></code></pre></div>
+<p><img src="02_plastics_regression_2_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+</div>
+<div id="modelling-piecewise-linear-regression" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> Modelling: Piecewise linear regression</h2>
+<div id="fitting-the-model" class="section level3" number="3.3.1">
+<h3><span class="header-section-number">3.3.1</span> Fitting the model</h3>
+<p>Based on the exploratory data analysis above, I decide to create an initial model using <a href="https://towardsdatascience.com/piecewise-linear-regression-model-what-is-it-and-when-can-we-use-it-93286cfee452">piecewise linear regression</a>. This simply involves partitioning the dataset into non-overlapping groups (based on values of predictor variable) and fitting a linear regression model separately to each group. Based on the scatter plots above I also considered fitting a polynomial regression model. However, I went with piece-wise linear regression with hope that it would produce a model where the regression coefficients are easier to interpret (than in a polynomial model). Additionally, working with the piece-wise approach presented an interesting opportunity to apply some function programming techniques I have been learning recently (but I’ll return to the practicalities of implementation in the code comments below).</p>
+<p>The first stage in piecewise linear regression modeling is to partition data. In the exploratory data analysis I estimated by eye the boundaries for partitioning based on <code>gdp_per_cap</code>. In the modeling I want to apply a hopefully more rigorous approach to identifying the boundaries. So, in the code below I use a piecewise regression algorithm from the <code>segmented</code> package to estimate the boundaries (referred to as breakpoints in the algorithm output below). Note, that in the output below the breakpoints are on a log transformed scale.</p>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="co"># there were difficulties using the log transformation in the formula</span></span>
+<span id="cb70-2"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb70-2" aria-hidden="true" tabindex="-1"></a><span class="co"># when estimating breakpoints</span></span>
+<span id="cb70-3"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb70-3" aria-hidden="true" tabindex="-1"></a><span class="co"># so I the data needed preprocessing</span></span>
+<span id="cb70-4"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb70-4" aria-hidden="true" tabindex="-1"></a>waste_mismanaged_gdp_mod <span class="ot">&lt;-</span> waste_mismanaged_gdp_plot <span class="sc">%&gt;%</span></span>
+<span id="cb70-5"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb70-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gdp_per_cap =</span> <span class="fu">log</span>(gdp_per_cap))</span>
+<span id="cb70-6"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb70-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb70-7"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb70-7" aria-hidden="true" tabindex="-1"></a><span class="co"># stanglm objects are not compatible with the estimation algorithm</span></span>
+<span id="cb70-8"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb70-8" aria-hidden="true" tabindex="-1"></a><span class="co"># so I used lm instead</span></span>
+<span id="cb70-9"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb70-9" aria-hidden="true" tabindex="-1"></a>lm_1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="at">formula =</span> prop_plastic_waste_misman <span class="sc">~</span> gdp_per_cap,</span>
+<span id="cb70-10"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb70-10" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> waste_mismanaged_gdp_mod)</span>
+<span id="cb70-11"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb70-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb70-12"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb70-12" aria-hidden="true" tabindex="-1"></a><span class="co"># run algorithm to estimate break points</span></span>
+<span id="cb70-13"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb70-13" aria-hidden="true" tabindex="-1"></a>segmented<span class="sc">::</span><span class="fu">segmented</span>(lm_1, <span class="at">seg.Z =</span> <span class="sc">~</span> gdp_per_cap, </span>
+<span id="cb70-14"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb70-14" aria-hidden="true" tabindex="-1"></a>                     <span class="co"># starting points for the break point estimation algorithm </span></span>
+<span id="cb70-15"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb70-15" aria-hidden="true" tabindex="-1"></a>                     <span class="co"># indentified by eye from the plot above</span></span>
+<span id="cb70-16"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb70-16" aria-hidden="true" tabindex="-1"></a>                     <span class="at">psi =</span> <span class="fu">c</span>(<span class="fl">8.0</span>, <span class="fl">10.5</span>))</span></code></pre></div>
+<pre><code>## Call: segmented.lm(obj = lm_1, seg.Z = ~gdp_per_cap, psi = c(8, 10.5))
+## 
+## Meaningful coefficients of the linear terms:
+##    (Intercept)     gdp_per_cap  U1.gdp_per_cap  U2.gdp_per_cap  
+##        1.13980        -0.04269        -0.35059         0.35316  
+## 
+## Estimated Break-Point(s):
+## psi1.gdp_per_cap  psi2.gdp_per_cap  
+##            8.409            10.241</code></pre>
+<p>Having defined the boundaries for partitioning the dataset into three groups, the next step was to run the same linear regression modelling workflow for each group. I took this as an opportunity to apply some functional programming techniques I been learning over recent months. See comments in the code below for comments on the implementation.</p>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="co"># define boundardies (on gdp_per_capita) for piecewise regression</span></span>
+<span id="cb72-2"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb72-2" aria-hidden="true" tabindex="-1"></a>gdp_bound_1 <span class="ot">&lt;-</span> <span class="dv">4500</span></span>
+<span id="cb72-3"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb72-3" aria-hidden="true" tabindex="-1"></a>gdp_bound_2 <span class="ot">&lt;-</span> <span class="dv">27000</span></span>
+<span id="cb72-4"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb72-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-5"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb72-5" aria-hidden="true" tabindex="-1"></a><span class="co"># create a new variable to identify which of the three groups an observation belongs to </span></span>
+<span id="cb72-6"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb72-6" aria-hidden="true" tabindex="-1"></a>segmented_data <span class="ot">&lt;-</span> waste_mismanaged_gdp_mod <span class="sc">%&gt;%</span> </span>
+<span id="cb72-7"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb72-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gdp_per_cap =</span> <span class="fu">exp</span>(gdp_per_cap),</span>
+<span id="cb72-8"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb72-8" aria-hidden="true" tabindex="-1"></a>         </span>
+<span id="cb72-9"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb72-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">income_group =</span> <span class="fu">case_when</span>(</span>
+<span id="cb72-10"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb72-10" aria-hidden="true" tabindex="-1"></a>           gdp_per_cap <span class="sc">&lt;</span> gdp_bound_1 <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb72-11"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb72-11" aria-hidden="true" tabindex="-1"></a>           gdp_per_cap <span class="sc">&lt;</span> gdp_bound_2 <span class="sc">~</span> <span class="dv">2</span>,</span>
+<span id="cb72-12"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb72-12" aria-hidden="true" tabindex="-1"></a>           <span class="cn">TRUE</span> <span class="sc">~</span> <span class="dv">3</span></span>
+<span id="cb72-13"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb72-13" aria-hidden="true" tabindex="-1"></a>         )) </span>
+<span id="cb72-14"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb72-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-15"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb72-15" aria-hidden="true" tabindex="-1"></a><span class="co"># create an indivudal data frame for each group of observations</span></span>
+<span id="cb72-16"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb72-16" aria-hidden="true" tabindex="-1"></a>nested_segmented_data <span class="ot">&lt;-</span> segmented_data <span class="sc">%&gt;%</span></span>
+<span id="cb72-17"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb72-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(income_group) <span class="sc">%&gt;%</span> </span>
+<span id="cb72-18"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb72-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nest</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb72-19"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb72-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">lm_in =</span> data)</span>
+<span id="cb72-20"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb72-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-21"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb72-21" aria-hidden="true" tabindex="-1"></a><span class="co"># run the modelling workflow for each group of observationa </span></span>
+<span id="cb72-22"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb72-22" aria-hidden="true" tabindex="-1"></a>segmented_models <span class="ot">&lt;-</span> nested_segmented_data <span class="sc">%&gt;%</span> </span>
+<span id="cb72-23"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb72-23" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb72-24"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb72-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb72-25"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb72-25" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb72-26"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb72-26" aria-hidden="true" tabindex="-1"></a>    <span class="co"># independently fit a linear regression model to get of the three groups</span></span>
+<span id="cb72-27"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb72-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">stan_glm =</span> <span class="fu">map</span>(<span class="at">.x =</span> lm_in, </span>
+<span id="cb72-28"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb72-28" aria-hidden="true" tabindex="-1"></a>                   <span class="at">.f =</span> <span class="sc">~</span> <span class="fu">stan_glm</span>(</span>
+<span id="cb72-29"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb72-29" aria-hidden="true" tabindex="-1"></a>                     <span class="at">formula =</span> prop_plastic_waste_misman <span class="sc">~</span> <span class="fu">log</span>(gdp_per_cap), </span>
+<span id="cb72-30"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb72-30" aria-hidden="true" tabindex="-1"></a>                     <span class="at">data =</span> .x,</span>
+<span id="cb72-31"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb72-31" aria-hidden="true" tabindex="-1"></a>                     <span class="at">refresh =</span> <span class="dv">0</span>)),</span>
+<span id="cb72-32"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb72-32" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb72-33"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb72-33" aria-hidden="true" tabindex="-1"></a>    <span class="co"># extract regression coefficients for each group (used in analysis below)</span></span>
+<span id="cb72-34"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb72-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">coef =</span> <span class="fu">map</span>(<span class="at">.x =</span> stan_glm,</span>
+<span id="cb72-35"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb72-35" aria-hidden="true" tabindex="-1"></a>               <span class="at">.f =</span> <span class="sc">~</span> broom.mixed<span class="sc">::</span><span class="fu">tidy</span>(<span class="fu">coef</span>(.x))),</span>
+<span id="cb72-36"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb72-36" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb72-37"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb72-37" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ahead of using the model to predice create a data grid of predictors points      # for each group  </span></span>
+<span id="cb72-38"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb72-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">data_grid =</span> <span class="fu">map</span>(<span class="at">.x =</span> lm_in,</span>
+<span id="cb72-39"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb72-39" aria-hidden="true" tabindex="-1"></a>                    <span class="at">.f =</span> <span class="sc">~</span> <span class="fu">data_grid</span>(</span>
+<span id="cb72-40"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb72-40" aria-hidden="true" tabindex="-1"></a>                      .x, </span>
+<span id="cb72-41"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb72-41" aria-hidden="true" tabindex="-1"></a>                      <span class="at">gdp_per_cap =</span> <span class="fu">seq_range</span>(gdp_per_cap, <span class="at">n =</span> <span class="dv">100</span>))</span>
+<span id="cb72-42"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb72-42" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb72-43"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb72-43" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb72-44"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb72-44" aria-hidden="true" tabindex="-1"></a>    <span class="co"># for each predictor point in the data grid get a dataframe of draws from</span></span>
+<span id="cb72-45"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb72-45" aria-hidden="true" tabindex="-1"></a>    <span class="co"># the posterior predictive distriubtion</span></span>
+<span id="cb72-46"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb72-46" aria-hidden="true" tabindex="-1"></a>    <span class="co"># used for calculating the creditibilty interval shown in the plot below</span></span>
+<span id="cb72-47"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb72-47" aria-hidden="true" tabindex="-1"></a>    <span class="at">data_grid =</span> <span class="fu">map2</span>(<span class="at">.x =</span> data_grid, <span class="at">.y =</span> stan_glm,</span>
+<span id="cb72-48"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb72-48" aria-hidden="true" tabindex="-1"></a>                     <span class="at">.f =</span> <span class="sc">~</span> <span class="fu">add_predicted_draws</span>(.x, .y)),</span>
+<span id="cb72-49"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb72-49" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb72-50"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb72-50" aria-hidden="true" tabindex="-1"></a>    <span class="at">bayes_r2 =</span> <span class="fu">map</span>(<span class="at">.x =</span> stan_glm, <span class="sc">~</span> <span class="fu">as_tibble</span>(<span class="fu">bayes_R2</span>(.x)))</span>
+<span id="cb72-51"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb72-51" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb72-52"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb72-52" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb72-53"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb72-53" aria-hidden="true" tabindex="-1"></a>  <span class="co"># re-arrange to ensure plot facets and table of coefficients are in</span></span>
+<span id="cb72-54"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb72-54" aria-hidden="true" tabindex="-1"></a>  <span class="co"># in a sensible order</span></span>
+<span id="cb72-55"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb72-55" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(income_group)</span></code></pre></div>
+<p>Then I constructed the plot itself.</p>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="co"># focus in on the draws from posterior predictive (for each group of countries) </span></span>
+<span id="cb73-2"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-2" aria-hidden="true" tabindex="-1"></a>plotting_df <span class="ot">&lt;-</span> segmented_models <span class="sc">%&gt;%</span> </span>
+<span id="cb73-3"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>stan_glm, <span class="sc">-</span>lm_in, <span class="sc">-</span>coef) <span class="sc">%&gt;%</span> </span>
+<span id="cb73-4"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(data_grid)</span>
+<span id="cb73-5"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-6"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-6" aria-hidden="true" tabindex="-1"></a><span class="co"># define readable labels for the plot facets</span></span>
+<span id="cb73-7"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-7" aria-hidden="true" tabindex="-1"></a>facet_labs <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;</span><span class="sc">\&#39;</span><span class="st">Lower</span><span class="sc">\&#39;</span><span class="st"> income countries&quot;</span>,</span>
+<span id="cb73-8"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-8" aria-hidden="true" tabindex="-1"></a>                <span class="st">&quot;</span><span class="sc">\&#39;</span><span class="st">Middle</span><span class="sc">\&#39;</span><span class="st"> income countries&quot;</span>,</span>
+<span id="cb73-9"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-9" aria-hidden="true" tabindex="-1"></a>                <span class="st">&quot;</span><span class="sc">\&#39;</span><span class="st">Higher</span><span class="sc">\&#39;</span><span class="st"> income countries&quot;</span>)</span>
+<span id="cb73-10"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-10" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(facet_labs) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;1&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;3&quot;</span>)</span>
+<span id="cb73-11"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-12"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-12" aria-hidden="true" tabindex="-1"></a><span class="co"># identify which countries (lying outside the credbility interval) </span></span>
+<span id="cb73-13"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-13" aria-hidden="true" tabindex="-1"></a><span class="co"># should be labeled</span></span>
+<span id="cb73-14"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-14" aria-hidden="true" tabindex="-1"></a>country_labels <span class="ot">&lt;-</span> segmented_data <span class="sc">%&gt;%</span> </span>
+<span id="cb73-15"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb73-16"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-16" aria-hidden="true" tabindex="-1"></a>    (income_group <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> prop_plastic_waste_misman <span class="sc">&lt;</span> <span class="fl">0.5</span> ) <span class="sc">|</span></span>
+<span id="cb73-17"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-17" aria-hidden="true" tabindex="-1"></a>    (income_group <span class="sc">==</span> <span class="dv">3</span> <span class="sc">&amp;</span> prop_plastic_waste_misman <span class="sc">&gt;</span> <span class="fl">0.2</span>) <span class="sc">|</span></span>
+<span id="cb73-18"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-18" aria-hidden="true" tabindex="-1"></a>    (income_group <span class="sc">==</span> <span class="dv">2</span> <span class="sc">&amp;</span> gdp_per_cap <span class="sc">&gt;</span> <span class="dv">13000</span> <span class="sc">&amp;</span> prop_plastic_waste_misman <span class="sc">&gt;</span> <span class="fl">0.74</span>)<span class="sc">|</span></span>
+<span id="cb73-19"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-19" aria-hidden="true" tabindex="-1"></a>    (income_group <span class="sc">==</span> <span class="dv">2</span> <span class="sc">&amp;</span> gdp_per_cap <span class="sc">&gt;</span> <span class="dv">20000</span> <span class="sc">&amp;</span> prop_plastic_waste_misman <span class="sc">&gt;</span> <span class="fl">0.55</span>)</span>
+<span id="cb73-20"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-20" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb73-21"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-22"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-22" aria-hidden="true" tabindex="-1"></a><span class="co"># create plot</span></span>
+<span id="cb73-23"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-23" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> plotting_df <span class="sc">%&gt;%</span> </span>
+<span id="cb73-24"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-24" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb73-25"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-25" aria-hidden="true" tabindex="-1"></a>  <span class="co"># plot base</span></span>
+<span id="cb73-26"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(gdp_per_cap, <span class="st">`</span><span class="at">.prediction</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb73-27"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-27" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb73-28"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-28" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add credibility interval</span></span>
+<span id="cb73-29"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_lineribbon</span>(<span class="at">.width =</span> <span class="fu">c</span>(.<span class="dv">95</span>), </span>
+<span id="cb73-30"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-30" aria-hidden="true" tabindex="-1"></a>                  <span class="at">alpha =</span> <span class="fl">0.5</span>,</span>
+<span id="cb73-31"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-31" aria-hidden="true" tabindex="-1"></a>                  <span class="at">colour =</span> <span class="st">&quot;grey10&quot;</span>,</span>
+<span id="cb73-32"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-32" aria-hidden="true" tabindex="-1"></a>                  <span class="at">fill =</span> plot_colour_pal[<span class="dv">5</span>]) <span class="sc">+</span></span>
+<span id="cb73-33"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-34"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-34" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add observed data</span></span>
+<span id="cb73-35"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> segmented_data,</span>
+<span id="cb73-36"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-36" aria-hidden="true" tabindex="-1"></a>             <span class="at">mapping =</span> <span class="fu">aes</span>(gdp_per_cap, prop_plastic_waste_misman),</span>
+<span id="cb73-37"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-37" aria-hidden="true" tabindex="-1"></a>             <span class="at">colour =</span> <span class="st">&quot;grey10&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb73-38"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-38" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb73-39"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-39" aria-hidden="true" tabindex="-1"></a>  <span class="co"># format axis</span></span>
+<span id="cb73-40"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">dollar_format</span>(<span class="at">accuracy =</span> <span class="dv">2</span>)) <span class="sc">+</span></span>
+<span id="cb73-41"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="fl">0.2</span>),</span>
+<span id="cb73-42"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-42" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span></span>
+<span id="cb73-43"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-43" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb73-44"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-44" aria-hidden="true" tabindex="-1"></a>  <span class="co"># seperate each section of the piecewise model</span></span>
+<span id="cb73-45"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-45" aria-hidden="true" tabindex="-1"></a>  <span class="co"># to make the plot easier to interpret</span></span>
+<span id="cb73-46"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>income_group, <span class="at">scales =</span> <span class="st">&quot;free_x&quot;</span>,</span>
+<span id="cb73-47"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-47" aria-hidden="true" tabindex="-1"></a>             <span class="at">labeller =</span> <span class="fu">labeller</span>(<span class="at">income_group =</span> facet_labs)) <span class="sc">+</span></span>
+<span id="cb73-48"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-48" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb73-49"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-49" aria-hidden="true" tabindex="-1"></a>  <span class="co"># label points lying outside the credibility interval</span></span>
+<span id="cb73-50"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-50" aria-hidden="true" tabindex="-1"></a>  ggrepel<span class="sc">::</span><span class="fu">geom_text_repel</span>(<span class="at">data =</span> country_labels,</span>
+<span id="cb73-51"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-51" aria-hidden="true" tabindex="-1"></a>                           <span class="at">mapping =</span> <span class="fu">aes</span>(gdp_per_cap, </span>
+<span id="cb73-52"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-52" aria-hidden="true" tabindex="-1"></a>                                         prop_plastic_waste_misman, </span>
+<span id="cb73-53"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-53" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">label =</span> country),</span>
+<span id="cb73-54"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-54" aria-hidden="true" tabindex="-1"></a>                           <span class="at">min.segment.length   =</span> <span class="fl">0.1</span>,</span>
+<span id="cb73-55"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-55" aria-hidden="true" tabindex="-1"></a>                           <span class="at">nudge_y =</span> <span class="fl">0.1</span>,</span>
+<span id="cb73-56"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-56" aria-hidden="true" tabindex="-1"></a>                           <span class="at">size =</span> <span class="fl">3.5</span>) <span class="sc">+</span></span>
+<span id="cb73-57"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-57" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb73-58"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-58" aria-hidden="true" tabindex="-1"></a>  <span class="co"># adjust y axis to omit area of the crediblity interval which fall outside </span></span>
+<span id="cb73-59"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-59" aria-hidden="true" tabindex="-1"></a>  <span class="co"># plausible values (i.e. outside ther ange 0-100%)</span></span>
+<span id="cb73-60"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-60" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb73-61"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-61" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb73-62"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-62" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add plot label</span></span>
+<span id="cb73-63"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-63" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st">GDP per capita&quot;</span>,</span>
+<span id="cb73-64"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-64" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st">Plastic waste mismanaged</span><span class="sc">\n</span><span class="st">&quot;</span>,</span>
+<span id="cb73-65"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-65" aria-hidden="true" tabindex="-1"></a>       <span class="at">fill =</span> <span class="st">&quot;Credibility interval&quot;</span>,</span>
+<span id="cb73-66"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-66" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;&quot;</span>) <span class="sc">+</span></span>
+<span id="cb73-67"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-67" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb73-68"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-68" aria-hidden="true" tabindex="-1"></a>  <span class="co"># remove legend which is visual clutter and doesn&#39;t aid plot interpretation</span></span>
+<span id="cb73-69"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-69" aria-hidden="true" tabindex="-1"></a>  <span class="co"># in this case</span></span>
+<span id="cb73-70"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-70" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">size =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb73-71"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-71" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb73-72"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-72" aria-hidden="true" tabindex="-1"></a>  <span class="co"># remove grid lines to focus attention on credibility intervals</span></span>
+<span id="cb73-73"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb73-73" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid =</span> <span class="fu">element_blank</span>())</span></code></pre></div>
+<p>The plot below shows a 95% (Bayesian) credibility interval for the regression model. This corresponds to an expectation that approximately 95% of model predictions will fall within the credibility interval. Although we see almost all of the observed data falls within the credibility intervals, the plot also highlights some potential issues with the model fit.</p>
+<ul>
+<li><p>In places the credibility interval are over 50 percentage points wide. When of course observation can only fall in the range between 0 and 100% of plastic waste being mismanged. At least for ‘middle’ income countries this reflects this seems to reflect to some extent the variance of the observation. Which in turn of course suggest that including other predictors would potentially improve the model fit.</p></li>
+<li><p>The credibility interval, and hence samples from the posterior predictive which underpin these intervals, extend beyond the possible observable range for percentage of plastic waste mismanaged.</p></li>
+</ul>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="co"># choose an interactive or static plot</span></span>
+<span id="cb74-2"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb74-2" aria-hidden="true" tabindex="-1"></a><span class="co"># interactive plot was used during analysis to hover over and indentify points</span></span>
+<span id="cb74-3"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb74-3" aria-hidden="true" tabindex="-1"></a><span class="co"># outside the credibility intervals</span></span>
+<span id="cb74-4"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb74-4" aria-hidden="true" tabindex="-1"></a>interactive_plot <span class="ot">&lt;-</span>  <span class="cn">FALSE</span></span>
+<span id="cb74-5"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb74-5" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (interactive_plot) {</span>
+<span id="cb74-6"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb74-6" aria-hidden="true" tabindex="-1"></a>  plotly<span class="sc">::</span><span class="fu">ggplotly</span>(p)</span>
+<span id="cb74-7"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb74-7" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb74-8"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb74-8" aria-hidden="true" tabindex="-1"></a>  p <span class="sc">+</span> <span class="fu">labs</span>(</span>
+<span id="cb74-9"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb74-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> glue<span class="sc">::</span><span class="fu">glue</span>(</span>
+<span id="cb74-10"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb74-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;95% of model prediction are likely to fall within this &lt;span style = &#39;color:{plot_colour_pal[8]};&#39;&gt;credibility interval&lt;/span&gt;&quot;</span>),</span>
+<span id="cb74-11"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb74-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;points show the observed data</span><span class="sc">\n</span><span class="st">&quot;</span>) <span class="sc">+</span></span>
+<span id="cb74-12"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb74-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb74-13"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb74-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_markdown</span>())</span>
+<span id="cb74-14"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb74-14" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p><img src="02_plastics_regression_2_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+</div>
+<div id="interpreting-the-model-coefficients" class="section level3" number="3.3.2">
+<h3><span class="header-section-number">3.3.2</span> Interpreting the model coefficients</h3>
+<p>Having fitted the model and used the posterior predictive distribution to show the uncertainty in the model’s prediction, I wanted to look at the model coefficients in more detail. The first step was to extract and combine the coefficients for each of the three models that make up the overall piecewise regression.</p>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get the coefficients for the three models</span></span>
+<span id="cb75-2"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb75-2" aria-hidden="true" tabindex="-1"></a>summary_table_1 <span class="ot">&lt;-</span> segmented_models <span class="sc">%&gt;%</span> </span>
+<span id="cb75-3"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb75-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>stan_glm, <span class="sc">-</span>lm_in, <span class="sc">-</span>data_grid, <span class="sc">-</span>bayes_r2) <span class="sc">%&gt;%</span> </span>
+<span id="cb75-4"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb75-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(coef)</span>
+<span id="cb75-5"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb75-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-6"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb75-6" aria-hidden="true" tabindex="-1"></a><span class="co"># format table</span></span>
+<span id="cb75-7"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb75-7" aria-hidden="true" tabindex="-1"></a>summary_table_1 <span class="sc">%&gt;%</span> </span>
+<span id="cb75-8"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb75-8" aria-hidden="true" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">kable</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb75-9"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb75-9" aria-hidden="true" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">kable_minimal</span>()</span></code></pre></div>
+<table class=" lightable-minimal" style="font-family: &quot;Trebuchet MS&quot;, verdana, sans-serif; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+income_group
+</th>
+<th style="text-align:left;">
+names
+</th>
+<th style="text-align:right;">
+x
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+(Intercept)
+</td>
+<td style="text-align:right;">
+1.1371696
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+log(gdp_per_cap)
+</td>
+<td style="text-align:right;">
+-0.0426116
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+(Intercept)
+</td>
+<td style="text-align:right;">
+4.0579445
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+log(gdp_per_cap)
+</td>
+<td style="text-align:right;">
+-0.3896697
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+(Intercept)
+</td>
+<td style="text-align:right;">
+0.4195236
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+log(gdp_per_cap)
+</td>
+<td style="text-align:right;">
+-0.0353003
+</td>
+</tr>
+</tbody>
+</table>
+<p>Based on the coefficients in the table above, the overall piecewise model can be expressed in mathematical notation as follows.</p>
+<p><span class="math display">\[ 
+y_{i} = \begin{cases}
+1.13 - 0.04\ln x_{i} + \epsilon_{1} &amp;\text{if } x_{i} &lt; 4500 \\
+3.99 - 0.38\ln x_{i} + \epsilon_{2} &amp;\text{if } 4500 \leq   x_{i} &lt; 27000 \\
+0.55 - 0.05\ln x_{i} + \epsilon_{3} &amp;\text{if } x_{i} \geq 27000
+\end{cases}
+\]</span></p>
+<p>Where: <span class="math inline">\(y_{i}\)</span> is the estimated value of the proportion of plastic waste mismanaged for the <em>ith</em> point; and, <span class="math inline">\(x_{i}\)</span> is the value of gdp per capita for the <em>ith</em> point.</p>
+<p>Interpreting the coefficents of <span class="math inline">\(x_{i}\)</span> is relatively straight-forward:</p>
+<ul>
+<li><p>For ‘lower’ income countries (<span class="math inline">\(x_{i} &lt; 4500\)</span>): a one percent increase in <code>gdp_per_cap</code> is (approximately) associated with a reduction of 0.04 percentage points in the percentage of plastic waste mismanaged.</p></li>
+<li><p>For ‘middle’ income countries (<span class="math inline">\(4500 \leq x_{i} &lt; 27000\)</span>): a one percent increase in <code>gdp_per_cap</code> is (approximately) associated with a reduction of 0.38 percentage points in the percentage of plastic waste mismanaged.</p></li>
+<li><p>For ‘higher’ income countries (<span class="math inline">\(x_{i} \geq 27000\)</span>): a one percent increase in <code>gdp_per_cap</code> is (approximately) associated with a reduction of 0.05 percentage points in the percentage of plastic waste mismanaged.</p></li>
+</ul>
+<p>However, directly interpreting the intercept terms is more challenging. First, this is because the intercept terms correspond to the expected proportion of plastic waste mismanaged for a country with zero GDP per capita. And, of course such a country does not and arguably could not exist. Secondly, the intercept terms for ‘low’ and ‘middle’ income countries do not lie within the range 0 to 1 (i.e. the possible values for a proportion). In general, these type of challenges with interpreting intercept terms can be addressed by subtracting an appropriate offset (often the mean or median) from the predictor values so the intercept term corresponds to the expected value of y for a sensible value of x. However, in this case due to the piecewise nature of the model offset would complicate interpretation further.</p>
+</div>
+<div id="some-quick-diagnostics" class="section level3" number="3.3.3">
+<h3><span class="header-section-number">3.3.3</span> Some quick diagnostics</h3>
+<p>Finally, ahead of considering what steps would be need to develop the model further, I wanted to do a more formal (but very quick) assessment of how well the model performs in estimating the proportion of plastic waste mismanaged for in sample data.</p>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="co"># convenience function for mapping median to a specific dataframe</span></span>
+<span id="cb76-2"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb76-2" aria-hidden="true" tabindex="-1"></a>calc_r2_median <span class="ot">&lt;-</span> <span class="cf">function</span>(df){</span>
+<span id="cb76-3"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb76-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">median</span>(df<span class="sc">$</span>value))</span>
+<span id="cb76-4"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb76-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb76-5"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb76-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb76-6"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb76-6" aria-hidden="true" tabindex="-1"></a><span class="co"># convenience function for mapping median to a specific dataframe</span></span>
+<span id="cb76-7"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb76-7" aria-hidden="true" tabindex="-1"></a>calc_sd_obs <span class="ot">&lt;-</span> <span class="cf">function</span>(df){</span>
+<span id="cb76-8"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb76-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">sd</span>(df<span class="sc">$</span>prop_plastic_waste_misman, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb76-9"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb76-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb76-10"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb76-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb76-11"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb76-11" aria-hidden="true" tabindex="-1"></a>summary_table_2 <span class="ot">&lt;-</span> segmented_models <span class="sc">%&gt;%</span> </span>
+<span id="cb76-12"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb76-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># focus on columns needed to produce summary statistics</span></span>
+<span id="cb76-13"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb76-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(income_group, lm_in, bayes_r2, stan_glm) <span class="sc">%&gt;%</span> </span>
+<span id="cb76-14"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb76-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb76-15"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb76-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># calculate summary stats for each group of countries / segment of the model</span></span>
+<span id="cb76-16"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb76-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">r2 =</span> <span class="fu">map_dbl</span>(bayes_r2, <span class="sc">~</span> <span class="fu">calc_r2_median</span>(.x)),</span>
+<span id="cb76-17"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb76-17" aria-hidden="true" tabindex="-1"></a>         <span class="at">plastic_misman_sd_obs =</span> <span class="fu">map_dbl</span>(lm_in, <span class="sc">~</span> <span class="fu">calc_sd_obs</span>(.x)),</span>
+<span id="cb76-18"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb76-18" aria-hidden="true" tabindex="-1"></a>         <span class="at">abs_residuals_mean =</span> <span class="fu">map_dbl</span>(stan_glm, <span class="sc">~</span><span class="fu">mean</span>(<span class="fu">abs</span>(<span class="fu">residuals</span>(.x))))) <span class="sc">%&gt;%</span></span>
+<span id="cb76-19"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb76-19" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb76-20"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb76-20" aria-hidden="true" tabindex="-1"></a>  <span class="co"># focus on columns needed to convey the key information</span></span>
+<span id="cb76-21"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb76-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>lm_in, <span class="sc">-</span>bayes_r2, <span class="sc">-</span>stan_glm) <span class="sc">%&gt;%</span> </span>
+<span id="cb76-22"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb76-22" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb76-23"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb76-23" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add text description of country groups to aid interpretation of the table</span></span>
+<span id="cb76-24"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb76-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_column</span>(<span class="at">income_group_desc =</span> <span class="fu">c</span>(<span class="st">&quot;</span><span class="sc">\&#39;</span><span class="st">Lower</span><span class="sc">\&#39;</span><span class="st"> income countries&quot;</span>,</span>
+<span id="cb76-25"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb76-25" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">&quot;</span><span class="sc">\&#39;</span><span class="st">Middle</span><span class="sc">\&#39;</span><span class="st"> income countries&quot;</span>,</span>
+<span id="cb76-26"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb76-26" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">&quot;</span><span class="sc">\&#39;</span><span class="st">Higher</span><span class="sc">\&#39;</span><span class="st"> income countries&quot;</span>),</span>
+<span id="cb76-27"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb76-27" aria-hidden="true" tabindex="-1"></a>             <span class="at">.before =</span> <span class="st">&quot;r2&quot;</span>)</span>
+<span id="cb76-28"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb76-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb76-29"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb76-29" aria-hidden="true" tabindex="-1"></a><span class="co">#mean(abs(residuals(segmented_models$stan_glm[[2]])))</span></span></code></pre></div>
+<p>The table below shows the Bayesian R<sup>2</sup> values (<code>bayes_r2</code> - the proportion of variance explained by the model) and the mean of the absolute values of the residuals for each group of countries. For context, the standard deviation of the proportion of plastic waste mismanaged in the observed data is shown in the <code>plastic_misman_sd_obs</code> column.</p>
+<p>Clearly overall the model is not performing particularly well.</p>
+<ul>
+<li><p>The R<sup>2</sup> values for the ‘lower’ and ‘higher’ income groups of countries both being below 0.05. Basically, <code>gdp_per-cap</code> explains almost none of the variability in the outcome variable in these group. However, it should be noted there is not much variability of the proportion of plastic waste mismanaged in the observed data (as shown in the <code>plastic_misman_sd_obs</code> column), and the absolute values of the residuals tend to be relatively small.</p></li>
+<li><p>The R<sup>2</sup> value for the ‘middle’ income group of countries is higher at approximately 0.46. This of course means that the proportion of variance unexplained by the model is 0.54. While the absolute values of the residuals tend to be relatively large. Both these factors highlight the need to further develop the model to improve it’s ability to estimate the proportion of plastic waste a country mismanages.</p></li>
+</ul>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb77-1" aria-hidden="true" tabindex="-1"></a>summary_table_2 <span class="sc">%&gt;%</span> </span>
+<span id="cb77-2"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb77-2" aria-hidden="true" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">kable</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb77-3"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#cb77-3" aria-hidden="true" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">kable_minimal</span>()</span></code></pre></div>
+<table class=" lightable-minimal" style="font-family: &quot;Trebuchet MS&quot;, verdana, sans-serif; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+income_group
+</th>
+<th style="text-align:left;">
+income_group_desc
+</th>
+<th style="text-align:right;">
+r2
+</th>
+<th style="text-align:right;">
+plastic_misman_sd_obs
+</th>
+<th style="text-align:right;">
+abs_residuals_mean
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+‘Lower’ income countries
+</td>
+<td style="text-align:right;">
+0.0371539
+</td>
+<td style="text-align:right;">
+0.1137020
+</td>
+<td style="text-align:right;">
+0.0657241
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+‘Middle’ income countries
+</td>
+<td style="text-align:right;">
+0.4622604
+</td>
+<td style="text-align:right;">
+0.2520905
+</td>
+<td style="text-align:right;">
+0.1554383
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+‘Higher’ income countries
+</td>
+<td style="text-align:right;">
+0.0412346
+</td>
+<td style="text-align:right;">
+0.0613529
+</td>
+<td style="text-align:right;">
+0.0343563
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="reflections-and-next-steps" class="section level2" number="3.4">
+<h2><span class="header-section-number">3.4</span> Reflections and next steps</h2>
+<p>In this notebook I developed a simple model developed above for estimating the proportion of plastic waste a country mismanages, based on it’s GDP per capita. Comparing the observed values with the model’s estimates of the proportion of plastic waste a country mismanages showed that for many countries the model estimates are disappointingly inaccurate. Nevertheless, the model developed in this notebook represents a first step towards developing a more complex and potential more accurate model. As and when I return to further develop the model my next steps would include:</p>
+<ul>
+<li><p>Exploring additional data sources to identify additional potential predictor variables (such as metrics might give an indication of the maturity of country’s disposal system or it’s waste disposal culture).</p></li>
+<li><p>Engineering the feature of model input data including iteratively integrating additional predictor variables and interactions into the model.</p></li>
+<li><p>Comparing the fit piecewise model in this notebook with a model using interactions between <code>gdp_per_capita</code> and a variable <code>gdp_per_capita_group</code> (which partitions countries in to one of three groups).</p></li>
+</ul>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="linear-regression-predicting-course-evaluation-scores.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/02_plastics_regression_2.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

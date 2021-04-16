@@ -32,7 +32,7 @@
   
   
 
-<link rel="next" href="linear-regression-predicting-course-evaluation-scores.html"/>
+<link rel="next" href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"/>
 <script src="libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -51,6 +51,8 @@
 
 
 
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 <style type="text/css">
@@ -135,21 +137,57 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="chapter" data-level="2" data-path="linear-regression-predicting-course-evaluation-scores.html"><a href="linear-regression-predicting-course-evaluation-scores.html"><i class="fa fa-check"></i><b>2</b> Linear regression: Predicting course evaluation scores</a>
+<li class="part"><span><b>I Linear Regression Projects</b></span></li>
+<li class="chapter" data-level="2" data-path="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"><i class="fa fa-check"></i><b>2</b> Predicting the amount of plastic waste a country produces each year</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="linear-regression-predicting-course-evaluation-scores.html"><a href="linear-regression-predicting-course-evaluation-scores.html#processing-the-data"><i class="fa fa-check"></i><b>2.1</b> Processing the data</a>
+<li class="chapter" data-level="2.1" data-path="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#data-importing"><i class="fa fa-check"></i><b>2.1</b> Data importing</a></li>
+<li class="chapter" data-level="2.2" data-path="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#data-cleaning"><i class="fa fa-check"></i><b>2.2</b> Data cleaning</a>
 <ul>
-<li class="chapter" data-level="2.1.1" data-path="linear-regression-predicting-course-evaluation-scores.html"><a href="linear-regression-predicting-course-evaluation-scores.html#importing-the-data"><i class="fa fa-check"></i><b>2.1.1</b> Importing the data</a></li>
-<li class="chapter" data-level="2.1.2" data-path="linear-regression-predicting-course-evaluation-scores.html"><a href="linear-regression-predicting-course-evaluation-scores.html#checking-for-missing-values"><i class="fa fa-check"></i><b>2.1.2</b> Checking for missing values</a></li>
+<li class="chapter" data-level="2.2.1" data-path="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#missing-data"><i class="fa fa-check"></i><b>2.2.1</b> Missing data</a></li>
+<li class="chapter" data-level="2.2.2" data-path="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#inspecting-the-data-for-the-country-variable"><i class="fa fa-check"></i><b>2.2.2</b> Inspecting the data for the country variable</a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="linear-regression-predicting-course-evaluation-scores.html"><a href="linear-regression-predicting-course-evaluation-scores.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>2.2</b> Exploratory data analysis</a>
+<li class="chapter" data-level="2.3" data-path="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>2.3</b> Exploratory data analysis</a></li>
+<li class="chapter" data-level="2.4" data-path="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#modelling-a-simple-regression-model"><i class="fa fa-check"></i><b>2.4</b> Modelling: A simple regression model</a>
 <ul>
-<li class="chapter" data-level="2.2.1" data-path="linear-regression-predicting-course-evaluation-scores.html"><a href="linear-regression-predicting-course-evaluation-scores.html#the-response-variable"><i class="fa fa-check"></i><b>2.2.1</b> The response variable</a></li>
-<li class="chapter" data-level="2.2.2" data-path="linear-regression-predicting-course-evaluation-scores.html"><a href="linear-regression-predicting-course-evaluation-scores.html#potential-explanatory-variables"><i class="fa fa-check"></i><b>2.2.2</b> Potential explanatory variables</a></li>
-<li class="chapter" data-level="2.2.3" data-path="linear-regression-predicting-course-evaluation-scores.html"><a href="linear-regression-predicting-course-evaluation-scores.html#relationships-between-variables"><i class="fa fa-check"></i><b>2.2.3</b> Relationships between variables</a></li>
+<li class="chapter" data-level="2.4.1" data-path="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#model-fitting"><i class="fa fa-check"></i><b>2.4.1</b> Model fitting</a></li>
+<li class="chapter" data-level="2.4.2" data-path="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#uncertainty-in-the-model-fit"><i class="fa fa-check"></i><b>2.4.2</b> Uncertainty in the model fit</a></li>
+<li class="chapter" data-level="2.4.3" data-path="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#reviewing-the-residuals"><i class="fa fa-check"></i><b>2.4.3</b> Reviewing the residuals</a></li>
+<li class="chapter" data-level="2.4.4" data-path="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#bayesian-r-squared"><i class="fa fa-check"></i><b>2.4.4</b> Bayesian R squared</a></li>
+<li class="chapter" data-level="2.4.5" data-path="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cross-validation-and-log-scores"><i class="fa fa-check"></i><b>2.4.5</b> Cross validation and log scores</a></li>
+<li class="chapter" data-level="2.4.6" data-path="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#graphical-posterior-predictive-checks"><i class="fa fa-check"></i><b>2.4.6</b> Graphical posterior predictive checks</a></li>
+<li class="chapter" data-level="2.4.7" data-path="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#summary-of-the-model-fitting-process"><i class="fa fa-check"></i><b>2.4.7</b> Summary of the model fitting process</a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="linear-regression-predicting-course-evaluation-scores.html"><a href="linear-regression-predicting-course-evaluation-scores.html#modelling"><i class="fa fa-check"></i><b>2.3</b> Modelling</a></li>
+<li class="chapter" data-level="2.5" data-path="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#applying-the-model-to-new-data"><i class="fa fa-check"></i><b>2.5</b> Applying the model to new data</a></li>
 </ul></li>
+<li class="chapter" data-level="3" data-path="estimating-the-proportion-of-plastic-waste-countries-mismanage.html"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html"><i class="fa fa-check"></i><b>3</b> Estimating the proportion of plastic waste countries mismanage</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="estimating-the-proportion-of-plastic-waste-countries-mismanage.html"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#data-importing-and-cleaning"><i class="fa fa-check"></i><b>3.1</b> Data importing and cleaning</a></li>
+<li class="chapter" data-level="3.2" data-path="estimating-the-proportion-of-plastic-waste-countries-mismanage.html"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#exploratory-data-analysis-1"><i class="fa fa-check"></i><b>3.2</b> Exploratory data analysis</a></li>
+<li class="chapter" data-level="3.3" data-path="estimating-the-proportion-of-plastic-waste-countries-mismanage.html"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#modelling-piecewise-linear-regression"><i class="fa fa-check"></i><b>3.3</b> Modelling: Piecewise linear regression</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="estimating-the-proportion-of-plastic-waste-countries-mismanage.html"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#fitting-the-model"><i class="fa fa-check"></i><b>3.3.1</b> Fitting the model</a></li>
+<li class="chapter" data-level="3.3.2" data-path="estimating-the-proportion-of-plastic-waste-countries-mismanage.html"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#interpreting-the-model-coefficients"><i class="fa fa-check"></i><b>3.3.2</b> Interpreting the model coefficients</a></li>
+<li class="chapter" data-level="3.3.3" data-path="estimating-the-proportion-of-plastic-waste-countries-mismanage.html"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#some-quick-diagnostics"><i class="fa fa-check"></i><b>3.3.3</b> Some quick diagnostics</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="estimating-the-proportion-of-plastic-waste-countries-mismanage.html"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#reflections-and-next-steps"><i class="fa fa-check"></i><b>3.4</b> Reflections and next steps</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="linear-regression-predicting-course-evaluation-scores.html"><a href="linear-regression-predicting-course-evaluation-scores.html"><i class="fa fa-check"></i><b>4</b> Linear regression: Predicting course evaluation scores</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="linear-regression-predicting-course-evaluation-scores.html"><a href="linear-regression-predicting-course-evaluation-scores.html#data-importing-and-cleaning-1"><i class="fa fa-check"></i><b>4.1</b> Data importing and cleaning</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="linear-regression-predicting-course-evaluation-scores.html"><a href="linear-regression-predicting-course-evaluation-scores.html#importing-the-data"><i class="fa fa-check"></i><b>4.1.1</b> Importing the data</a></li>
+<li class="chapter" data-level="4.1.2" data-path="linear-regression-predicting-course-evaluation-scores.html"><a href="linear-regression-predicting-course-evaluation-scores.html#checking-for-missing-values"><i class="fa fa-check"></i><b>4.1.2</b> Checking for missing values</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="linear-regression-predicting-course-evaluation-scores.html"><a href="linear-regression-predicting-course-evaluation-scores.html#exploratory-data-analysis-2"><i class="fa fa-check"></i><b>4.2</b> Exploratory data analysis</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="linear-regression-predicting-course-evaluation-scores.html"><a href="linear-regression-predicting-course-evaluation-scores.html#the-response-variable"><i class="fa fa-check"></i><b>4.2.1</b> The response variable</a></li>
+<li class="chapter" data-level="4.2.2" data-path="linear-regression-predicting-course-evaluation-scores.html"><a href="linear-regression-predicting-course-evaluation-scores.html#potential-explanatory-variables"><i class="fa fa-check"></i><b>4.2.2</b> Potential explanatory variables</a></li>
+<li class="chapter" data-level="4.2.3" data-path="linear-regression-predicting-course-evaluation-scores.html"><a href="linear-regression-predicting-course-evaluation-scores.html#relationships-between-variables"><i class="fa fa-check"></i><b>4.2.3</b> Relationships between variables</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="linear-regression-predicting-course-evaluation-scores.html"><a href="linear-regression-predicting-course-evaluation-scores.html#modelling"><i class="fa fa-check"></i><b>4.3</b> Modelling</a></li>
+</ul></li>
+<li class="part"><span><b>II Data Vizualisation Projects</b></span></li>
+<li class="chapter" data-level="5" data-path="visualising-green-space-deprivation-across-the-english-regions.html"><a href="visualising-green-space-deprivation-across-the-english-regions.html"><i class="fa fa-check"></i><b>5</b> Visualising green space deprivation across the English regions</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -180,13 +218,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>intro text</p>
 
 </div>
+
+
+
             </section>
 
           </div>
         </div>
       </div>
 
-<a href="linear-regression-predicting-course-evaluation-scores.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -236,6 +277,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

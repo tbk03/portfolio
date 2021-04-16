@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 2 Linear regression: Predicting course evaluation scores | Data Science Portfolio</title>
+  <title>Chapter 4 Linear regression: Predicting course evaluation scores | Data Science Portfolio</title>
   <meta name="description" content="holding text" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 2 Linear regression: Predicting course evaluation scores | Data Science Portfolio" />
+  <meta property="og:title" content="Chapter 4 Linear regression: Predicting course evaluation scores | Data Science Portfolio" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 2 Linear regression: Predicting course evaluation scores | Data Science Portfolio" />
+  <meta name="twitter:title" content="Chapter 4 Linear regression: Predicting course evaluation scores | Data Science Portfolio" />
   
   <meta name="twitter:description" content="holding text" />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="index.html"/>
-
+<link rel="prev" href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html"/>
+<link rel="next" href="visualising-green-space-deprivation-across-the-english-regions.html"/>
 <script src="libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -51,6 +51,8 @@
 
 
 
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 <style type="text/css">
@@ -135,21 +137,57 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="chapter" data-level="2" data-path="linear-regression-predicting-course-evaluation-scores.html"><a href="linear-regression-predicting-course-evaluation-scores.html"><i class="fa fa-check"></i><b>2</b> Linear regression: Predicting course evaluation scores</a>
+<li class="part"><span><b>I Linear Regression Projects</b></span></li>
+<li class="chapter" data-level="2" data-path="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"><i class="fa fa-check"></i><b>2</b> Predicting the amount of plastic waste a country produces each year</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="linear-regression-predicting-course-evaluation-scores.html"><a href="linear-regression-predicting-course-evaluation-scores.html#processing-the-data"><i class="fa fa-check"></i><b>2.1</b> Processing the data</a>
+<li class="chapter" data-level="2.1" data-path="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#data-importing"><i class="fa fa-check"></i><b>2.1</b> Data importing</a></li>
+<li class="chapter" data-level="2.2" data-path="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#data-cleaning"><i class="fa fa-check"></i><b>2.2</b> Data cleaning</a>
 <ul>
-<li class="chapter" data-level="2.1.1" data-path="linear-regression-predicting-course-evaluation-scores.html"><a href="linear-regression-predicting-course-evaluation-scores.html#importing-the-data"><i class="fa fa-check"></i><b>2.1.1</b> Importing the data</a></li>
-<li class="chapter" data-level="2.1.2" data-path="linear-regression-predicting-course-evaluation-scores.html"><a href="linear-regression-predicting-course-evaluation-scores.html#checking-for-missing-values"><i class="fa fa-check"></i><b>2.1.2</b> Checking for missing values</a></li>
+<li class="chapter" data-level="2.2.1" data-path="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#missing-data"><i class="fa fa-check"></i><b>2.2.1</b> Missing data</a></li>
+<li class="chapter" data-level="2.2.2" data-path="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#inspecting-the-data-for-the-country-variable"><i class="fa fa-check"></i><b>2.2.2</b> Inspecting the data for the country variable</a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="linear-regression-predicting-course-evaluation-scores.html"><a href="linear-regression-predicting-course-evaluation-scores.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>2.2</b> Exploratory data analysis</a>
+<li class="chapter" data-level="2.3" data-path="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>2.3</b> Exploratory data analysis</a></li>
+<li class="chapter" data-level="2.4" data-path="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#modelling-a-simple-regression-model"><i class="fa fa-check"></i><b>2.4</b> Modelling: A simple regression model</a>
 <ul>
-<li class="chapter" data-level="2.2.1" data-path="linear-regression-predicting-course-evaluation-scores.html"><a href="linear-regression-predicting-course-evaluation-scores.html#the-response-variable"><i class="fa fa-check"></i><b>2.2.1</b> The response variable</a></li>
-<li class="chapter" data-level="2.2.2" data-path="linear-regression-predicting-course-evaluation-scores.html"><a href="linear-regression-predicting-course-evaluation-scores.html#potential-explanatory-variables"><i class="fa fa-check"></i><b>2.2.2</b> Potential explanatory variables</a></li>
-<li class="chapter" data-level="2.2.3" data-path="linear-regression-predicting-course-evaluation-scores.html"><a href="linear-regression-predicting-course-evaluation-scores.html#relationships-between-variables"><i class="fa fa-check"></i><b>2.2.3</b> Relationships between variables</a></li>
+<li class="chapter" data-level="2.4.1" data-path="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#model-fitting"><i class="fa fa-check"></i><b>2.4.1</b> Model fitting</a></li>
+<li class="chapter" data-level="2.4.2" data-path="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#uncertainty-in-the-model-fit"><i class="fa fa-check"></i><b>2.4.2</b> Uncertainty in the model fit</a></li>
+<li class="chapter" data-level="2.4.3" data-path="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#reviewing-the-residuals"><i class="fa fa-check"></i><b>2.4.3</b> Reviewing the residuals</a></li>
+<li class="chapter" data-level="2.4.4" data-path="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#bayesian-r-squared"><i class="fa fa-check"></i><b>2.4.4</b> Bayesian R squared</a></li>
+<li class="chapter" data-level="2.4.5" data-path="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#cross-validation-and-log-scores"><i class="fa fa-check"></i><b>2.4.5</b> Cross validation and log scores</a></li>
+<li class="chapter" data-level="2.4.6" data-path="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#graphical-posterior-predictive-checks"><i class="fa fa-check"></i><b>2.4.6</b> Graphical posterior predictive checks</a></li>
+<li class="chapter" data-level="2.4.7" data-path="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#summary-of-the-model-fitting-process"><i class="fa fa-check"></i><b>2.4.7</b> Summary of the model fitting process</a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="linear-regression-predicting-course-evaluation-scores.html"><a href="linear-regression-predicting-course-evaluation-scores.html#modelling"><i class="fa fa-check"></i><b>2.3</b> Modelling</a></li>
+<li class="chapter" data-level="2.5" data-path="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html"><a href="predicting-the-amount-of-plastic-waste-a-country-produces-each-year.html#applying-the-model-to-new-data"><i class="fa fa-check"></i><b>2.5</b> Applying the model to new data</a></li>
 </ul></li>
+<li class="chapter" data-level="3" data-path="estimating-the-proportion-of-plastic-waste-countries-mismanage.html"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html"><i class="fa fa-check"></i><b>3</b> Estimating the proportion of plastic waste countries mismanage</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="estimating-the-proportion-of-plastic-waste-countries-mismanage.html"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#data-importing-and-cleaning"><i class="fa fa-check"></i><b>3.1</b> Data importing and cleaning</a></li>
+<li class="chapter" data-level="3.2" data-path="estimating-the-proportion-of-plastic-waste-countries-mismanage.html"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#exploratory-data-analysis-1"><i class="fa fa-check"></i><b>3.2</b> Exploratory data analysis</a></li>
+<li class="chapter" data-level="3.3" data-path="estimating-the-proportion-of-plastic-waste-countries-mismanage.html"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#modelling-piecewise-linear-regression"><i class="fa fa-check"></i><b>3.3</b> Modelling: Piecewise linear regression</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="estimating-the-proportion-of-plastic-waste-countries-mismanage.html"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#fitting-the-model"><i class="fa fa-check"></i><b>3.3.1</b> Fitting the model</a></li>
+<li class="chapter" data-level="3.3.2" data-path="estimating-the-proportion-of-plastic-waste-countries-mismanage.html"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#interpreting-the-model-coefficients"><i class="fa fa-check"></i><b>3.3.2</b> Interpreting the model coefficients</a></li>
+<li class="chapter" data-level="3.3.3" data-path="estimating-the-proportion-of-plastic-waste-countries-mismanage.html"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#some-quick-diagnostics"><i class="fa fa-check"></i><b>3.3.3</b> Some quick diagnostics</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="estimating-the-proportion-of-plastic-waste-countries-mismanage.html"><a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html#reflections-and-next-steps"><i class="fa fa-check"></i><b>3.4</b> Reflections and next steps</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="linear-regression-predicting-course-evaluation-scores.html"><a href="linear-regression-predicting-course-evaluation-scores.html"><i class="fa fa-check"></i><b>4</b> Linear regression: Predicting course evaluation scores</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="linear-regression-predicting-course-evaluation-scores.html"><a href="linear-regression-predicting-course-evaluation-scores.html#data-importing-and-cleaning-1"><i class="fa fa-check"></i><b>4.1</b> Data importing and cleaning</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="linear-regression-predicting-course-evaluation-scores.html"><a href="linear-regression-predicting-course-evaluation-scores.html#importing-the-data"><i class="fa fa-check"></i><b>4.1.1</b> Importing the data</a></li>
+<li class="chapter" data-level="4.1.2" data-path="linear-regression-predicting-course-evaluation-scores.html"><a href="linear-regression-predicting-course-evaluation-scores.html#checking-for-missing-values"><i class="fa fa-check"></i><b>4.1.2</b> Checking for missing values</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="linear-regression-predicting-course-evaluation-scores.html"><a href="linear-regression-predicting-course-evaluation-scores.html#exploratory-data-analysis-2"><i class="fa fa-check"></i><b>4.2</b> Exploratory data analysis</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="linear-regression-predicting-course-evaluation-scores.html"><a href="linear-regression-predicting-course-evaluation-scores.html#the-response-variable"><i class="fa fa-check"></i><b>4.2.1</b> The response variable</a></li>
+<li class="chapter" data-level="4.2.2" data-path="linear-regression-predicting-course-evaluation-scores.html"><a href="linear-regression-predicting-course-evaluation-scores.html#potential-explanatory-variables"><i class="fa fa-check"></i><b>4.2.2</b> Potential explanatory variables</a></li>
+<li class="chapter" data-level="4.2.3" data-path="linear-regression-predicting-course-evaluation-scores.html"><a href="linear-regression-predicting-course-evaluation-scores.html#relationships-between-variables"><i class="fa fa-check"></i><b>4.2.3</b> Relationships between variables</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="linear-regression-predicting-course-evaluation-scores.html"><a href="linear-regression-predicting-course-evaluation-scores.html#modelling"><i class="fa fa-check"></i><b>4.3</b> Modelling</a></li>
+</ul></li>
+<li class="part"><span><b>II Data Vizualisation Projects</b></span></li>
+<li class="chapter" data-level="5" data-path="visualising-green-space-deprivation-across-the-english-regions.html"><a href="visualising-green-space-deprivation-across-the-english-regions.html"><i class="fa fa-check"></i><b>5</b> Visualising green space deprivation across the English regions</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -170,40 +208,40 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="linear-regression-predicting-course-evaluation-scores" class="section level1" number="2">
-<h1><span class="header-section-number">Chapter 2</span> Linear regression: Predicting course evaluation scores</h1>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="linear-regression-predicting-course-evaluation-scores.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># import packages used in this notebook</span></span>
-<span id="cb1-2"><a href="linear-regression-predicting-course-evaluation-scores.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>({</span>
-<span id="cb1-3"><a href="linear-regression-predicting-course-evaluation-scores.html#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">suppressWarnings</span>({</span>
-<span id="cb1-4"><a href="linear-regression-predicting-course-evaluation-scores.html#cb1-4" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb1-5"><a href="linear-regression-predicting-course-evaluation-scores.html#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># core libraries</span></span>
-<span id="cb1-6"><a href="linear-regression-predicting-course-evaluation-scores.html#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-7"><a href="linear-regression-predicting-course-evaluation-scores.html#cb1-7" aria-hidden="true" tabindex="-1"></a>          </span>
-<span id="cb1-8"><a href="linear-regression-predicting-course-evaluation-scores.html#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># helper libraries</span></span>
-<span id="cb1-9"><a href="linear-regression-predicting-course-evaluation-scores.html#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">library</span>(janitor)  <span class="co"># for cleaning names</span></span>
-<span id="cb1-10"><a href="linear-regression-predicting-course-evaluation-scores.html#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">library</span>(skimr)    <span class="co"># for summary statistic reports</span></span>
-<span id="cb1-11"><a href="linear-regression-predicting-course-evaluation-scores.html#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">library</span>(glue)     <span class="co"># for string formattin</span></span>
-<span id="cb1-12"><a href="linear-regression-predicting-course-evaluation-scores.html#cb1-12" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb1-13"><a href="linear-regression-predicting-course-evaluation-scores.html#cb1-13" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="linear-regression-predicting-course-evaluation-scores.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># global setting for notebook</span></span>
-<span id="cb2-2"><a href="linear-regression-predicting-course-evaluation-scores.html#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_light</span>())</span>
-<span id="cb2-3"><a href="linear-regression-predicting-course-evaluation-scores.html#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="linear-regression-predicting-course-evaluation-scores.html#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># import my own plotting functions for styling plots</span></span>
-<span id="cb2-5"><a href="linear-regression-predicting-course-evaluation-scores.html#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;plotting_functions.R&quot;</span>)</span></code></pre></div>
-<div id="processing-the-data" class="section level2" number="2.1">
-<h2><span class="header-section-number">2.1</span> Processing the data</h2>
-<div id="importing-the-data" class="section level3" number="2.1.1">
-<h3><span class="header-section-number">2.1.1</span> Importing the data</h3>
+<div id="linear-regression-predicting-course-evaluation-scores" class="section level1" number="4">
+<h1><span class="header-section-number">Chapter 4</span> Linear regression: Predicting course evaluation scores</h1>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="linear-regression-predicting-course-evaluation-scores.html#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="co"># import packages used in this notebook</span></span>
+<span id="cb78-2"><a href="linear-regression-predicting-course-evaluation-scores.html#cb78-2" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>({</span>
+<span id="cb78-3"><a href="linear-regression-predicting-course-evaluation-scores.html#cb78-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">suppressWarnings</span>({</span>
+<span id="cb78-4"><a href="linear-regression-predicting-course-evaluation-scores.html#cb78-4" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb78-5"><a href="linear-regression-predicting-course-evaluation-scores.html#cb78-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># core libraries</span></span>
+<span id="cb78-6"><a href="linear-regression-predicting-course-evaluation-scores.html#cb78-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">library</span>(tidyverse)</span>
+<span id="cb78-7"><a href="linear-regression-predicting-course-evaluation-scores.html#cb78-7" aria-hidden="true" tabindex="-1"></a>          </span>
+<span id="cb78-8"><a href="linear-regression-predicting-course-evaluation-scores.html#cb78-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># helper libraries</span></span>
+<span id="cb78-9"><a href="linear-regression-predicting-course-evaluation-scores.html#cb78-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">library</span>(janitor)  <span class="co"># for cleaning names</span></span>
+<span id="cb78-10"><a href="linear-regression-predicting-course-evaluation-scores.html#cb78-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">library</span>(skimr)    <span class="co"># for summary statistic reports</span></span>
+<span id="cb78-11"><a href="linear-regression-predicting-course-evaluation-scores.html#cb78-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">library</span>(glue)     <span class="co"># for string formattin</span></span>
+<span id="cb78-12"><a href="linear-regression-predicting-course-evaluation-scores.html#cb78-12" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb78-13"><a href="linear-regression-predicting-course-evaluation-scores.html#cb78-13" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="linear-regression-predicting-course-evaluation-scores.html#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="co"># global setting for notebook</span></span>
+<span id="cb79-2"><a href="linear-regression-predicting-course-evaluation-scores.html#cb79-2" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_light</span>())</span>
+<span id="cb79-3"><a href="linear-regression-predicting-course-evaluation-scores.html#cb79-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-4"><a href="linear-regression-predicting-course-evaluation-scores.html#cb79-4" aria-hidden="true" tabindex="-1"></a><span class="co"># import my own plotting functions for styling plots</span></span>
+<span id="cb79-5"><a href="linear-regression-predicting-course-evaluation-scores.html#cb79-5" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;plotting_functions.R&quot;</span>)</span></code></pre></div>
+<div id="data-importing-and-cleaning-1" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> Data importing and cleaning</h2>
+<div id="importing-the-data" class="section level3" number="4.1.1">
+<h3><span class="header-section-number">4.1.1</span> Importing the data</h3>
 <p>The data I am using in this project is available in the github repository for the book ‘Regression and Other Stories.’ So, I can read in the csv directly from the repository.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="linear-regression-predicting-course-evaluation-scores.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># set url for dataset</span></span>
-<span id="cb3-2"><a href="linear-regression-predicting-course-evaluation-scores.html#cb3-2" aria-hidden="true" tabindex="-1"></a>data_url <span class="ot">&lt;-</span> <span class="st">&quot;https://raw.githubusercontent.com/avehtari/ROS-Examples/master/Beauty/data/ProfEvaltnsBeautyPublic.csv&quot;</span></span>
-<span id="cb3-3"><a href="linear-regression-predicting-course-evaluation-scores.html#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="linear-regression-predicting-course-evaluation-scores.html#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># read data from github</span></span>
-<span id="cb3-5"><a href="linear-regression-predicting-course-evaluation-scores.html#cb3-5" aria-hidden="true" tabindex="-1"></a>teaching_eval <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(data_url) <span class="sc">%&gt;%</span> </span>
-<span id="cb3-6"><a href="linear-regression-predicting-course-evaluation-scores.html#cb3-6" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="co"># try to clean up names</span></span>
-<span id="cb3-7"><a href="linear-regression-predicting-course-evaluation-scores.html#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-8"><a href="linear-regression-predicting-course-evaluation-scores.html#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># display dataframe for initial inspection</span></span>
-<span id="cb3-9"><a href="linear-regression-predicting-course-evaluation-scores.html#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(teaching_eval)</span></code></pre></div>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="linear-regression-predicting-course-evaluation-scores.html#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="co"># set url for dataset</span></span>
+<span id="cb80-2"><a href="linear-regression-predicting-course-evaluation-scores.html#cb80-2" aria-hidden="true" tabindex="-1"></a>data_url <span class="ot">&lt;-</span> <span class="st">&quot;https://raw.githubusercontent.com/avehtari/ROS-Examples/master/Beauty/data/ProfEvaltnsBeautyPublic.csv&quot;</span></span>
+<span id="cb80-3"><a href="linear-regression-predicting-course-evaluation-scores.html#cb80-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb80-4"><a href="linear-regression-predicting-course-evaluation-scores.html#cb80-4" aria-hidden="true" tabindex="-1"></a><span class="co"># read data from github</span></span>
+<span id="cb80-5"><a href="linear-regression-predicting-course-evaluation-scores.html#cb80-5" aria-hidden="true" tabindex="-1"></a>teaching_eval <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(data_url) <span class="sc">%&gt;%</span> </span>
+<span id="cb80-6"><a href="linear-regression-predicting-course-evaluation-scores.html#cb80-6" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="co"># try to clean up names</span></span>
+<span id="cb80-7"><a href="linear-regression-predicting-course-evaluation-scores.html#cb80-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb80-8"><a href="linear-regression-predicting-course-evaluation-scores.html#cb80-8" aria-hidden="true" tabindex="-1"></a><span class="co"># display dataframe for initial inspection</span></span>
+<span id="cb80-9"><a href="linear-regression-predicting-course-evaluation-scores.html#cb80-9" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(teaching_eval)</span></code></pre></div>
 <pre><code>## Rows: 463
 ## Columns: 64
 ## $ tenured           &lt;dbl&gt; 0, 1, 1, 1, 0, 1, 0, 1, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0~
@@ -272,38 +310,38 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## $ btystdaveneg      &lt;dbl&gt; 0.000000, -0.826081, -0.660333, -0.766312, 0.000000,~</code></pre>
 <p>Next I focused down on variables within the dataset to be used in the exploratory data analysis and modeling below. I reviewed the <a href="https://github.com/avehtari/ROS-Examples/blob/master/Beauty/data/ProfEvaltnsBeautyPublic.log">data code book</a> to identify the outcome variable and promising potential predictor variables. A number of variables have been dropped in the process of focusing down the dataset , as I thought these dropped variable were unlikely to important predictors of <code>course_evaluation</code> scores. This was a judgment based on my experiences of working in various universities over a decade or so.</p>
 <p>Due to the nature of the variable names in the dataset, automatically cleaning all variables names to make readable and easy to interpret was not possible. So, in the process of focusing down the dataset I renamed various variables to make them easier to remember, interpret and work with. I also reorder the variables to group them in a more logical order: an outcome variable, followed by potential predictors relating to the professor, and then potential predictors relating to the class.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="linear-regression-predicting-course-evaluation-scores.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># focus down on features in the dataset with a good potential to act as predictors</span></span>
-<span id="cb5-2"><a href="linear-regression-predicting-course-evaluation-scores.html#cb5-2" aria-hidden="true" tabindex="-1"></a>teaching_eval_focus <span class="ot">&lt;-</span> teaching_eval <span class="sc">%&gt;%</span></span>
-<span id="cb5-3"><a href="linear-regression-predicting-course-evaluation-scores.html#cb5-3" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb5-4"><a href="linear-regression-predicting-course-evaluation-scores.html#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
-<span id="cb5-5"><a href="linear-regression-predicting-course-evaluation-scores.html#cb5-5" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb5-6"><a href="linear-regression-predicting-course-evaluation-scores.html#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># select and rename outcome variable</span></span>
-<span id="cb5-7"><a href="linear-regression-predicting-course-evaluation-scores.html#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">course_evaluation =</span> courseevaluation,</span>
-<span id="cb5-8"><a href="linear-regression-predicting-course-evaluation-scores.html#cb5-8" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb5-9"><a href="linear-regression-predicting-course-evaluation-scores.html#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># select and rename potential predictor variables relating to the professor</span></span>
-<span id="cb5-10"><a href="linear-regression-predicting-course-evaluation-scores.html#cb5-10" aria-hidden="true" tabindex="-1"></a>    tenured<span class="sc">:</span>age,</span>
-<span id="cb5-11"><a href="linear-regression-predicting-course-evaluation-scores.html#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">prof_ave_rating =</span> profevaluation,</span>
-<span id="cb5-12"><a href="linear-regression-predicting-course-evaluation-scores.html#cb5-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">prof_ave_beauty_rating =</span> btystdave,</span>
-<span id="cb5-13"><a href="linear-regression-predicting-course-evaluation-scores.html#cb5-13" aria-hidden="true" tabindex="-1"></a>    female, formal, </span>
-<span id="cb5-14"><a href="linear-regression-predicting-course-evaluation-scores.html#cb5-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">non_native_english =</span> nonenglish,</span>
-<span id="cb5-15"><a href="linear-regression-predicting-course-evaluation-scores.html#cb5-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">tenure_track =</span> tenuretrack,</span>
-<span id="cb5-16"><a href="linear-regression-predicting-course-evaluation-scores.html#cb5-16" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb5-17"><a href="linear-regression-predicting-course-evaluation-scores.html#cb5-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># select and rename potential predictor relating relating to the course </span></span>
-<span id="cb5-18"><a href="linear-regression-predicting-course-evaluation-scores.html#cb5-18" aria-hidden="true" tabindex="-1"></a>    lower,</span>
-<span id="cb5-19"><a href="linear-regression-predicting-course-evaluation-scores.html#cb5-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">multiple_prof =</span> multipleclass,</span>
-<span id="cb5-20"><a href="linear-regression-predicting-course-evaluation-scores.html#cb5-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">one_credit =</span> onecredit,</span>
-<span id="cb5-21"><a href="linear-regression-predicting-course-evaluation-scores.html#cb5-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">eval_response_rate =</span> percentevaluating,</span>
-<span id="cb5-22"><a href="linear-regression-predicting-course-evaluation-scores.html#cb5-22" aria-hidden="true" tabindex="-1"></a>    students,</span>
-<span id="cb5-23"><a href="linear-regression-predicting-course-evaluation-scores.html#cb5-23" aria-hidden="true" tabindex="-1"></a>    class1<span class="sc">:</span>class30 <span class="co"># dummy variables</span></span>
-<span id="cb5-24"><a href="linear-regression-predicting-course-evaluation-scores.html#cb5-24" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb5-25"><a href="linear-regression-predicting-course-evaluation-scores.html#cb5-25" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
-<span id="cb5-26"><a href="linear-regression-predicting-course-evaluation-scores.html#cb5-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-27"><a href="linear-regression-predicting-course-evaluation-scores.html#cb5-27" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Move a potential indentifer variable to the front of the dataframe </span></span>
-<span id="cb5-28"><a href="linear-regression-predicting-course-evaluation-scores.html#cb5-28" aria-hidden="true" tabindex="-1"></a>  <span class="co"># and rename for consistency</span></span>
-<span id="cb5-29"><a href="linear-regression-predicting-course-evaluation-scores.html#cb5-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">prof_number =</span> profnumber)  <span class="sc">%&gt;%</span> </span>
-<span id="cb5-30"><a href="linear-regression-predicting-course-evaluation-scores.html#cb5-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(prof_number, <span class="at">.before =</span> course_evaluation)</span>
-<span id="cb5-31"><a href="linear-regression-predicting-course-evaluation-scores.html#cb5-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-32"><a href="linear-regression-predicting-course-evaluation-scores.html#cb5-32" aria-hidden="true" tabindex="-1"></a>teaching_eval_focus  </span></code></pre></div>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="linear-regression-predicting-course-evaluation-scores.html#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="co"># focus down on features in the dataset with a good potential to act as predictors</span></span>
+<span id="cb82-2"><a href="linear-regression-predicting-course-evaluation-scores.html#cb82-2" aria-hidden="true" tabindex="-1"></a>teaching_eval_focus <span class="ot">&lt;-</span> teaching_eval <span class="sc">%&gt;%</span></span>
+<span id="cb82-3"><a href="linear-regression-predicting-course-evaluation-scores.html#cb82-3" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb82-4"><a href="linear-regression-predicting-course-evaluation-scores.html#cb82-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
+<span id="cb82-5"><a href="linear-regression-predicting-course-evaluation-scores.html#cb82-5" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb82-6"><a href="linear-regression-predicting-course-evaluation-scores.html#cb82-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># select and rename outcome variable</span></span>
+<span id="cb82-7"><a href="linear-regression-predicting-course-evaluation-scores.html#cb82-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">course_evaluation =</span> courseevaluation,</span>
+<span id="cb82-8"><a href="linear-regression-predicting-course-evaluation-scores.html#cb82-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb82-9"><a href="linear-regression-predicting-course-evaluation-scores.html#cb82-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># select and rename potential predictor variables relating to the professor</span></span>
+<span id="cb82-10"><a href="linear-regression-predicting-course-evaluation-scores.html#cb82-10" aria-hidden="true" tabindex="-1"></a>    tenured<span class="sc">:</span>age,</span>
+<span id="cb82-11"><a href="linear-regression-predicting-course-evaluation-scores.html#cb82-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">prof_ave_rating =</span> profevaluation,</span>
+<span id="cb82-12"><a href="linear-regression-predicting-course-evaluation-scores.html#cb82-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">prof_ave_beauty_rating =</span> btystdave,</span>
+<span id="cb82-13"><a href="linear-regression-predicting-course-evaluation-scores.html#cb82-13" aria-hidden="true" tabindex="-1"></a>    female, formal, </span>
+<span id="cb82-14"><a href="linear-regression-predicting-course-evaluation-scores.html#cb82-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">non_native_english =</span> nonenglish,</span>
+<span id="cb82-15"><a href="linear-regression-predicting-course-evaluation-scores.html#cb82-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">tenure_track =</span> tenuretrack,</span>
+<span id="cb82-16"><a href="linear-regression-predicting-course-evaluation-scores.html#cb82-16" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb82-17"><a href="linear-regression-predicting-course-evaluation-scores.html#cb82-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># select and rename potential predictor relating relating to the course </span></span>
+<span id="cb82-18"><a href="linear-regression-predicting-course-evaluation-scores.html#cb82-18" aria-hidden="true" tabindex="-1"></a>    lower,</span>
+<span id="cb82-19"><a href="linear-regression-predicting-course-evaluation-scores.html#cb82-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">multiple_prof =</span> multipleclass,</span>
+<span id="cb82-20"><a href="linear-regression-predicting-course-evaluation-scores.html#cb82-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">one_credit =</span> onecredit,</span>
+<span id="cb82-21"><a href="linear-regression-predicting-course-evaluation-scores.html#cb82-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">eval_response_rate =</span> percentevaluating,</span>
+<span id="cb82-22"><a href="linear-regression-predicting-course-evaluation-scores.html#cb82-22" aria-hidden="true" tabindex="-1"></a>    students,</span>
+<span id="cb82-23"><a href="linear-regression-predicting-course-evaluation-scores.html#cb82-23" aria-hidden="true" tabindex="-1"></a>    class1<span class="sc">:</span>class30 <span class="co"># dummy variables</span></span>
+<span id="cb82-24"><a href="linear-regression-predicting-course-evaluation-scores.html#cb82-24" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb82-25"><a href="linear-regression-predicting-course-evaluation-scores.html#cb82-25" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb82-26"><a href="linear-regression-predicting-course-evaluation-scores.html#cb82-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-27"><a href="linear-regression-predicting-course-evaluation-scores.html#cb82-27" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Move a potential indentifer variable to the front of the dataframe </span></span>
+<span id="cb82-28"><a href="linear-regression-predicting-course-evaluation-scores.html#cb82-28" aria-hidden="true" tabindex="-1"></a>  <span class="co"># and rename for consistency</span></span>
+<span id="cb82-29"><a href="linear-regression-predicting-course-evaluation-scores.html#cb82-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">prof_number =</span> profnumber)  <span class="sc">%&gt;%</span> </span>
+<span id="cb82-30"><a href="linear-regression-predicting-course-evaluation-scores.html#cb82-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(prof_number, <span class="at">.before =</span> course_evaluation)</span>
+<span id="cb82-31"><a href="linear-regression-predicting-course-evaluation-scores.html#cb82-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-32"><a href="linear-regression-predicting-course-evaluation-scores.html#cb82-32" aria-hidden="true" tabindex="-1"></a>teaching_eval_focus  </span></code></pre></div>
 <pre><code>## # A tibble: 463 x 46
 ##    prof_number course_evaluation tenured minority   age prof_ave_rating
 ##          &lt;dbl&gt;             &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;           &lt;dbl&gt;
@@ -328,33 +366,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## #   class23 &lt;dbl&gt;, class24 &lt;dbl&gt;, class25 &lt;dbl&gt;, class26 &lt;dbl&gt;, class27 &lt;dbl&gt;,
 ## #   class28 &lt;dbl&gt;, class29 &lt;dbl&gt;, class30 &lt;dbl&gt;</code></pre>
 </div>
-<div id="checking-for-missing-values" class="section level3" number="2.1.2">
-<h3><span class="header-section-number">2.1.2</span> Checking for missing values</h3>
+<div id="checking-for-missing-values" class="section level3" number="4.1.2">
+<h3><span class="header-section-number">4.1.2</span> Checking for missing values</h3>
 <p>Next I checked for missing data. While importing the data I notice there were 30 dummy variables used to identify the class being evaluated. I wanted to look in a bit more detail at potential missing values across the dummy variables. So, first I removed the dummy variables and looked at all the other variables. From the missing values check below it looks like this dataset has already to processed as not <code>NA</code>s have been identified.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="linear-regression-predicting-course-evaluation-scores.html#cb7-1" aria-hidden="true" tabindex="-1"></a>visdat<span class="sc">::</span><span class="fu">vis_miss</span>(teaching_eval_focus <span class="sc">%&gt;%</span> </span>
-<span id="cb7-2"><a href="linear-regression-predicting-course-evaluation-scores.html#cb7-2" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">select</span>(<span class="sc">-</span><span class="fu">starts_with</span>(<span class="st">&quot;class&quot;</span>)))</span></code></pre></div>
-<p><img src="beauty_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="linear-regression-predicting-course-evaluation-scores.html#cb84-1" aria-hidden="true" tabindex="-1"></a>visdat<span class="sc">::</span><span class="fu">vis_miss</span>(teaching_eval_focus <span class="sc">%&gt;%</span> </span>
+<span id="cb84-2"><a href="linear-regression-predicting-course-evaluation-scores.html#cb84-2" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">select</span>(<span class="sc">-</span><span class="fu">starts_with</span>(<span class="st">&quot;class&quot;</span>)))</span></code></pre></div>
+<p><img src="03_beauty_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 <p>At first glance the there are no <code>NA</code>s identified for the dummy variables, for all pairs of observations of observations and dummy variables either a <code>1</code> or a <code>0</code> is recorded.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="linear-regression-predicting-course-evaluation-scores.html#cb8-1" aria-hidden="true" tabindex="-1"></a>visdat<span class="sc">::</span><span class="fu">vis_miss</span>(teaching_eval_focus <span class="sc">%&gt;%</span> </span>
-<span id="cb8-2"><a href="linear-regression-predicting-course-evaluation-scores.html#cb8-2" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">select</span>(<span class="fu">starts_with</span>(<span class="st">&quot;class&quot;</span>)))</span></code></pre></div>
-<p><img src="beauty_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="linear-regression-predicting-course-evaluation-scores.html#cb85-1" aria-hidden="true" tabindex="-1"></a>visdat<span class="sc">::</span><span class="fu">vis_miss</span>(teaching_eval_focus <span class="sc">%&gt;%</span> </span>
+<span id="cb85-2"><a href="linear-regression-predicting-course-evaluation-scores.html#cb85-2" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">select</span>(<span class="fu">starts_with</span>(<span class="st">&quot;class&quot;</span>)))</span></code></pre></div>
+<p><img src="03_beauty_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <p>However, if looking at these dummy variables in more detail it is clear that a lot of data is missing. By summing the all the dummy variables for a given observation, we can see if any classes are recorded for each observation. I would expect this to be <code>1</code> where a class is recorded and <code>0</code> where a class is not recorded. Hence, in this context a <code>0</code> actually corresponds to a missing value and in the plot below we can see that for approximately two thirds of observations a class is not recorded.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="linear-regression-predicting-course-evaluation-scores.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># check if each evaluation has a class (1-30) associated with it</span></span>
-<span id="cb9-2"><a href="linear-regression-predicting-course-evaluation-scores.html#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># by processing the dummy variables</span></span>
-<span id="cb9-3"><a href="linear-regression-predicting-course-evaluation-scores.html#cb9-3" aria-hidden="true" tabindex="-1"></a>dummy_var_row_sum <span class="ot">&lt;-</span> teaching_eval_focus <span class="sc">%&gt;%</span></span>
-<span id="cb9-4"><a href="linear-regression-predicting-course-evaluation-scores.html#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(class1<span class="sc">:</span>class30) <span class="sc">%&gt;%</span> </span>
-<span id="cb9-5"><a href="linear-regression-predicting-course-evaluation-scores.html#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowSums</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb9-6"><a href="linear-regression-predicting-course-evaluation-scores.html#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb9-7"><a href="linear-regression-predicting-course-evaluation-scores.html#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">class_indentified =</span> value) <span class="co"># not all evaluations have a class                                              # associated with them</span></span>
-<span id="cb9-8"><a href="linear-regression-predicting-course-evaluation-scores.html#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-9"><a href="linear-regression-predicting-course-evaluation-scores.html#cb9-9" aria-hidden="true" tabindex="-1"></a>visdat<span class="sc">::</span><span class="fu">vis_miss</span>(dummy_var_row_sum <span class="sc">%&gt;%</span> </span>
-<span id="cb9-10"><a href="linear-regression-predicting-course-evaluation-scores.html#cb9-10" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">na_if</span>(<span class="dv">0</span>))</span></code></pre></div>
-<p><img src="beauty_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="linear-regression-predicting-course-evaluation-scores.html#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="co"># check if each evaluation has a class (1-30) associated with it</span></span>
+<span id="cb86-2"><a href="linear-regression-predicting-course-evaluation-scores.html#cb86-2" aria-hidden="true" tabindex="-1"></a><span class="co"># by processing the dummy variables</span></span>
+<span id="cb86-3"><a href="linear-regression-predicting-course-evaluation-scores.html#cb86-3" aria-hidden="true" tabindex="-1"></a>dummy_var_row_sum <span class="ot">&lt;-</span> teaching_eval_focus <span class="sc">%&gt;%</span></span>
+<span id="cb86-4"><a href="linear-regression-predicting-course-evaluation-scores.html#cb86-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(class1<span class="sc">:</span>class30) <span class="sc">%&gt;%</span> </span>
+<span id="cb86-5"><a href="linear-regression-predicting-course-evaluation-scores.html#cb86-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowSums</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb86-6"><a href="linear-regression-predicting-course-evaluation-scores.html#cb86-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb86-7"><a href="linear-regression-predicting-course-evaluation-scores.html#cb86-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">class_indentified =</span> value) <span class="co"># not all evaluations have a class                                              # associated with them</span></span>
+<span id="cb86-8"><a href="linear-regression-predicting-course-evaluation-scores.html#cb86-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb86-9"><a href="linear-regression-predicting-course-evaluation-scores.html#cb86-9" aria-hidden="true" tabindex="-1"></a>visdat<span class="sc">::</span><span class="fu">vis_miss</span>(dummy_var_row_sum <span class="sc">%&gt;%</span> </span>
+<span id="cb86-10"><a href="linear-regression-predicting-course-evaluation-scores.html#cb86-10" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">na_if</span>(<span class="dv">0</span>))</span></code></pre></div>
+<p><img src="03_beauty_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 <p>Working with the dummy variables in the analysis and modeling below would entail dropping two thirds observations and <code>n</code> = 463. So, although I recognized the course identifier dummy variables as potentially important predictors of <code>course_evaluation</code> I dropped them from the analysis, rather than loose so many observations from the dataset.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="linear-regression-predicting-course-evaluation-scores.html#cb10-1" aria-hidden="true" tabindex="-1"></a>teaching_eval_clean <span class="ot">&lt;-</span> teaching_eval_focus <span class="sc">%&gt;%</span> </span>
-<span id="cb10-2"><a href="linear-regression-predicting-course-evaluation-scores.html#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">starts_with</span>(<span class="st">&quot;class&quot;</span>))</span>
-<span id="cb10-3"><a href="linear-regression-predicting-course-evaluation-scores.html#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-4"><a href="linear-regression-predicting-course-evaluation-scores.html#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(teaching_eval_clean)</span></code></pre></div>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="linear-regression-predicting-course-evaluation-scores.html#cb87-1" aria-hidden="true" tabindex="-1"></a>teaching_eval_clean <span class="ot">&lt;-</span> teaching_eval_focus <span class="sc">%&gt;%</span> </span>
+<span id="cb87-2"><a href="linear-regression-predicting-course-evaluation-scores.html#cb87-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">starts_with</span>(<span class="st">&quot;class&quot;</span>))</span>
+<span id="cb87-3"><a href="linear-regression-predicting-course-evaluation-scores.html#cb87-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb87-4"><a href="linear-regression-predicting-course-evaluation-scores.html#cb87-4" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(teaching_eval_clean)</span></code></pre></div>
 <pre><code>## Rows: 463
 ## Columns: 16
 ## $ prof_number            &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, ~
@@ -375,12 +413,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## $ students               &lt;dbl&gt; 43, 20, 55, 46, 48, 282, 41, 41, 60, 19, 25, 34~</code></pre>
 </div>
 </div>
-<div id="exploratory-data-analysis" class="section level2" number="2.2">
-<h2><span class="header-section-number">2.2</span> Exploratory data analysis</h2>
-<div id="the-response-variable" class="section level3" number="2.2.1">
-<h3><span class="header-section-number">2.2.1</span> The response variable</h3>
+<div id="exploratory-data-analysis-2" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> Exploratory data analysis</h2>
+<div id="the-response-variable" class="section level3" number="4.2.1">
+<h3><span class="header-section-number">4.2.1</span> The response variable</h3>
 <p>So, I started the exploratory data analysis quickly looking at summary statistics for <code>course_evaluation</code>, which is the response variable in this exercise. This first things I noted was that the both the mean and median <code>course_evaluation</code> score is 4, and the mini-histogram indicates a potential left skew of the data. So, it appears that the <code>course_evaluation</code> scores tend to be towards the higher end of the 5 point scale. I want to look at this in a little more detail, so moved on to plotting a full histogram.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="linear-regression-predicting-course-evaluation-scores.html#cb12-1" aria-hidden="true" tabindex="-1"></a>skimr<span class="sc">::</span><span class="fu">skim</span>(teaching_eval_clean, course_evaluation)</span></code></pre></div>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="linear-regression-predicting-course-evaluation-scores.html#cb89-1" aria-hidden="true" tabindex="-1"></a>skimr<span class="sc">::</span><span class="fu">skim</span>(teaching_eval_clean, course_evaluation)</span></code></pre></div>
 <p><strong>Variable type: numeric</strong></p>
 <table>
 <thead>
@@ -414,75 +452,75 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="linear-regression-predicting-course-evaluation-scores.html#cb13-1" aria-hidden="true" tabindex="-1"></a>num_evals <span class="ot">&lt;-</span> <span class="fu">nrow</span>(teaching_eval_clean)</span>
-<span id="cb13-2"><a href="linear-regression-predicting-course-evaluation-scores.html#cb13-2" aria-hidden="true" tabindex="-1"></a>num_evals_three_plus <span class="ot">&lt;-</span> <span class="fu">nrow</span>(</span>
-<span id="cb13-3"><a href="linear-regression-predicting-course-evaluation-scores.html#cb13-3" aria-hidden="true" tabindex="-1"></a>  teaching_eval_clean[teaching_eval_clean<span class="sc">$</span>course_evaluation <span class="sc">&gt;=</span> <span class="dv">3</span>,]</span>
-<span id="cb13-4"><a href="linear-regression-predicting-course-evaluation-scores.html#cb13-4" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb13-5"><a href="linear-regression-predicting-course-evaluation-scores.html#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-6"><a href="linear-regression-predicting-course-evaluation-scores.html#cb13-6" aria-hidden="true" tabindex="-1"></a>perc_evals_three_plus <span class="ot">&lt;-</span> <span class="fu">round</span>((num_evals_three_plus <span class="sc">/</span> num_evals) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">0</span>)</span>
-<span id="cb13-7"><a href="linear-regression-predicting-course-evaluation-scores.html#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-8"><a href="linear-regression-predicting-course-evaluation-scores.html#cb13-8" aria-hidden="true" tabindex="-1"></a>anno_text <span class="ot">&lt;-</span> glue<span class="sc">::</span><span class="fu">glue</span>(<span class="st">&quot;{perc_evals_three_plus}% of courses have</span></span>
-<span id="cb13-9"><a href="linear-regression-predicting-course-evaluation-scores.html#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="st">                        an average evaluation</span></span>
-<span id="cb13-10"><a href="linear-regression-predicting-course-evaluation-scores.html#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="st">                        score of 3 or above&quot;</span>)</span>
-<span id="cb13-11"><a href="linear-regression-predicting-course-evaluation-scores.html#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-12"><a href="linear-regression-predicting-course-evaluation-scores.html#cb13-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-13"><a href="linear-regression-predicting-course-evaluation-scores.html#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="co"># create plot base</span></span>
-<span id="cb13-14"><a href="linear-regression-predicting-course-evaluation-scores.html#cb13-14" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> teaching_eval_clean,</span>
-<span id="cb13-15"><a href="linear-regression-predicting-course-evaluation-scores.html#cb13-15" aria-hidden="true" tabindex="-1"></a>            <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> course_evaluation)) <span class="sc">+</span></span>
-<span id="cb13-16"><a href="linear-regression-predicting-course-evaluation-scores.html#cb13-16" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb13-17"><a href="linear-regression-predicting-course-evaluation-scores.html#cb13-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add a reference line</span></span>
-<span id="cb13-18"><a href="linear-regression-predicting-course-evaluation-scores.html#cb13-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">3</span>, <span class="at">colour =</span> <span class="st">&quot;grey70&quot;</span>, <span class="at">size =</span> <span class="fl">1.5</span>, <span class="at">linetype =</span> <span class="st">&quot;longdash&quot;</span>) <span class="sc">+</span></span>
-<span id="cb13-19"><a href="linear-regression-predicting-course-evaluation-scores.html#cb13-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_rect</span>(<span class="at">xmin =</span> <span class="dv">3</span>, <span class="at">xmax =</span> <span class="fl">5.05</span>, <span class="at">ymin =</span> <span class="dv">0</span> , <span class="at">ymax =</span> <span class="dv">40</span>, <span class="at">fill =</span> <span class="st">&quot;grey92&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.05</span>) <span class="sc">+</span></span>
-<span id="cb13-20"><a href="linear-regression-predicting-course-evaluation-scores.html#cb13-20" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb13-21"><a href="linear-regression-predicting-course-evaluation-scores.html#cb13-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add annotation</span></span>
-<span id="cb13-22"><a href="linear-regression-predicting-course-evaluation-scores.html#cb13-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_label</span>(<span class="at">x =</span> <span class="fl">3.2</span>, <span class="at">y =</span> <span class="dv">35</span>,</span>
-<span id="cb13-23"><a href="linear-regression-predicting-course-evaluation-scores.html#cb13-23" aria-hidden="true" tabindex="-1"></a>             <span class="at">label =</span> anno_text, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">colour =</span> <span class="st">&quot;grey20&quot;</span>) <span class="sc">+</span></span>
-<span id="cb13-24"><a href="linear-regression-predicting-course-evaluation-scores.html#cb13-24" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb13-25"><a href="linear-regression-predicting-course-evaluation-scores.html#cb13-25" aria-hidden="true" tabindex="-1"></a>  <span class="co"># create histogram with minimal styling</span></span>
-<span id="cb13-26"><a href="linear-regression-predicting-course-evaluation-scores.html#cb13-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_minimal_hist</span>(<span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">40</span>),</span>
-<span id="cb13-27"><a href="linear-regression-predicting-course-evaluation-scores.html#cb13-27" aria-hidden="true" tabindex="-1"></a>                    <span class="at">binwidth =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
-<span id="cb13-28"><a href="linear-regression-predicting-course-evaluation-scores.html#cb13-28" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb13-29"><a href="linear-regression-predicting-course-evaluation-scores.html#cb13-29" aria-hidden="true" tabindex="-1"></a>  <span class="co"># adjust x axis labels for readability</span></span>
-<span id="cb13-30"><a href="linear-regression-predicting-course-evaluation-scores.html#cb13-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">5</span>,<span class="fl">0.5</span>)) <span class="sc">+</span></span>
-<span id="cb13-31"><a href="linear-regression-predicting-course-evaluation-scores.html#cb13-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expand_limits</span>(<span class="at">x =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
-<span id="cb13-32"><a href="linear-regression-predicting-course-evaluation-scores.html#cb13-32" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb13-33"><a href="linear-regression-predicting-course-evaluation-scores.html#cb13-33" aria-hidden="true" tabindex="-1"></a>  <span class="co"># adjust y axis labels for readability</span></span>
-<span id="cb13-34"><a href="linear-regression-predicting-course-evaluation-scores.html#cb13-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">40</span>,<span class="dv">10</span>)) <span class="sc">+</span></span>
-<span id="cb13-35"><a href="linear-regression-predicting-course-evaluation-scores.html#cb13-35" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb13-36"><a href="linear-regression-predicting-course-evaluation-scores.html#cb13-36" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add plot labels</span></span>
-<span id="cb13-37"><a href="linear-regression-predicting-course-evaluation-scores.html#cb13-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Course evaluation scores tend to be towards</span><span class="sc">\n</span><span class="st">the top end of the five point scale</span><span class="sc">\n</span><span class="st">&quot;</span>,</span>
-<span id="cb13-38"><a href="linear-regression-predicting-course-evaluation-scores.html#cb13-38" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st">Average course evaluation score</span><span class="sc">\n</span><span class="st">(given by students)&quot;</span>,</span>
-<span id="cb13-39"><a href="linear-regression-predicting-course-evaluation-scores.html#cb13-39" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Number of courses</span><span class="sc">\n</span><span class="st">&quot;</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="linear-regression-predicting-course-evaluation-scores.html#cb90-1" aria-hidden="true" tabindex="-1"></a>num_evals <span class="ot">&lt;-</span> <span class="fu">nrow</span>(teaching_eval_clean)</span>
+<span id="cb90-2"><a href="linear-regression-predicting-course-evaluation-scores.html#cb90-2" aria-hidden="true" tabindex="-1"></a>num_evals_three_plus <span class="ot">&lt;-</span> <span class="fu">nrow</span>(</span>
+<span id="cb90-3"><a href="linear-regression-predicting-course-evaluation-scores.html#cb90-3" aria-hidden="true" tabindex="-1"></a>  teaching_eval_clean[teaching_eval_clean<span class="sc">$</span>course_evaluation <span class="sc">&gt;=</span> <span class="dv">3</span>,]</span>
+<span id="cb90-4"><a href="linear-regression-predicting-course-evaluation-scores.html#cb90-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb90-5"><a href="linear-regression-predicting-course-evaluation-scores.html#cb90-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb90-6"><a href="linear-regression-predicting-course-evaluation-scores.html#cb90-6" aria-hidden="true" tabindex="-1"></a>perc_evals_three_plus <span class="ot">&lt;-</span> <span class="fu">round</span>((num_evals_three_plus <span class="sc">/</span> num_evals) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">0</span>)</span>
+<span id="cb90-7"><a href="linear-regression-predicting-course-evaluation-scores.html#cb90-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb90-8"><a href="linear-regression-predicting-course-evaluation-scores.html#cb90-8" aria-hidden="true" tabindex="-1"></a>anno_text <span class="ot">&lt;-</span> glue<span class="sc">::</span><span class="fu">glue</span>(<span class="st">&quot;{perc_evals_three_plus}% of courses have</span></span>
+<span id="cb90-9"><a href="linear-regression-predicting-course-evaluation-scores.html#cb90-9" aria-hidden="true" tabindex="-1"></a><span class="st">                        an average evaluation</span></span>
+<span id="cb90-10"><a href="linear-regression-predicting-course-evaluation-scores.html#cb90-10" aria-hidden="true" tabindex="-1"></a><span class="st">                        score of 3 or above&quot;</span>)</span>
+<span id="cb90-11"><a href="linear-regression-predicting-course-evaluation-scores.html#cb90-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb90-12"><a href="linear-regression-predicting-course-evaluation-scores.html#cb90-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb90-13"><a href="linear-regression-predicting-course-evaluation-scores.html#cb90-13" aria-hidden="true" tabindex="-1"></a><span class="co"># create plot base</span></span>
+<span id="cb90-14"><a href="linear-regression-predicting-course-evaluation-scores.html#cb90-14" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> teaching_eval_clean,</span>
+<span id="cb90-15"><a href="linear-regression-predicting-course-evaluation-scores.html#cb90-15" aria-hidden="true" tabindex="-1"></a>            <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> course_evaluation)) <span class="sc">+</span></span>
+<span id="cb90-16"><a href="linear-regression-predicting-course-evaluation-scores.html#cb90-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb90-17"><a href="linear-regression-predicting-course-evaluation-scores.html#cb90-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add a reference line</span></span>
+<span id="cb90-18"><a href="linear-regression-predicting-course-evaluation-scores.html#cb90-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">3</span>, <span class="at">colour =</span> <span class="st">&quot;grey70&quot;</span>, <span class="at">size =</span> <span class="fl">1.5</span>, <span class="at">linetype =</span> <span class="st">&quot;longdash&quot;</span>) <span class="sc">+</span></span>
+<span id="cb90-19"><a href="linear-regression-predicting-course-evaluation-scores.html#cb90-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_rect</span>(<span class="at">xmin =</span> <span class="dv">3</span>, <span class="at">xmax =</span> <span class="fl">5.05</span>, <span class="at">ymin =</span> <span class="dv">0</span> , <span class="at">ymax =</span> <span class="dv">40</span>, <span class="at">fill =</span> <span class="st">&quot;grey92&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.05</span>) <span class="sc">+</span></span>
+<span id="cb90-20"><a href="linear-regression-predicting-course-evaluation-scores.html#cb90-20" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb90-21"><a href="linear-regression-predicting-course-evaluation-scores.html#cb90-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add annotation</span></span>
+<span id="cb90-22"><a href="linear-regression-predicting-course-evaluation-scores.html#cb90-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_label</span>(<span class="at">x =</span> <span class="fl">3.2</span>, <span class="at">y =</span> <span class="dv">35</span>,</span>
+<span id="cb90-23"><a href="linear-regression-predicting-course-evaluation-scores.html#cb90-23" aria-hidden="true" tabindex="-1"></a>             <span class="at">label =</span> anno_text, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">colour =</span> <span class="st">&quot;grey20&quot;</span>) <span class="sc">+</span></span>
+<span id="cb90-24"><a href="linear-regression-predicting-course-evaluation-scores.html#cb90-24" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb90-25"><a href="linear-regression-predicting-course-evaluation-scores.html#cb90-25" aria-hidden="true" tabindex="-1"></a>  <span class="co"># create histogram with minimal styling</span></span>
+<span id="cb90-26"><a href="linear-regression-predicting-course-evaluation-scores.html#cb90-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_minimal_hist</span>(<span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">40</span>),</span>
+<span id="cb90-27"><a href="linear-regression-predicting-course-evaluation-scores.html#cb90-27" aria-hidden="true" tabindex="-1"></a>                    <span class="at">binwidth =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
+<span id="cb90-28"><a href="linear-regression-predicting-course-evaluation-scores.html#cb90-28" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb90-29"><a href="linear-regression-predicting-course-evaluation-scores.html#cb90-29" aria-hidden="true" tabindex="-1"></a>  <span class="co"># adjust x axis labels for readability</span></span>
+<span id="cb90-30"><a href="linear-regression-predicting-course-evaluation-scores.html#cb90-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">5</span>,<span class="fl">0.5</span>)) <span class="sc">+</span></span>
+<span id="cb90-31"><a href="linear-regression-predicting-course-evaluation-scores.html#cb90-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expand_limits</span>(<span class="at">x =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb90-32"><a href="linear-regression-predicting-course-evaluation-scores.html#cb90-32" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb90-33"><a href="linear-regression-predicting-course-evaluation-scores.html#cb90-33" aria-hidden="true" tabindex="-1"></a>  <span class="co"># adjust y axis labels for readability</span></span>
+<span id="cb90-34"><a href="linear-regression-predicting-course-evaluation-scores.html#cb90-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">40</span>,<span class="dv">10</span>)) <span class="sc">+</span></span>
+<span id="cb90-35"><a href="linear-regression-predicting-course-evaluation-scores.html#cb90-35" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb90-36"><a href="linear-regression-predicting-course-evaluation-scores.html#cb90-36" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add plot labels</span></span>
+<span id="cb90-37"><a href="linear-regression-predicting-course-evaluation-scores.html#cb90-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Course evaluation scores tend to be towards</span><span class="sc">\n</span><span class="st">the top end of the five point scale</span><span class="sc">\n</span><span class="st">&quot;</span>,</span>
+<span id="cb90-38"><a href="linear-regression-predicting-course-evaluation-scores.html#cb90-38" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st">Average course evaluation score</span><span class="sc">\n</span><span class="st">(given by students)&quot;</span>,</span>
+<span id="cb90-39"><a href="linear-regression-predicting-course-evaluation-scores.html#cb90-39" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Number of courses</span><span class="sc">\n</span><span class="st">&quot;</span>) </span></code></pre></div>
 <p>So, it full plot there is some indication of left skew, in the form of the longer tail to the left of the plot. Also, evident is the fact there is a hard limit (of 5) on the maximum <code>course_evaluation</code> score, which accentuates the impression of the skew.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="linear-regression-predicting-course-evaluation-scores.html#cb14-1" aria-hidden="true" tabindex="-1"></a>p</span></code></pre></div>
-<p><img src="beauty_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="linear-regression-predicting-course-evaluation-scores.html#cb91-1" aria-hidden="true" tabindex="-1"></a>p</span></code></pre></div>
+<p><img src="03_beauty_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 <p>So, I took a quick look at <code>course_evaluation</code> centered around the mean. This looks like a close enough approximation to the normal distribution to me. So, ahead of modeling I don’t need to think about transforming <code>course_evaluation</code> scores to address the limited amount of skew evident in the plot. However, it might be worth centering the <code>course_evaluation</code> scores as this might help make the regression coefficients easier to interpret. But I’ll come back to that later on.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="linear-regression-predicting-course-evaluation-scores.html#cb15-1" aria-hidden="true" tabindex="-1"></a>course_evaluation_mean <span class="ot">=</span> <span class="fu">mean</span>(teaching_eval_clean<span class="sc">$</span>course_evaluation)</span>
-<span id="cb15-2"><a href="linear-regression-predicting-course-evaluation-scores.html#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-3"><a href="linear-regression-predicting-course-evaluation-scores.html#cb15-3" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> teaching_eval_clean,</span>
-<span id="cb15-4"><a href="linear-regression-predicting-course-evaluation-scores.html#cb15-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> course_evaluation <span class="sc">-</span> course_evaluation_mean)) <span class="sc">+</span></span>
-<span id="cb15-5"><a href="linear-regression-predicting-course-evaluation-scores.html#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_minimal_hist</span>(<span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">40</span>),</span>
-<span id="cb15-6"><a href="linear-regression-predicting-course-evaluation-scores.html#cb15-6" aria-hidden="true" tabindex="-1"></a>                    <span class="at">binwidth =</span> <span class="fl">0.1</span>)</span>
-<span id="cb15-7"><a href="linear-regression-predicting-course-evaluation-scores.html#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-8"><a href="linear-regression-predicting-course-evaluation-scores.html#cb15-8" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span></span>
-<span id="cb15-9"><a href="linear-regression-predicting-course-evaluation-scores.html#cb15-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Centering course evaluation scores makes it</span><span class="sc">\n</span><span class="st">easier to see the extent of skew</span><span class="sc">\n</span><span class="st">&quot;</span>,</span>
-<span id="cb15-10"><a href="linear-regression-predicting-course-evaluation-scores.html#cb15-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st">Centred average course evaluation score&quot;</span>,</span>
-<span id="cb15-11"><a href="linear-regression-predicting-course-evaluation-scores.html#cb15-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Number of courses</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
-<p><img src="beauty_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="linear-regression-predicting-course-evaluation-scores.html#cb92-1" aria-hidden="true" tabindex="-1"></a>course_evaluation_mean <span class="ot">=</span> <span class="fu">mean</span>(teaching_eval_clean<span class="sc">$</span>course_evaluation)</span>
+<span id="cb92-2"><a href="linear-regression-predicting-course-evaluation-scores.html#cb92-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb92-3"><a href="linear-regression-predicting-course-evaluation-scores.html#cb92-3" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> teaching_eval_clean,</span>
+<span id="cb92-4"><a href="linear-regression-predicting-course-evaluation-scores.html#cb92-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> course_evaluation <span class="sc">-</span> course_evaluation_mean)) <span class="sc">+</span></span>
+<span id="cb92-5"><a href="linear-regression-predicting-course-evaluation-scores.html#cb92-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_minimal_hist</span>(<span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">40</span>),</span>
+<span id="cb92-6"><a href="linear-regression-predicting-course-evaluation-scores.html#cb92-6" aria-hidden="true" tabindex="-1"></a>                    <span class="at">binwidth =</span> <span class="fl">0.1</span>)</span>
+<span id="cb92-7"><a href="linear-regression-predicting-course-evaluation-scores.html#cb92-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb92-8"><a href="linear-regression-predicting-course-evaluation-scores.html#cb92-8" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span></span>
+<span id="cb92-9"><a href="linear-regression-predicting-course-evaluation-scores.html#cb92-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Centering course evaluation scores makes it</span><span class="sc">\n</span><span class="st">easier to see the extent of skew</span><span class="sc">\n</span><span class="st">&quot;</span>,</span>
+<span id="cb92-10"><a href="linear-regression-predicting-course-evaluation-scores.html#cb92-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st">Centred average course evaluation score&quot;</span>,</span>
+<span id="cb92-11"><a href="linear-regression-predicting-course-evaluation-scores.html#cb92-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Number of courses</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<p><img src="03_beauty_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 </div>
-<div id="potential-explanatory-variables" class="section level3" number="2.2.2">
-<h3><span class="header-section-number">2.2.2</span> Potential explanatory variables</h3>
+<div id="potential-explanatory-variables" class="section level3" number="4.2.2">
+<h3><span class="header-section-number">4.2.2</span> Potential explanatory variables</h3>
 <p>So, I moved on to looking at the potential explanatory variables within the dataset. Remembering that when I imported the data I had thought about the potential explanatory variables as belonging to two distinct groups: (1) Professor related variables; and, (2) course related variables. So, below I take at look at these two groups of variables in turn.</p>
-<div id="professor-related-explanatory-variables" class="section level4" number="2.2.2.1">
-<h4><span class="header-section-number">2.2.2.1</span> Professor related explanatory variables</h4>
+<div id="professor-related-explanatory-variables" class="section level4" number="4.2.2.1">
+<h4><span class="header-section-number">4.2.2.1</span> Professor related explanatory variables</h4>
 <p>The first thing I noticed when looking at the summary statistics for the Professor related variables was that all the variables are numeric. But that there is categorical data present which has already coded as binary variables. So, I decided to split the variables again into groups of binary variables and continuous variables, before looking at the data in more detail.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="linear-regression-predicting-course-evaluation-scores.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># focus on variables relating to professors</span></span>
-<span id="cb16-2"><a href="linear-regression-predicting-course-evaluation-scores.html#cb16-2" aria-hidden="true" tabindex="-1"></a>explanatory_variables_prof <span class="ot">&lt;-</span> teaching_eval_clean <span class="sc">%&gt;%</span> </span>
-<span id="cb16-3"><a href="linear-regression-predicting-course-evaluation-scores.html#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(prof_number, tenured<span class="sc">:</span>tenure_track)</span>
-<span id="cb16-4"><a href="linear-regression-predicting-course-evaluation-scores.html#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-5"><a href="linear-regression-predicting-course-evaluation-scores.html#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co"># produce summary statistics</span></span>
-<span id="cb16-6"><a href="linear-regression-predicting-course-evaluation-scores.html#cb16-6" aria-hidden="true" tabindex="-1"></a>skimr<span class="sc">::</span><span class="fu">skim</span>(explanatory_variables_prof <span class="sc">%&gt;%</span> </span>
-<span id="cb16-7"><a href="linear-regression-predicting-course-evaluation-scores.html#cb16-7" aria-hidden="true" tabindex="-1"></a>              <span class="fu">select</span>(<span class="sc">-</span>prof_number)) <span class="co"># no need to include identifer variable</span></span></code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="linear-regression-predicting-course-evaluation-scores.html#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="co"># focus on variables relating to professors</span></span>
+<span id="cb93-2"><a href="linear-regression-predicting-course-evaluation-scores.html#cb93-2" aria-hidden="true" tabindex="-1"></a>explanatory_variables_prof <span class="ot">&lt;-</span> teaching_eval_clean <span class="sc">%&gt;%</span> </span>
+<span id="cb93-3"><a href="linear-regression-predicting-course-evaluation-scores.html#cb93-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(prof_number, tenured<span class="sc">:</span>tenure_track)</span>
+<span id="cb93-4"><a href="linear-regression-predicting-course-evaluation-scores.html#cb93-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb93-5"><a href="linear-regression-predicting-course-evaluation-scores.html#cb93-5" aria-hidden="true" tabindex="-1"></a><span class="co"># produce summary statistics</span></span>
+<span id="cb93-6"><a href="linear-regression-predicting-course-evaluation-scores.html#cb93-6" aria-hidden="true" tabindex="-1"></a>skimr<span class="sc">::</span><span class="fu">skim</span>(explanatory_variables_prof <span class="sc">%&gt;%</span> </span>
+<span id="cb93-7"><a href="linear-regression-predicting-course-evaluation-scores.html#cb93-7" aria-hidden="true" tabindex="-1"></a>              <span class="fu">select</span>(<span class="sc">-</span>prof_number)) <span class="co"># no need to include identifer variable</span></span></code></pre></div>
 <p><strong>Variable type: numeric</strong></p>
 <table>
 <thead>
@@ -621,25 +659,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 <p>To do this I wrote a quick function to identify binary variables within the dataset.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="linear-regression-predicting-course-evaluation-scores.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; Checks if a column is a binary variable </span></span>
-<span id="cb17-2"><a href="linear-regression-predicting-course-evaluation-scores.html#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; i.e. checks if a column only contains zeros and ones</span></span>
-<span id="cb17-3"><a href="linear-regression-predicting-course-evaluation-scores.html#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;</span></span>
-<span id="cb17-4"><a href="linear-regression-predicting-course-evaluation-scores.html#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @param col: A column of dataframe passed by a TidyVerse function</span></span>
-<span id="cb17-5"><a href="linear-regression-predicting-course-evaluation-scores.html#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;</span></span>
-<span id="cb17-6"><a href="linear-regression-predicting-course-evaluation-scores.html#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @return: A boolean</span></span>
-<span id="cb17-7"><a href="linear-regression-predicting-course-evaluation-scores.html#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-8"><a href="linear-regression-predicting-course-evaluation-scores.html#cb17-8" aria-hidden="true" tabindex="-1"></a>is_binary_var <span class="ot">&lt;-</span> <span class="cf">function</span>(col){</span>
-<span id="cb17-9"><a href="linear-regression-predicting-course-evaluation-scores.html#cb17-9" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb17-10"><a href="linear-regression-predicting-course-evaluation-scores.html#cb17-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># identify unique entries in column</span></span>
-<span id="cb17-11"><a href="linear-regression-predicting-course-evaluation-scores.html#cb17-11" aria-hidden="true" tabindex="-1"></a>  u <span class="ot">&lt;-</span> col <span class="sc">%&gt;%</span> </span>
-<span id="cb17-12"><a href="linear-regression-predicting-course-evaluation-scores.html#cb17-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unique</span>()</span>
-<span id="cb17-13"><a href="linear-regression-predicting-course-evaluation-scores.html#cb17-13" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb17-14"><a href="linear-regression-predicting-course-evaluation-scores.html#cb17-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># check if only 0s and 1s a are within the column and return as appropriate</span></span>
-<span id="cb17-15"><a href="linear-regression-predicting-course-evaluation-scores.html#cb17-15" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">identical</span>(<span class="fu">sort</span>(u), <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))) <span class="fu">return</span>(<span class="cn">TRUE</span>)</span>
-<span id="cb17-16"><a href="linear-regression-predicting-course-evaluation-scores.html#cb17-16" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> <span class="fu">return</span>(<span class="cn">FALSE</span>)</span>
-<span id="cb17-17"><a href="linear-regression-predicting-course-evaluation-scores.html#cb17-17" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<div id="continuous-variables" class="section level5" number="2.2.2.1.1">
-<h5><span class="header-section-number">2.2.2.1.1</span> Continuous variables</h5>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="linear-regression-predicting-course-evaluation-scores.html#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; Checks if a column is a binary variable </span></span>
+<span id="cb94-2"><a href="linear-regression-predicting-course-evaluation-scores.html#cb94-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; i.e. checks if a column only contains zeros and ones</span></span>
+<span id="cb94-3"><a href="linear-regression-predicting-course-evaluation-scores.html#cb94-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;</span></span>
+<span id="cb94-4"><a href="linear-regression-predicting-course-evaluation-scores.html#cb94-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @param col: A column of dataframe passed by a TidyVerse function</span></span>
+<span id="cb94-5"><a href="linear-regression-predicting-course-evaluation-scores.html#cb94-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;</span></span>
+<span id="cb94-6"><a href="linear-regression-predicting-course-evaluation-scores.html#cb94-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @return: A boolean</span></span>
+<span id="cb94-7"><a href="linear-regression-predicting-course-evaluation-scores.html#cb94-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb94-8"><a href="linear-regression-predicting-course-evaluation-scores.html#cb94-8" aria-hidden="true" tabindex="-1"></a>is_binary_var <span class="ot">&lt;-</span> <span class="cf">function</span>(col){</span>
+<span id="cb94-9"><a href="linear-regression-predicting-course-evaluation-scores.html#cb94-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb94-10"><a href="linear-regression-predicting-course-evaluation-scores.html#cb94-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># identify unique entries in column</span></span>
+<span id="cb94-11"><a href="linear-regression-predicting-course-evaluation-scores.html#cb94-11" aria-hidden="true" tabindex="-1"></a>  u <span class="ot">&lt;-</span> col <span class="sc">%&gt;%</span> </span>
+<span id="cb94-12"><a href="linear-regression-predicting-course-evaluation-scores.html#cb94-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unique</span>()</span>
+<span id="cb94-13"><a href="linear-regression-predicting-course-evaluation-scores.html#cb94-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb94-14"><a href="linear-regression-predicting-course-evaluation-scores.html#cb94-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># check if only 0s and 1s a are within the column and return as appropriate</span></span>
+<span id="cb94-15"><a href="linear-regression-predicting-course-evaluation-scores.html#cb94-15" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">identical</span>(<span class="fu">sort</span>(u), <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))) <span class="fu">return</span>(<span class="cn">TRUE</span>)</span>
+<span id="cb94-16"><a href="linear-regression-predicting-course-evaluation-scores.html#cb94-16" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> <span class="fu">return</span>(<span class="cn">FALSE</span>)</span>
+<span id="cb94-17"><a href="linear-regression-predicting-course-evaluation-scores.html#cb94-17" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div id="continuous-variables" class="section level5" number="4.2.2.1.1">
+<h5><span class="header-section-number">4.2.2.1.1</span> Continuous variables</h5>
 <p>There are only three continuous variables relating to Professors:</p>
 <ul>
 <li><p>the average rating given by students to each Professor teaching the course (<code>prof_ave_rating</code>);</p></li>
@@ -647,13 +685,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>and, <code>age</code>.</p></li>
 </ul>
 <p>Immediately below are the summary statistics for each of the three variables. I then take a more detailed look at each one of these variables in turn.</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="linear-regression-predicting-course-evaluation-scores.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># identify continous variables within the dataset</span></span>
-<span id="cb18-2"><a href="linear-regression-predicting-course-evaluation-scores.html#cb18-2" aria-hidden="true" tabindex="-1"></a>explanatory_variables_prof_cont <span class="ot">&lt;-</span> explanatory_variables_prof <span class="sc">%&gt;%</span> </span>
-<span id="cb18-3"><a href="linear-regression-predicting-course-evaluation-scores.html#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">where</span>(<span class="sc">~!</span><span class="fu">is_binary_var</span>(.))) </span>
-<span id="cb18-4"><a href="linear-regression-predicting-course-evaluation-scores.html#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-5"><a href="linear-regression-predicting-course-evaluation-scores.html#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co"># show summary statistics</span></span>
-<span id="cb18-6"><a href="linear-regression-predicting-course-evaluation-scores.html#cb18-6" aria-hidden="true" tabindex="-1"></a>skimr<span class="sc">::</span><span class="fu">skim</span>(explanatory_variables_prof_cont <span class="sc">%&gt;%</span> </span>
-<span id="cb18-7"><a href="linear-regression-predicting-course-evaluation-scores.html#cb18-7" aria-hidden="true" tabindex="-1"></a>              <span class="fu">select</span>(<span class="sc">-</span>prof_number))</span></code></pre></div>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="linear-regression-predicting-course-evaluation-scores.html#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="co"># identify continous variables within the dataset</span></span>
+<span id="cb95-2"><a href="linear-regression-predicting-course-evaluation-scores.html#cb95-2" aria-hidden="true" tabindex="-1"></a>explanatory_variables_prof_cont <span class="ot">&lt;-</span> explanatory_variables_prof <span class="sc">%&gt;%</span> </span>
+<span id="cb95-3"><a href="linear-regression-predicting-course-evaluation-scores.html#cb95-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">where</span>(<span class="sc">~!</span><span class="fu">is_binary_var</span>(.))) </span>
+<span id="cb95-4"><a href="linear-regression-predicting-course-evaluation-scores.html#cb95-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-5"><a href="linear-regression-predicting-course-evaluation-scores.html#cb95-5" aria-hidden="true" tabindex="-1"></a><span class="co"># show summary statistics</span></span>
+<span id="cb95-6"><a href="linear-regression-predicting-course-evaluation-scores.html#cb95-6" aria-hidden="true" tabindex="-1"></a>skimr<span class="sc">::</span><span class="fu">skim</span>(explanatory_variables_prof_cont <span class="sc">%&gt;%</span> </span>
+<span id="cb95-7"><a href="linear-regression-predicting-course-evaluation-scores.html#cb95-7" aria-hidden="true" tabindex="-1"></a>              <span class="fu">select</span>(<span class="sc">-</span>prof_number))</span></code></pre></div>
 <p><strong>Variable type: numeric</strong></p>
 <table>
 <thead>
@@ -714,144 +752,144 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 <p>At first glance the distribution of <code>prof_ave_rating</code> is very similar to the distribution of the response variable (<code>course_evaluation)</code> .</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="linear-regression-predicting-course-evaluation-scores.html#cb19-1" aria-hidden="true" tabindex="-1"></a>plot_title <span class="ot">&lt;-</span> <span class="st">&quot;(Similarly to course evaluation scores)</span><span class="sc">\n</span><span class="st">Professor rating tends to be towards the upper end of the five point scale</span><span class="sc">\n</span><span class="st">&quot;</span></span>
-<span id="cb19-2"><a href="linear-regression-predicting-course-evaluation-scores.html#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-3"><a href="linear-regression-predicting-course-evaluation-scores.html#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> explanatory_variables_prof_cont,</span>
-<span id="cb19-4"><a href="linear-regression-predicting-course-evaluation-scores.html#cb19-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> prof_ave_rating)) <span class="sc">+</span></span>
-<span id="cb19-5"><a href="linear-regression-predicting-course-evaluation-scores.html#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_minimal_hist</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">45</span>), <span class="at">binwidth =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
-<span id="cb19-6"><a href="linear-regression-predicting-course-evaluation-scores.html#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expand_limits</span>(<span class="at">x =</span> <span class="dv">0</span>)<span class="sc">+</span></span>
-<span id="cb19-7"><a href="linear-regression-predicting-course-evaluation-scores.html#cb19-7" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb19-8"><a href="linear-regression-predicting-course-evaluation-scores.html#cb19-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> plot_title,</span>
-<span id="cb19-9"><a href="linear-regression-predicting-course-evaluation-scores.html#cb19-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Professor rating&quot;</span>,</span>
-<span id="cb19-10"><a href="linear-regression-predicting-course-evaluation-scores.html#cb19-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Number of ratings</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
-<p><img src="beauty_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="linear-regression-predicting-course-evaluation-scores.html#cb96-1" aria-hidden="true" tabindex="-1"></a>plot_title <span class="ot">&lt;-</span> <span class="st">&quot;(Similarly to course evaluation scores)</span><span class="sc">\n</span><span class="st">Professor rating tends to be towards the upper end of the five point scale</span><span class="sc">\n</span><span class="st">&quot;</span></span>
+<span id="cb96-2"><a href="linear-regression-predicting-course-evaluation-scores.html#cb96-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb96-3"><a href="linear-regression-predicting-course-evaluation-scores.html#cb96-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> explanatory_variables_prof_cont,</span>
+<span id="cb96-4"><a href="linear-regression-predicting-course-evaluation-scores.html#cb96-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> prof_ave_rating)) <span class="sc">+</span></span>
+<span id="cb96-5"><a href="linear-regression-predicting-course-evaluation-scores.html#cb96-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_minimal_hist</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">45</span>), <span class="at">binwidth =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
+<span id="cb96-6"><a href="linear-regression-predicting-course-evaluation-scores.html#cb96-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expand_limits</span>(<span class="at">x =</span> <span class="dv">0</span>)<span class="sc">+</span></span>
+<span id="cb96-7"><a href="linear-regression-predicting-course-evaluation-scores.html#cb96-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb96-8"><a href="linear-regression-predicting-course-evaluation-scores.html#cb96-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> plot_title,</span>
+<span id="cb96-9"><a href="linear-regression-predicting-course-evaluation-scores.html#cb96-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Professor rating&quot;</span>,</span>
+<span id="cb96-10"><a href="linear-regression-predicting-course-evaluation-scores.html#cb96-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Number of ratings</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<p><img src="03_beauty_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 <p>The plot below compares <code>course_evaluation</code> and <code>prof_ave_rating</code> at each observation in the dataset. This shows that for a given course-professor pair the <code>prof_ave_rating</code> tends to be higher than the <code>course_evaluation</code> score.</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="linear-regression-predicting-course-evaluation-scores.html#cb20-1" aria-hidden="true" tabindex="-1"></a>teaching_eval_clean <span class="sc">%&gt;%</span> </span>
-<span id="cb20-2"><a href="linear-regression-predicting-course-evaluation-scores.html#cb20-2" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb20-3"><a href="linear-regression-predicting-course-evaluation-scores.html#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># focus on the two variables to be comparted for each observation</span></span>
-<span id="cb20-4"><a href="linear-regression-predicting-course-evaluation-scores.html#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(course_evaluation, prof_ave_rating) <span class="sc">%&gt;%</span> </span>
-<span id="cb20-5"><a href="linear-regression-predicting-course-evaluation-scores.html#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(prof_ave_rating) <span class="sc">%&gt;%</span> </span>
-<span id="cb20-6"><a href="linear-regression-predicting-course-evaluation-scores.html#cb20-6" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb20-7"><a href="linear-regression-predicting-course-evaluation-scores.html#cb20-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># put the data in a long format for plotting</span></span>
-<span id="cb20-8"><a href="linear-regression-predicting-course-evaluation-scores.html#cb20-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(.), <span class="at">.before =</span> course_evaluation) <span class="sc">%&gt;%</span> </span>
-<span id="cb20-9"><a href="linear-regression-predicting-course-evaluation-scores.html#cb20-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(course_evaluation, prof_ave_rating),</span>
-<span id="cb20-10"><a href="linear-regression-predicting-course-evaluation-scores.html#cb20-10" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;score_type&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;score&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb20-11"><a href="linear-regression-predicting-course-evaluation-scores.html#cb20-11" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb20-12"><a href="linear-regression-predicting-course-evaluation-scores.html#cb20-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># create plot base</span></span>
-<span id="cb20-13"><a href="linear-regression-predicting-course-evaluation-scores.html#cb20-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> score, <span class="at">y =</span> id)) <span class="sc">+</span></span>
-<span id="cb20-14"><a href="linear-regression-predicting-course-evaluation-scores.html#cb20-14" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb20-15"><a href="linear-regression-predicting-course-evaluation-scores.html#cb20-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add points for prof rating and course evaluation</span></span>
-<span id="cb20-16"><a href="linear-regression-predicting-course-evaluation-scores.html#cb20-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># and connect each pair of points with a line</span></span>
-<span id="cb20-17"><a href="linear-regression-predicting-course-evaluation-scores.html#cb20-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> id), <span class="at">colour =</span> <span class="st">&quot;grey50&quot;</span>) <span class="sc">+</span></span>
-<span id="cb20-18"><a href="linear-regression-predicting-course-evaluation-scores.html#cb20-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> score_type)) <span class="sc">+</span> </span>
-<span id="cb20-19"><a href="linear-regression-predicting-course-evaluation-scores.html#cb20-19" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb20-20"><a href="linear-regression-predicting-course-evaluation-scores.html#cb20-20" aria-hidden="true" tabindex="-1"></a>  <span class="co"># show full x axis</span></span>
-<span id="cb20-21"><a href="linear-regression-predicting-course-evaluation-scores.html#cb20-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expand_limits</span>(<span class="at">x =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
-<span id="cb20-22"><a href="linear-regression-predicting-course-evaluation-scores.html#cb20-22" aria-hidden="true" tabindex="-1"></a>  <span class="co"># remove gap between x axis and plot</span></span>
-<span id="cb20-23"><a href="linear-regression-predicting-course-evaluation-scores.html#cb20-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">nrow</span>(teaching_eval_clean)<span class="sc">+</span><span class="dv">5</span>),</span>
-<span id="cb20-24"><a href="linear-regression-predicting-course-evaluation-scores.html#cb20-24" aria-hidden="true" tabindex="-1"></a>                  <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">5.1</span>),</span>
-<span id="cb20-25"><a href="linear-regression-predicting-course-evaluation-scores.html#cb20-25" aria-hidden="true" tabindex="-1"></a>                  <span class="at">expand =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb20-26"><a href="linear-regression-predicting-course-evaluation-scores.html#cb20-26" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb20-27"><a href="linear-regression-predicting-course-evaluation-scores.html#cb20-27" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add plot labels</span></span>
-<span id="cb20-28"><a href="linear-regression-predicting-course-evaluation-scores.html#cb20-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;But Professor ratings tend to be higher than course evaluation scores&quot;</span>,</span>
-<span id="cb20-29"><a href="linear-regression-predicting-course-evaluation-scores.html#cb20-29" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Both are on the same five point scale</span><span class="sc">\n</span><span class="st">&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb20-30"><a href="linear-regression-predicting-course-evaluation-scores.html#cb20-30" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb20-31"><a href="linear-regression-predicting-course-evaluation-scores.html#cb20-31" aria-hidden="true" tabindex="-1"></a>  <span class="co"># format legend to remove clutter</span></span>
-<span id="cb20-32"><a href="linear-regression-predicting-course-evaluation-scores.html#cb20-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Set1&quot;</span>,</span>
-<span id="cb20-33"><a href="linear-regression-predicting-course-evaluation-scores.html#cb20-33" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Course evaluation score&quot;</span>,</span>
-<span id="cb20-34"><a href="linear-regression-predicting-course-evaluation-scores.html#cb20-34" aria-hidden="true" tabindex="-1"></a>                                  <span class="st">&quot;Professor rating&quot;</span>)) <span class="sc">+</span></span>
-<span id="cb20-35"><a href="linear-regression-predicting-course-evaluation-scores.html#cb20-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">colour =</span> <span class="fu">guide_legend</span>(<span class="at">title =</span> <span class="cn">NULL</span>)) <span class="sc">+</span></span>
-<span id="cb20-36"><a href="linear-regression-predicting-course-evaluation-scores.html#cb20-36" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb20-37"><a href="linear-regression-predicting-course-evaluation-scores.html#cb20-37" aria-hidden="true" tabindex="-1"></a>  <span class="co"># adjust theme to remove clutter</span></span>
-<span id="cb20-38"><a href="linear-regression-predicting-course-evaluation-scores.html#cb20-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">remove_all_grid_lines</span>() <span class="sc">+</span></span>
-<span id="cb20-39"><a href="linear-regression-predicting-course-evaluation-scores.html#cb20-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title.y  =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb20-40"><a href="linear-regression-predicting-course-evaluation-scores.html#cb20-40" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb20-41"><a href="linear-regression-predicting-course-evaluation-scores.html#cb20-41" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.line.y =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb20-42"><a href="linear-regression-predicting-course-evaluation-scores.html#cb20-42" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">&quot;top&quot;</span>,</span>
-<span id="cb20-43"><a href="linear-regression-predicting-course-evaluation-scores.html#cb20-43" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>))</span></code></pre></div>
-<p><img src="beauty_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="linear-regression-predicting-course-evaluation-scores.html#cb97-1" aria-hidden="true" tabindex="-1"></a>teaching_eval_clean <span class="sc">%&gt;%</span> </span>
+<span id="cb97-2"><a href="linear-regression-predicting-course-evaluation-scores.html#cb97-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb97-3"><a href="linear-regression-predicting-course-evaluation-scores.html#cb97-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># focus on the two variables to be comparted for each observation</span></span>
+<span id="cb97-4"><a href="linear-regression-predicting-course-evaluation-scores.html#cb97-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(course_evaluation, prof_ave_rating) <span class="sc">%&gt;%</span> </span>
+<span id="cb97-5"><a href="linear-regression-predicting-course-evaluation-scores.html#cb97-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(prof_ave_rating) <span class="sc">%&gt;%</span> </span>
+<span id="cb97-6"><a href="linear-regression-predicting-course-evaluation-scores.html#cb97-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb97-7"><a href="linear-regression-predicting-course-evaluation-scores.html#cb97-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># put the data in a long format for plotting</span></span>
+<span id="cb97-8"><a href="linear-regression-predicting-course-evaluation-scores.html#cb97-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(.), <span class="at">.before =</span> course_evaluation) <span class="sc">%&gt;%</span> </span>
+<span id="cb97-9"><a href="linear-regression-predicting-course-evaluation-scores.html#cb97-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(course_evaluation, prof_ave_rating),</span>
+<span id="cb97-10"><a href="linear-regression-predicting-course-evaluation-scores.html#cb97-10" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;score_type&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;score&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb97-11"><a href="linear-regression-predicting-course-evaluation-scores.html#cb97-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb97-12"><a href="linear-regression-predicting-course-evaluation-scores.html#cb97-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># create plot base</span></span>
+<span id="cb97-13"><a href="linear-regression-predicting-course-evaluation-scores.html#cb97-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> score, <span class="at">y =</span> id)) <span class="sc">+</span></span>
+<span id="cb97-14"><a href="linear-regression-predicting-course-evaluation-scores.html#cb97-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb97-15"><a href="linear-regression-predicting-course-evaluation-scores.html#cb97-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add points for prof rating and course evaluation</span></span>
+<span id="cb97-16"><a href="linear-regression-predicting-course-evaluation-scores.html#cb97-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># and connect each pair of points with a line</span></span>
+<span id="cb97-17"><a href="linear-regression-predicting-course-evaluation-scores.html#cb97-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> id), <span class="at">colour =</span> <span class="st">&quot;grey50&quot;</span>) <span class="sc">+</span></span>
+<span id="cb97-18"><a href="linear-regression-predicting-course-evaluation-scores.html#cb97-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> score_type)) <span class="sc">+</span> </span>
+<span id="cb97-19"><a href="linear-regression-predicting-course-evaluation-scores.html#cb97-19" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb97-20"><a href="linear-regression-predicting-course-evaluation-scores.html#cb97-20" aria-hidden="true" tabindex="-1"></a>  <span class="co"># show full x axis</span></span>
+<span id="cb97-21"><a href="linear-regression-predicting-course-evaluation-scores.html#cb97-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expand_limits</span>(<span class="at">x =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb97-22"><a href="linear-regression-predicting-course-evaluation-scores.html#cb97-22" aria-hidden="true" tabindex="-1"></a>  <span class="co"># remove gap between x axis and plot</span></span>
+<span id="cb97-23"><a href="linear-regression-predicting-course-evaluation-scores.html#cb97-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">nrow</span>(teaching_eval_clean)<span class="sc">+</span><span class="dv">5</span>),</span>
+<span id="cb97-24"><a href="linear-regression-predicting-course-evaluation-scores.html#cb97-24" aria-hidden="true" tabindex="-1"></a>                  <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">5.1</span>),</span>
+<span id="cb97-25"><a href="linear-regression-predicting-course-evaluation-scores.html#cb97-25" aria-hidden="true" tabindex="-1"></a>                  <span class="at">expand =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb97-26"><a href="linear-regression-predicting-course-evaluation-scores.html#cb97-26" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb97-27"><a href="linear-regression-predicting-course-evaluation-scores.html#cb97-27" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add plot labels</span></span>
+<span id="cb97-28"><a href="linear-regression-predicting-course-evaluation-scores.html#cb97-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;But Professor ratings tend to be higher than course evaluation scores&quot;</span>,</span>
+<span id="cb97-29"><a href="linear-regression-predicting-course-evaluation-scores.html#cb97-29" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Both are on the same five point scale</span><span class="sc">\n</span><span class="st">&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb97-30"><a href="linear-regression-predicting-course-evaluation-scores.html#cb97-30" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb97-31"><a href="linear-regression-predicting-course-evaluation-scores.html#cb97-31" aria-hidden="true" tabindex="-1"></a>  <span class="co"># format legend to remove clutter</span></span>
+<span id="cb97-32"><a href="linear-regression-predicting-course-evaluation-scores.html#cb97-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Set1&quot;</span>,</span>
+<span id="cb97-33"><a href="linear-regression-predicting-course-evaluation-scores.html#cb97-33" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Course evaluation score&quot;</span>,</span>
+<span id="cb97-34"><a href="linear-regression-predicting-course-evaluation-scores.html#cb97-34" aria-hidden="true" tabindex="-1"></a>                                  <span class="st">&quot;Professor rating&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb97-35"><a href="linear-regression-predicting-course-evaluation-scores.html#cb97-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">colour =</span> <span class="fu">guide_legend</span>(<span class="at">title =</span> <span class="cn">NULL</span>)) <span class="sc">+</span></span>
+<span id="cb97-36"><a href="linear-regression-predicting-course-evaluation-scores.html#cb97-36" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb97-37"><a href="linear-regression-predicting-course-evaluation-scores.html#cb97-37" aria-hidden="true" tabindex="-1"></a>  <span class="co"># adjust theme to remove clutter</span></span>
+<span id="cb97-38"><a href="linear-regression-predicting-course-evaluation-scores.html#cb97-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">remove_all_grid_lines</span>() <span class="sc">+</span></span>
+<span id="cb97-39"><a href="linear-regression-predicting-course-evaluation-scores.html#cb97-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title.y  =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb97-40"><a href="linear-regression-predicting-course-evaluation-scores.html#cb97-40" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb97-41"><a href="linear-regression-predicting-course-evaluation-scores.html#cb97-41" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.line.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb97-42"><a href="linear-regression-predicting-course-evaluation-scores.html#cb97-42" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">&quot;top&quot;</span>,</span>
+<span id="cb97-43"><a href="linear-regression-predicting-course-evaluation-scores.html#cb97-43" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>))</span></code></pre></div>
+<p><img src="03_beauty_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
 <p>Professors can appear multiple times in the dataset, where they have been involved in teaching multiple courses. The <code>prof_ave_rating</code> is the average of the ratings given by students to the professor for an individual course. The plot below shows the <code>prof_ave_rating</code>s for 10 randomly selected professors. So, highlighting that as expected there is some variability in the average ratings that professors received from course to course.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="linear-regression-predicting-course-evaluation-scores.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ensure the sample random sample of professors is take when notebook is rerun</span></span>
-<span id="cb21-2"><a href="linear-regression-predicting-course-evaluation-scores.html#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">100</span>)</span>
-<span id="cb21-3"><a href="linear-regression-predicting-course-evaluation-scores.html#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-4"><a href="linear-regression-predicting-course-evaluation-scores.html#cb21-4" aria-hidden="true" tabindex="-1"></a>explanatory_variables_prof_cont <span class="sc">%&gt;%</span> </span>
-<span id="cb21-5"><a href="linear-regression-predicting-course-evaluation-scores.html#cb21-5" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb21-6"><a href="linear-regression-predicting-course-evaluation-scores.html#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># select a random sample of professors</span></span>
-<span id="cb21-7"><a href="linear-regression-predicting-course-evaluation-scores.html#cb21-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(prof_number) <span class="sc">%&gt;%</span></span>
-<span id="cb21-8"><a href="linear-regression-predicting-course-evaluation-scores.html#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nest</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb21-9"><a href="linear-regression-predicting-course-evaluation-scores.html#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb21-10"><a href="linear-regression-predicting-course-evaluation-scores.html#cb21-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb21-11"><a href="linear-regression-predicting-course-evaluation-scores.html#cb21-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prof_number =</span> <span class="fu">factor</span>(prof_number)) <span class="sc">%&gt;%</span> <span class="co"># convert to factor </span></span>
-<span id="cb21-12"><a href="linear-regression-predicting-course-evaluation-scores.html#cb21-12" aria-hidden="true" tabindex="-1"></a>                                                <span class="co"># to simplify plotting</span></span>
-<span id="cb21-13"><a href="linear-regression-predicting-course-evaluation-scores.html#cb21-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb21-14"><a href="linear-regression-predicting-course-evaluation-scores.html#cb21-14" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb21-15"><a href="linear-regression-predicting-course-evaluation-scores.html#cb21-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># produce plot</span></span>
-<span id="cb21-16"><a href="linear-regression-predicting-course-evaluation-scores.html#cb21-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(prof_ave_rating, prof_number)) <span class="sc">+</span></span>
-<span id="cb21-17"><a href="linear-regression-predicting-course-evaluation-scores.html#cb21-17" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb21-18"><a href="linear-regression-predicting-course-evaluation-scores.html#cb21-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># jitter slightly to make overlapping points easier to see</span></span>
-<span id="cb21-19"><a href="linear-regression-predicting-course-evaluation-scores.html#cb21-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">height =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
-<span id="cb21-20"><a href="linear-regression-predicting-course-evaluation-scores.html#cb21-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-21"><a href="linear-regression-predicting-course-evaluation-scores.html#cb21-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># adjust axis for readibility</span></span>
-<span id="cb21-22"><a href="linear-regression-predicting-course-evaluation-scores.html#cb21-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expand_limits</span>(<span class="at">x =</span> <span class="dv">0</span>)<span class="sc">+</span></span>
-<span id="cb21-23"><a href="linear-regression-predicting-course-evaluation-scores.html#cb21-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
-<span id="cb21-24"><a href="linear-regression-predicting-course-evaluation-scores.html#cb21-24" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb21-25"><a href="linear-regression-predicting-course-evaluation-scores.html#cb21-25" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add plot labels</span></span>
-<span id="cb21-26"><a href="linear-regression-predicting-course-evaluation-scores.html#cb21-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;Professor identification number&quot;</span>,</span>
-<span id="cb21-27"><a href="linear-regression-predicting-course-evaluation-scores.html#cb21-27" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Course evaluation score&quot;</span>,</span>
-<span id="cb21-28"><a href="linear-regression-predicting-course-evaluation-scores.html#cb21-28" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">&quot;There is some variablility in the evaluation scores professors</span><span class="sc">\n</span><span class="st"> received from course to course&quot;</span>,</span>
-<span id="cb21-29"><a href="linear-regression-predicting-course-evaluation-scores.html#cb21-29" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Showing course evaulation scores for 10 randomly selected professors&quot;</span>)</span></code></pre></div>
-<p><img src="beauty_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="linear-regression-predicting-course-evaluation-scores.html#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ensure the sample random sample of professors is take when notebook is rerun</span></span>
+<span id="cb98-2"><a href="linear-regression-predicting-course-evaluation-scores.html#cb98-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">100</span>)</span>
+<span id="cb98-3"><a href="linear-regression-predicting-course-evaluation-scores.html#cb98-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb98-4"><a href="linear-regression-predicting-course-evaluation-scores.html#cb98-4" aria-hidden="true" tabindex="-1"></a>explanatory_variables_prof_cont <span class="sc">%&gt;%</span> </span>
+<span id="cb98-5"><a href="linear-regression-predicting-course-evaluation-scores.html#cb98-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb98-6"><a href="linear-regression-predicting-course-evaluation-scores.html#cb98-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># select a random sample of professors</span></span>
+<span id="cb98-7"><a href="linear-regression-predicting-course-evaluation-scores.html#cb98-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(prof_number) <span class="sc">%&gt;%</span></span>
+<span id="cb98-8"><a href="linear-regression-predicting-course-evaluation-scores.html#cb98-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nest</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb98-9"><a href="linear-regression-predicting-course-evaluation-scores.html#cb98-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb98-10"><a href="linear-regression-predicting-course-evaluation-scores.html#cb98-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb98-11"><a href="linear-regression-predicting-course-evaluation-scores.html#cb98-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prof_number =</span> <span class="fu">factor</span>(prof_number)) <span class="sc">%&gt;%</span> <span class="co"># convert to factor </span></span>
+<span id="cb98-12"><a href="linear-regression-predicting-course-evaluation-scores.html#cb98-12" aria-hidden="true" tabindex="-1"></a>                                                <span class="co"># to simplify plotting</span></span>
+<span id="cb98-13"><a href="linear-regression-predicting-course-evaluation-scores.html#cb98-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb98-14"><a href="linear-regression-predicting-course-evaluation-scores.html#cb98-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb98-15"><a href="linear-regression-predicting-course-evaluation-scores.html#cb98-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># produce plot</span></span>
+<span id="cb98-16"><a href="linear-regression-predicting-course-evaluation-scores.html#cb98-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(prof_ave_rating, prof_number)) <span class="sc">+</span></span>
+<span id="cb98-17"><a href="linear-regression-predicting-course-evaluation-scores.html#cb98-17" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb98-18"><a href="linear-regression-predicting-course-evaluation-scores.html#cb98-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># jitter slightly to make overlapping points easier to see</span></span>
+<span id="cb98-19"><a href="linear-regression-predicting-course-evaluation-scores.html#cb98-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">height =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
+<span id="cb98-20"><a href="linear-regression-predicting-course-evaluation-scores.html#cb98-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb98-21"><a href="linear-regression-predicting-course-evaluation-scores.html#cb98-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># adjust axis for readibility</span></span>
+<span id="cb98-22"><a href="linear-regression-predicting-course-evaluation-scores.html#cb98-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expand_limits</span>(<span class="at">x =</span> <span class="dv">0</span>)<span class="sc">+</span></span>
+<span id="cb98-23"><a href="linear-regression-predicting-course-evaluation-scores.html#cb98-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb98-24"><a href="linear-regression-predicting-course-evaluation-scores.html#cb98-24" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb98-25"><a href="linear-regression-predicting-course-evaluation-scores.html#cb98-25" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add plot labels</span></span>
+<span id="cb98-26"><a href="linear-regression-predicting-course-evaluation-scores.html#cb98-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;Professor identification number&quot;</span>,</span>
+<span id="cb98-27"><a href="linear-regression-predicting-course-evaluation-scores.html#cb98-27" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Course evaluation score&quot;</span>,</span>
+<span id="cb98-28"><a href="linear-regression-predicting-course-evaluation-scores.html#cb98-28" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">&quot;There is some variablility in the evaluation scores professors</span><span class="sc">\n</span><span class="st"> received from course to course&quot;</span>,</span>
+<span id="cb98-29"><a href="linear-regression-predicting-course-evaluation-scores.html#cb98-29" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Showing course evaulation scores for 10 randomly selected professors&quot;</span>)</span></code></pre></div>
+<p><img src="03_beauty_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
 <p>So, averaging ratings for a given professor over multiple courses might give an idea of the quality of teaching delivered in general by a given professor. I’ll call this mean of average ratings over multiple course <code>ave_teaching_qual</code> just to avoid confusing terminology created with the multiple levels of averaging taking place. I’ll return to this estimate of teaching quality delivered by each professor later on, as it may be a potentially useful predictor of a <code>course_evaluation</code> score.</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="linear-regression-predicting-course-evaluation-scores.html#cb22-1" aria-hidden="true" tabindex="-1"></a>prof_ave_teach_qual <span class="ot">&lt;-</span> explanatory_variables_prof_cont <span class="sc">%&gt;%</span> </span>
-<span id="cb22-2"><a href="linear-regression-predicting-course-evaluation-scores.html#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(prof_number) <span class="sc">%&gt;%</span></span>
-<span id="cb22-3"><a href="linear-regression-predicting-course-evaluation-scores.html#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">ave_teaching_qual =</span> <span class="fu">mean</span>(prof_ave_rating))</span>
-<span id="cb22-4"><a href="linear-regression-predicting-course-evaluation-scores.html#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-5"><a href="linear-regression-predicting-course-evaluation-scores.html#cb22-5" aria-hidden="true" tabindex="-1"></a>explanatory_variables_prof_cont <span class="ot">&lt;-</span> explanatory_variables_prof_cont <span class="sc">%&gt;%</span> </span>
-<span id="cb22-6"><a href="linear-regression-predicting-course-evaluation-scores.html#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(prof_ave_teach_qual)</span></code></pre></div>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="linear-regression-predicting-course-evaluation-scores.html#cb99-1" aria-hidden="true" tabindex="-1"></a>prof_ave_teach_qual <span class="ot">&lt;-</span> explanatory_variables_prof_cont <span class="sc">%&gt;%</span> </span>
+<span id="cb99-2"><a href="linear-regression-predicting-course-evaluation-scores.html#cb99-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(prof_number) <span class="sc">%&gt;%</span></span>
+<span id="cb99-3"><a href="linear-regression-predicting-course-evaluation-scores.html#cb99-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">ave_teaching_qual =</span> <span class="fu">mean</span>(prof_ave_rating))</span>
+<span id="cb99-4"><a href="linear-regression-predicting-course-evaluation-scores.html#cb99-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb99-5"><a href="linear-regression-predicting-course-evaluation-scores.html#cb99-5" aria-hidden="true" tabindex="-1"></a>explanatory_variables_prof_cont <span class="ot">&lt;-</span> explanatory_variables_prof_cont <span class="sc">%&gt;%</span> </span>
+<span id="cb99-6"><a href="linear-regression-predicting-course-evaluation-scores.html#cb99-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(prof_ave_teach_qual)</span></code></pre></div>
 <p>Moving on to the next professor related continuous variable the <code>prof_ave_beauty_rating</code>. There is a single beauty rating for each professor. I confirmed this in the code below by confirming the standard deviation of each Professor’s <code>prof_ave_beauty_rating</code> is zero.</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="linear-regression-predicting-course-evaluation-scores.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># check if the beauty of professors has been rated seperately for each course</span></span>
-<span id="cb23-2"><a href="linear-regression-predicting-course-evaluation-scores.html#cb23-2" aria-hidden="true" tabindex="-1"></a>explanatory_variables_prof_cont <span class="sc">%&gt;%</span> </span>
-<span id="cb23-3"><a href="linear-regression-predicting-course-evaluation-scores.html#cb23-3" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb23-4"><a href="linear-regression-predicting-course-evaluation-scores.html#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(prof_number) <span class="sc">%&gt;%</span> </span>
-<span id="cb23-5"><a href="linear-regression-predicting-course-evaluation-scores.html#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">beauty_rating_sd =</span> <span class="fu">sd</span>(prof_ave_beauty_rating)) <span class="sc">%&gt;%</span> </span>
-<span id="cb23-6"><a href="linear-regression-predicting-course-evaluation-scores.html#cb23-6" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb23-7"><a href="linear-regression-predicting-course-evaluation-scores.html#cb23-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># I am not sure why NAs are being produced here</span></span>
-<span id="cb23-8"><a href="linear-regression-predicting-course-evaluation-scores.html#cb23-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># I checked the dataframe manually and they look like they relate to empty rows </span></span>
-<span id="cb23-9"><a href="linear-regression-predicting-course-evaluation-scores.html#cb23-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># at the end of the dataframe. After a quick Google I could find an obvious</span></span>
-<span id="cb23-10"><a href="linear-regression-predicting-course-evaluation-scores.html#cb23-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># reason for these empty rows, so I decided to leave this issues for now.</span></span>
-<span id="cb23-11"><a href="linear-regression-predicting-course-evaluation-scores.html#cb23-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(beauty_rating_sd)</span></code></pre></div>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="linear-regression-predicting-course-evaluation-scores.html#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="co"># check if the beauty of professors has been rated seperately for each course</span></span>
+<span id="cb100-2"><a href="linear-regression-predicting-course-evaluation-scores.html#cb100-2" aria-hidden="true" tabindex="-1"></a>explanatory_variables_prof_cont <span class="sc">%&gt;%</span> </span>
+<span id="cb100-3"><a href="linear-regression-predicting-course-evaluation-scores.html#cb100-3" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb100-4"><a href="linear-regression-predicting-course-evaluation-scores.html#cb100-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(prof_number) <span class="sc">%&gt;%</span> </span>
+<span id="cb100-5"><a href="linear-regression-predicting-course-evaluation-scores.html#cb100-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">beauty_rating_sd =</span> <span class="fu">sd</span>(prof_ave_beauty_rating)) <span class="sc">%&gt;%</span> </span>
+<span id="cb100-6"><a href="linear-regression-predicting-course-evaluation-scores.html#cb100-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb100-7"><a href="linear-regression-predicting-course-evaluation-scores.html#cb100-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># I am not sure why NAs are being produced here</span></span>
+<span id="cb100-8"><a href="linear-regression-predicting-course-evaluation-scores.html#cb100-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># I checked the dataframe manually and they look like they relate to empty rows </span></span>
+<span id="cb100-9"><a href="linear-regression-predicting-course-evaluation-scores.html#cb100-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># at the end of the dataframe. After a quick Google I could find an obvious</span></span>
+<span id="cb100-10"><a href="linear-regression-predicting-course-evaluation-scores.html#cb100-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># reason for these empty rows, so I decided to leave this issues for now.</span></span>
+<span id="cb100-11"><a href="linear-regression-predicting-course-evaluation-scores.html#cb100-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(beauty_rating_sd)</span></code></pre></div>
 <pre><code>## # A tibble: 2 x 1
 ##   beauty_rating_sd
 ##              &lt;dbl&gt;
 ## 1                0
 ## 2               NA</code></pre>
 <p>Looking at the <code>prof_ave_beauty_rating</code>s in the plot below, it looks like again the rating were on five point scale and have already been centered. I am going to assume zero corresponds to average beauty on a Likhert scale (very unattractive, unattractive, average attractiveness, attractive, very attractive). Then it looks like there may be some tendency for students to rate their Professors as being unattractive or around average. Remembering that the ratings plotted below are averages and assuming that students were not asked to rate attractiveness on a more granular scale, where ratings of for example -0.1 could be given. A Likhert scale seems much more likely.</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="linear-regression-predicting-course-evaluation-scores.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(explanatory_variables_prof_cont,</span>
-<span id="cb25-2"><a href="linear-regression-predicting-course-evaluation-scores.html#cb25-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(prof_ave_beauty_rating)) <span class="sc">+</span></span>
-<span id="cb25-3"><a href="linear-regression-predicting-course-evaluation-scores.html#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_minimal_hist</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">70</span>), <span class="at">binwidth =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
-<span id="cb25-4"><a href="linear-regression-predicting-course-evaluation-scores.html#cb25-4" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb25-5"><a href="linear-regression-predicting-course-evaluation-scores.html#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Do students tend to rate Professor as average</span><span class="sc">\n</span><span class="st">or below average attactiveness?&quot;</span>,</span>
-<span id="cb25-6"><a href="linear-regression-predicting-course-evaluation-scores.html#cb25-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Average beauty rating&quot;</span>,</span>
-<span id="cb25-7"><a href="linear-regression-predicting-course-evaluation-scores.html#cb25-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Number of professors</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
-<p><img src="beauty_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="linear-regression-predicting-course-evaluation-scores.html#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(explanatory_variables_prof_cont,</span>
-<span id="cb26-2"><a href="linear-regression-predicting-course-evaluation-scores.html#cb26-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(age)) <span class="sc">+</span></span>
-<span id="cb26-3"><a href="linear-regression-predicting-course-evaluation-scores.html#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_minimal_hist</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">110</span>), <span class="at">binwidth =</span> <span class="dv">5</span>)</span></code></pre></div>
-<p><img src="beauty_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="linear-regression-predicting-course-evaluation-scores.html#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(explanatory_variables_prof_cont,</span>
+<span id="cb102-2"><a href="linear-regression-predicting-course-evaluation-scores.html#cb102-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(prof_ave_beauty_rating)) <span class="sc">+</span></span>
+<span id="cb102-3"><a href="linear-regression-predicting-course-evaluation-scores.html#cb102-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_minimal_hist</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">70</span>), <span class="at">binwidth =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb102-4"><a href="linear-regression-predicting-course-evaluation-scores.html#cb102-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb102-5"><a href="linear-regression-predicting-course-evaluation-scores.html#cb102-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Do students tend to rate Professor as average</span><span class="sc">\n</span><span class="st">or below average attactiveness?&quot;</span>,</span>
+<span id="cb102-6"><a href="linear-regression-predicting-course-evaluation-scores.html#cb102-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Average beauty rating&quot;</span>,</span>
+<span id="cb102-7"><a href="linear-regression-predicting-course-evaluation-scores.html#cb102-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Number of professors</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<p><img src="03_beauty_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="linear-regression-predicting-course-evaluation-scores.html#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(explanatory_variables_prof_cont,</span>
+<span id="cb103-2"><a href="linear-regression-predicting-course-evaluation-scores.html#cb103-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(age)) <span class="sc">+</span></span>
+<span id="cb103-3"><a href="linear-regression-predicting-course-evaluation-scores.html#cb103-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_minimal_hist</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">110</span>), <span class="at">binwidth =</span> <span class="dv">5</span>)</span></code></pre></div>
+<p><img src="03_beauty_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
 </div>
-<div id="binary-variables" class="section level5" number="2.2.2.1.2">
-<h5><span class="header-section-number">2.2.2.1.2</span> Binary variables</h5>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="linear-regression-predicting-course-evaluation-scores.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># identify binary variables within the dataset</span></span>
-<span id="cb27-2"><a href="linear-regression-predicting-course-evaluation-scores.html#cb27-2" aria-hidden="true" tabindex="-1"></a>explanatory_variables_prof_bin <span class="ot">&lt;-</span> explanatory_variables_prof <span class="sc">%&gt;%</span> </span>
-<span id="cb27-3"><a href="linear-regression-predicting-course-evaluation-scores.html#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">where</span>(<span class="sc">~</span><span class="fu">is_binary_var</span>(.))) <span class="sc">%&gt;%</span> </span>
-<span id="cb27-4"><a href="linear-regression-predicting-course-evaluation-scores.html#cb27-4" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb27-5"><a href="linear-regression-predicting-course-evaluation-scores.html#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add back in identifer variable and reorder for readability</span></span>
-<span id="cb27-6"><a href="linear-regression-predicting-course-evaluation-scores.html#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_cols</span>(<span class="fu">select</span>(explanatory_variables_prof, prof_number)) <span class="sc">%&gt;%</span> </span>
-<span id="cb27-7"><a href="linear-regression-predicting-course-evaluation-scores.html#cb27-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(prof_number, <span class="at">.before =</span> tenured)</span>
-<span id="cb27-8"><a href="linear-regression-predicting-course-evaluation-scores.html#cb27-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-9"><a href="linear-regression-predicting-course-evaluation-scores.html#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="co"># show summary statistics</span></span>
-<span id="cb27-10"><a href="linear-regression-predicting-course-evaluation-scores.html#cb27-10" aria-hidden="true" tabindex="-1"></a>skimr<span class="sc">::</span><span class="fu">skim</span>(explanatory_variables_prof_bin <span class="sc">%&gt;%</span> </span>
-<span id="cb27-11"><a href="linear-regression-predicting-course-evaluation-scores.html#cb27-11" aria-hidden="true" tabindex="-1"></a>              <span class="fu">select</span>(<span class="sc">-</span>prof_number))</span></code></pre></div>
+<div id="binary-variables" class="section level5" number="4.2.2.1.2">
+<h5><span class="header-section-number">4.2.2.1.2</span> Binary variables</h5>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="linear-regression-predicting-course-evaluation-scores.html#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="co"># identify binary variables within the dataset</span></span>
+<span id="cb104-2"><a href="linear-regression-predicting-course-evaluation-scores.html#cb104-2" aria-hidden="true" tabindex="-1"></a>explanatory_variables_prof_bin <span class="ot">&lt;-</span> explanatory_variables_prof <span class="sc">%&gt;%</span> </span>
+<span id="cb104-3"><a href="linear-regression-predicting-course-evaluation-scores.html#cb104-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">where</span>(<span class="sc">~</span><span class="fu">is_binary_var</span>(.))) <span class="sc">%&gt;%</span> </span>
+<span id="cb104-4"><a href="linear-regression-predicting-course-evaluation-scores.html#cb104-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb104-5"><a href="linear-regression-predicting-course-evaluation-scores.html#cb104-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add back in identifer variable and reorder for readability</span></span>
+<span id="cb104-6"><a href="linear-regression-predicting-course-evaluation-scores.html#cb104-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_cols</span>(<span class="fu">select</span>(explanatory_variables_prof, prof_number)) <span class="sc">%&gt;%</span> </span>
+<span id="cb104-7"><a href="linear-regression-predicting-course-evaluation-scores.html#cb104-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(prof_number, <span class="at">.before =</span> tenured)</span>
+<span id="cb104-8"><a href="linear-regression-predicting-course-evaluation-scores.html#cb104-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb104-9"><a href="linear-regression-predicting-course-evaluation-scores.html#cb104-9" aria-hidden="true" tabindex="-1"></a><span class="co"># show summary statistics</span></span>
+<span id="cb104-10"><a href="linear-regression-predicting-course-evaluation-scores.html#cb104-10" aria-hidden="true" tabindex="-1"></a>skimr<span class="sc">::</span><span class="fu">skim</span>(explanatory_variables_prof_bin <span class="sc">%&gt;%</span> </span>
+<span id="cb104-11"><a href="linear-regression-predicting-course-evaluation-scores.html#cb104-11" aria-hidden="true" tabindex="-1"></a>              <span class="fu">select</span>(<span class="sc">-</span>prof_number))</span></code></pre></div>
 <p><strong>Variable type: numeric</strong></p>
 <table>
 <thead>
@@ -952,12 +990,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </table>
 </div>
 </div>
-<div id="course-related-explanatory-variables" class="section level4" number="2.2.2.2">
-<h4><span class="header-section-number">2.2.2.2</span> Course related explanatory variables</h4>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="linear-regression-predicting-course-evaluation-scores.html#cb28-1" aria-hidden="true" tabindex="-1"></a>explanatory_variables_course <span class="ot">&lt;-</span> teaching_eval_clean <span class="sc">%&gt;%</span> </span>
-<span id="cb28-2"><a href="linear-regression-predicting-course-evaluation-scores.html#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(lower<span class="sc">:</span>students)</span>
-<span id="cb28-3"><a href="linear-regression-predicting-course-evaluation-scores.html#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-4"><a href="linear-regression-predicting-course-evaluation-scores.html#cb28-4" aria-hidden="true" tabindex="-1"></a>skimr<span class="sc">::</span><span class="fu">skim</span>(explanatory_variables_course)</span></code></pre></div>
+<div id="course-related-explanatory-variables" class="section level4" number="4.2.2.2">
+<h4><span class="header-section-number">4.2.2.2</span> Course related explanatory variables</h4>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="linear-regression-predicting-course-evaluation-scores.html#cb105-1" aria-hidden="true" tabindex="-1"></a>explanatory_variables_course <span class="ot">&lt;-</span> teaching_eval_clean <span class="sc">%&gt;%</span> </span>
+<span id="cb105-2"><a href="linear-regression-predicting-course-evaluation-scores.html#cb105-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(lower<span class="sc">:</span>students)</span>
+<span id="cb105-3"><a href="linear-regression-predicting-course-evaluation-scores.html#cb105-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb105-4"><a href="linear-regression-predicting-course-evaluation-scores.html#cb105-4" aria-hidden="true" tabindex="-1"></a>skimr<span class="sc">::</span><span class="fu">skim</span>(explanatory_variables_course)</span></code></pre></div>
 <p><strong>Variable type: numeric</strong></p>
 <table>
 <thead>
@@ -1045,31 +1083,34 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </table>
 </div>
 </div>
-<div id="relationships-between-variables" class="section level3" number="2.2.3">
-<h3><span class="header-section-number">2.2.3</span> Relationships between variables</h3>
-<div id="relationships-between-continuous-variables" class="section level4" number="2.2.3.1">
-<h4><span class="header-section-number">2.2.3.1</span> Relationships between continuous variables</h4>
+<div id="relationships-between-variables" class="section level3" number="4.2.3">
+<h3><span class="header-section-number">4.2.3</span> Relationships between variables</h3>
+<div id="relationships-between-continuous-variables" class="section level4" number="4.2.3.1">
+<h4><span class="header-section-number">4.2.3.1</span> Relationships between continuous variables</h4>
 <p>Look for colinearity of predictors</p>
 </div>
-<div id="relationships-between-discrete-variables-and-continuous-variables" class="section level4" number="2.2.3.2">
-<h4><span class="header-section-number">2.2.3.2</span> Relationships between discrete variables and continuous variables</h4>
+<div id="relationships-between-discrete-variables-and-continuous-variables" class="section level4" number="4.2.3.2">
+<h4><span class="header-section-number">4.2.3.2</span> Relationships between discrete variables and continuous variables</h4>
 <p>Looking for interactions</p>
 </div>
 </div>
 </div>
-<div id="modelling" class="section level2" number="2.3">
-<h2><span class="header-section-number">2.3</span> Modelling</h2>
+<div id="modelling" class="section level2" number="4.3">
+<h2><span class="header-section-number">4.3</span> Modelling</h2>
 <p>Remember to split into test and training sets</p>
 
 </div>
 </div>
+
+
+
             </section>
 
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="estimating-the-proportion-of-plastic-waste-countries-mismanage.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="visualising-green-space-deprivation-across-the-english-regions.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -1100,7 +1141,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/rstudio/bookdown-demo/edit/master/beauty.Rmd",
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/03_beauty.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -1119,6 +1160,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>
