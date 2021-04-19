@@ -1,4 +1,4 @@
-# Linear regression: Predicting course evaluation scores
+# Predicting course evaluation scores
 
 ```{r, include = FALSE}
 # global settings for producing html output
@@ -6,7 +6,6 @@ knitr::opts_chunk$set(warning = FALSE,  # remove for readability
                       message = FALSE,  # remove for readability
                       cache = TRUE)   # for inclusion during coding
 ```
-
 
 ```{r}
 # import packages used in this notebook
@@ -19,7 +18,8 @@ suppressPackageStartupMessages({
     # helper libraries
     library(janitor)  # for cleaning names
     library(skimr)    # for summary statistic reports
-    library(glue)     # for string formattin
+    library(glue)     # for string formatting
+    library(infer)    # for exploratory inference
   })
 })
 
@@ -412,27 +412,97 @@ ggplot(explanatory_variables_prof_cont,
        y = "Number of professors\n")
 ```
 
+Finally, for the Professor related continuous variables I plot the distribution of `age`. There is too much too note here. Other than the shape of the histogram is rather sensitive to the width of the bins.
+
 ```{r}
 ggplot(explanatory_variables_prof_cont,
        aes(age)) +
-  geom_minimal_hist(ylim = c(0,110), binwidth = 5)
+  geom_minimal_hist(ylim = c(0,110), binwidth = 5) +
+  
+  labs(title = "The distribution of the ages of Professors begins to approximate\n the normal distriubtion with an appropriate binwidth")
+```
+
+This made wonder if it might be helpful during the modelling to have a binned (i.e. discretised) age variable which groups professors by age.
+
+```{r}
+# create discrete age variable (5 year age groups starting at age 20)
+explanatory_variables_prof_cont <- explanatory_variables_prof_cont %>% 
+  mutate(age_binned = cut_width(age, width = 5, boundary = 20))
 ```
 
 ##### Binary variables
 
+Moving on to look at the discrete (primarily binary) Professor related variables. I start by looking at the summary statistics. There is not too much to do in terms of visualisation of these variables at this point.
+
+For the binary variables the mean value (shown in the summary stats below) indicates the proportion of professors with the characteristic associated with the variable (e.g. The proportion of professors who are `tenured` is 0.546). So, we can see that binary variables differ in the extent to which they partition the professors in to groups of equal or unequal size.
+
 ```{r, skimr_include_summary = FALSE}
 # identify binary variables within the dataset
-explanatory_variables_prof_bin <- explanatory_variables_prof %>% 
+explanatory_variables_prof_discrete <- explanatory_variables_prof %>% 
   select(where(~is_binary_var(.))) %>% 
   
   # add back in identifer variable and reorder for readability
   bind_cols(select(explanatory_variables_prof, prof_number)) %>% 
-  relocate(prof_number, .before = tenured)
+  relocate(prof_number, .before = tenured) %>% 
+  
+  # add in age group variable group
+  bind_cols(select(explanatory_variables_prof_cont, age_binned))
 
 # show summary statistics
-skimr::skim(explanatory_variables_prof_bin %>% 
+skimr::skim(explanatory_variables_prof_discrete %>% 
               select(-prof_number))
 ```
+
+Looking at the binary variables we might expect to some interactions between. For example, I wonder if a larger proportion of professors will be `tenured` if they are not `female`, and below I do a quick bit of exploratory inference to see if I am correct.
+
+So, H~0~ is that there is no difference in the proportions of female and male professor who are `tenured`. And, H~A~ is that there is a difference between the proportions of female and male professor who are `tenured`. Below I use the `infer` package to test H~0~ (assuming a significance level of 0.05)
+
+-   First, calculating the observed difference in proportions;
+
+-   Then, generating the null distribution (i.e. the distribution of differences we could expect from a large number of samples collected using the same methods as the observed sample) using bootstrap resampling.
+
+-   Finally, comparing the observed difference in proportion with the null distribution. We can see on the plot that H~0~ can be rejected and the p-value of observed difference (approx. equal to 0) confirms this. So, in the population of Professors from which the current observations were sampled from we can be 95% confident that there is a difference between the proportions of female and male professor who are `tenured`. And, given the observed difference in proportions 0.27 (male - female) we would expect more male than female professors to be `tenured`.
+
+```{r}
+# calculating the observed difference in proportion of men and women
+# with tenure
+diff_tenured <- explanatory_variables_prof_discrete %>%
+  
+  # the test requires catergorical data to be coded as a factor
+  mutate(tenured = factor(tenured),
+         female = factor(female)) %>% 
+  
+  specify(tenured ~ female, success = "1") %>% 
+  calculate(stat = "diff in props")
+
+# A postive difference indicates higher proportion of men tenured
+diff_tenured
+
+# generate the null distribution
+null_distn <- explanatory_variables_prof_discrete %>%
+  
+  # the test requires catergorical data to be coded as a factor
+  mutate(tenured = factor(tenured),
+         female = factor(female)) %>%
+  
+  specify(tenured ~ female, success = "1") %>% 
+  hypothesize(null = "independence") %>% 
+  generate(reps = 1000) %>% 
+  calculate(stat = "diff in props")
+
+# visualise distribution under null hypothesis
+visualize(null_distn) +
+  shade_p_value(obs_stat = diff_tenured, direction = "two-sided") +
+  theme_light() +
+  remove_all_grid_lines()
+
+# confirm p-value
+null_distn %>%
+  get_p_value(obs_stat = diff_tenured, direction = "two-sided")
+
+```
+
+I think I'll leave that there in terms of exploratory inference, and just assume for that there interactions between the discrete variables and come back to that issue if and when required in the modeling process.
 
 #### Course related explanatory variables
 

@@ -1,7 +1,7 @@
 --- 
 title: "Data Science Portfolio"
 author: "Chris J. Martin"
-date: "2021-04-16"
+date: "2021-04-19"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
 documentclass: book

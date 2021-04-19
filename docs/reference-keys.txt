@@ -22,7 +22,7 @@ fitting-the-model
 interpreting-the-model-coefficients
 some-quick-diagnostics
 reflections-and-next-steps
-linear-regression-predicting-course-evaluation-scores
+predicting-course-evaluation-scores
 data-importing-and-cleaning-1
 importing-the-data
 checking-for-missing-values
