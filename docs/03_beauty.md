@@ -27,6 +27,9 @@ theme_set(theme_light())
 
 # import my own plotting functions for styling plots
 source("plotting_functions.R")
+
+# import my own functions for producing summary stats (which use on skimr)
+source("stats_functions.R")
 ```
 
 ## Data importing and cleaning
@@ -262,7 +265,7 @@ So, I started the exploratory data analysis quickly looking at summary statistic
 
 
 ```r
-skimr::skim(teaching_eval_clean, course_evaluation)
+skim_minimal(teaching_eval_clean, course_evaluation)
 ```
 
 
@@ -270,9 +273,9 @@ skimr::skim(teaching_eval_clean, course_evaluation)
 
 **Variable type: numeric**
 
-|skim_variable     | n_missing| complete_rate| mean|   sd|  p0| p25| p50| p75| p100|hist                                     |
-|:-----------------|---------:|-------------:|----:|----:|---:|---:|---:|---:|----:|:----------------------------------------|
-|course_evaluation |         0|             1|    4| 0.55| 2.1| 3.6|   4| 4.4|    5|▁▂▆▇▅ |
+|skim_variable     | n_missing| complete_rate| mean|   sd|  p0| p50| p100|hist                                     |
+|:-----------------|---------:|-------------:|----:|----:|---:|---:|----:|:----------------------------------------|
+|course_evaluation |         0|             1|    4| 0.55| 2.1|   4|    5|▁▂▆▇▅ |
 
 
 ```r
@@ -360,8 +363,9 @@ explanatory_variables_prof <- teaching_eval_clean %>%
   select(prof_number, tenured:tenure_track)
 
 # produce summary statistics
-skimr::skim(explanatory_variables_prof %>% 
-              select(-prof_number)) # no need to include identifer variable
+skim_minimal(explanatory_variables_prof %>% 
+              select(-prof_number), # no need to include identifer variable
+             show_data_completeness = FALSE)
 ```
 
 
@@ -369,17 +373,17 @@ skimr::skim(explanatory_variables_prof %>%
 
 **Variable type: numeric**
 
-|skim_variable          | n_missing| complete_rate|  mean|   sd|    p0|   p25|   p50|   p75|  p100|hist                                     |
-|:----------------------|---------:|-------------:|-----:|----:|-----:|-----:|-----:|-----:|-----:|:----------------------------------------|
-|tenured                |         0|             1|  0.55| 0.50|  0.00|  0.00|  1.00|  1.00|  1.00|▆▁▁▁▇ |
-|minority               |         0|             1|  0.14| 0.35|  0.00|  0.00|  0.00|  0.00|  1.00|▇▁▁▁▁ |
-|age                    |         0|             1| 48.37| 9.80| 29.00| 42.00| 48.00| 57.00| 73.00|▅▆▇▆▁ |
-|prof_ave_rating        |         0|             1|  4.17| 0.54|  2.30|  3.80|  4.30|  4.60|  5.00|▁▁▅▇▇ |
-|prof_ave_beauty_rating |         0|             1| -0.09| 0.79| -1.54| -0.74| -0.16|  0.46|  1.88|▃▇▇▃▂ |
-|female                 |         0|             1|  0.42| 0.49|  0.00|  0.00|  0.00|  1.00|  1.00|▇▁▁▁▆ |
-|formal                 |         0|             1|  0.17| 0.37|  0.00|  0.00|  0.00|  0.00|  1.00|▇▁▁▁▂ |
-|non_native_english     |         0|             1|  0.06| 0.24|  0.00|  0.00|  0.00|  0.00|  1.00|▇▁▁▁▁ |
-|tenure_track           |         0|             1|  0.78| 0.41|  0.00|  1.00|  1.00|  1.00|  1.00|▂▁▁▁▇ |
+|skim_variable          |  mean|   sd|    p0|   p50|  p100|hist                                     |
+|:----------------------|-----:|----:|-----:|-----:|-----:|:----------------------------------------|
+|tenured                |  0.55| 0.50|  0.00|  1.00|  1.00|▆▁▁▁▇ |
+|minority               |  0.14| 0.35|  0.00|  0.00|  1.00|▇▁▁▁▁ |
+|age                    | 48.37| 9.80| 29.00| 48.00| 73.00|▅▆▇▆▁ |
+|prof_ave_rating        |  4.17| 0.54|  2.30|  4.30|  5.00|▁▁▅▇▇ |
+|prof_ave_beauty_rating | -0.09| 0.79| -1.54| -0.16|  1.88|▃▇▇▃▂ |
+|female                 |  0.42| 0.49|  0.00|  0.00|  1.00|▇▁▁▁▆ |
+|formal                 |  0.17| 0.37|  0.00|  0.00|  1.00|▇▁▁▁▂ |
+|non_native_english     |  0.06| 0.24|  0.00|  0.00|  1.00|▇▁▁▁▁ |
+|tenure_track           |  0.78| 0.41|  0.00|  1.00|  1.00|▂▁▁▁▇ |
 
 To do this I wrote a quick function to identify binary variables within the dataset.
 
@@ -423,8 +427,9 @@ explanatory_variables_prof_cont <- explanatory_variables_prof %>%
   select(where(~!is_binary_var(.))) 
 
 # show summary statistics
-skimr::skim(explanatory_variables_prof_cont %>% 
-              select(-prof_number))
+skim_minimal(explanatory_variables_prof_cont %>% 
+              select(-prof_number),
+             show_data_completeness = FALSE)
 ```
 
 
@@ -432,11 +437,11 @@ skimr::skim(explanatory_variables_prof_cont %>%
 
 **Variable type: numeric**
 
-|skim_variable          | n_missing| complete_rate|  mean|   sd|    p0|   p25|   p50|   p75|  p100|hist                                     |
-|:----------------------|---------:|-------------:|-----:|----:|-----:|-----:|-----:|-----:|-----:|:----------------------------------------|
-|age                    |         0|             1| 48.37| 9.80| 29.00| 42.00| 48.00| 57.00| 73.00|▅▆▇▆▁ |
-|prof_ave_rating        |         0|             1|  4.17| 0.54|  2.30|  3.80|  4.30|  4.60|  5.00|▁▁▅▇▇ |
-|prof_ave_beauty_rating |         0|             1| -0.09| 0.79| -1.54| -0.74| -0.16|  0.46|  1.88|▃▇▇▃▂ |
+|skim_variable          |  mean|   sd|    p0|   p50|  p100|hist                                     |
+|:----------------------|-----:|----:|-----:|-----:|-----:|:----------------------------------------|
+|age                    | 48.37| 9.80| 29.00| 48.00| 73.00|▅▆▇▆▁ |
+|prof_ave_rating        |  4.17| 0.54|  2.30|  4.30|  5.00|▁▁▅▇▇ |
+|prof_ave_beauty_rating | -0.09| 0.79| -1.54| -0.16|  1.88|▃▇▇▃▂ |
 
 At first glance the distribution of `prof_ave_rating` is very similar to the distribution of the response variable (`course_evaluation)` .
 
@@ -618,7 +623,7 @@ explanatory_variables_prof_cont <- explanatory_variables_prof_cont %>%
   mutate(age_binned = cut_width(age, width = 5, boundary = 20))
 ```
 
-##### Binary variables
+##### Discrete variables
 
 Moving on to look at the discrete (primarily binary) Professor related variables. I start by looking at the summary statistics. There is not too much to do in terms of visualisation of these variables at this point.
 
@@ -638,8 +643,9 @@ explanatory_variables_prof_discrete <- explanatory_variables_prof %>%
   bind_cols(select(explanatory_variables_prof_cont, age_binned))
 
 # show summary statistics
-skimr::skim(explanatory_variables_prof_discrete %>% 
-              select(-prof_number))
+skim_minimal(explanatory_variables_prof_discrete %>% 
+              select(-prof_number), 
+             show_data_completeness = FALSE)
 ```
 
 
@@ -647,21 +653,21 @@ skimr::skim(explanatory_variables_prof_discrete %>%
 
 **Variable type: factor**
 
-|skim_variable | n_missing| complete_rate|ordered | n_unique|top_counts                         |
-|:-------------|---------:|-------------:|:-------|--------:|:----------------------------------|
-|age_binned    |         0|             1|FALSE   |       10|(45: 84, (50: 74, (55: 71, (30: 63 |
+|skim_variable |ordered | n_unique|top_counts                         |
+|:-------------|:-------|--------:|:----------------------------------|
+|age_binned    |FALSE   |       10|(45: 84, (50: 74, (55: 71, (30: 63 |
 
 
 **Variable type: numeric**
 
-|skim_variable      | n_missing| complete_rate| mean|   sd| p0| p25| p50| p75| p100|hist                                     |
-|:------------------|---------:|-------------:|----:|----:|--:|---:|---:|---:|----:|:----------------------------------------|
-|tenured            |         0|             1| 0.55| 0.50|  0|   0|   1|   1|    1|▆▁▁▁▇ |
-|minority           |         0|             1| 0.14| 0.35|  0|   0|   0|   0|    1|▇▁▁▁▁ |
-|female             |         0|             1| 0.42| 0.49|  0|   0|   0|   1|    1|▇▁▁▁▆ |
-|formal             |         0|             1| 0.17| 0.37|  0|   0|   0|   0|    1|▇▁▁▁▂ |
-|non_native_english |         0|             1| 0.06| 0.24|  0|   0|   0|   0|    1|▇▁▁▁▁ |
-|tenure_track       |         0|             1| 0.78| 0.41|  0|   1|   1|   1|    1|▂▁▁▁▇ |
+|skim_variable      | mean|   sd| p0| p50| p100|hist                                     |
+|:------------------|----:|----:|--:|---:|----:|:----------------------------------------|
+|tenured            | 0.55| 0.50|  0|   1|    1|▆▁▁▁▇ |
+|minority           | 0.14| 0.35|  0|   0|    1|▇▁▁▁▁ |
+|female             | 0.42| 0.49|  0|   0|    1|▇▁▁▁▆ |
+|formal             | 0.17| 0.37|  0|   0|    1|▇▁▁▁▂ |
+|non_native_english | 0.06| 0.24|  0|   0|    1|▇▁▁▁▁ |
+|tenure_track       | 0.78| 0.41|  0|   1|    1|▂▁▁▁▇ |
 
 Looking at the binary variables we might expect to some interactions between. For example, I wonder if a larger proportion of professors will be `tenured` if they are not `female`, and below I do a quick bit of exploratory inference to see if I am correct.
 
@@ -735,13 +741,14 @@ null_distn %>%
 I think I'll leave that there in terms of exploratory inference, and just assume for that there interactions between the discrete variables and come back to that issue if and when required in the modeling process.
 
 #### Course related explanatory variables
+Having focused on the professor related variables above, I now move on to exploring the course related variables. Similarly to the professor related variables, there are a mix of continuous and binary course related variables. So, below I look at each of two groups of variables separately.
 
 
 ```r
 explanatory_variables_course <- teaching_eval_clean %>% 
   select(lower:students)
 
-skimr::skim(explanatory_variables_course)
+skim_minimal(explanatory_variables_course, show_data_completeness = FALSE)
 ```
 
 
@@ -749,13 +756,135 @@ skimr::skim(explanatory_variables_course)
 
 **Variable type: numeric**
 
-|skim_variable      | n_missing| complete_rate|  mean|    sd|    p0|  p25|   p50|   p75| p100|hist                                     |
-|:------------------|---------:|-------------:|-----:|-----:|-----:|----:|-----:|-----:|----:|:----------------------------------------|
-|lower              |         0|             1|  0.34|  0.47|  0.00|  0.0|  0.00|  1.00|    1|▇▁▁▁▅ |
-|multiple_prof      |         0|             1|  0.34|  0.47|  0.00|  0.0|  0.00|  1.00|    1|▇▁▁▁▅ |
-|one_credit         |         0|             1|  0.06|  0.23|  0.00|  0.0|  0.00|  0.00|    1|▇▁▁▁▁ |
-|eval_response_rate |         0|             1| 74.43| 16.76| 10.42| 62.7| 76.92| 87.25|  100|▁▂▅▇▇ |
-|students           |         0|             1| 55.18| 75.07|  8.00| 19.0| 29.00| 60.00|  581|▇▁▁▁▁ |
+|skim_variable      |  mean|    sd|    p0|   p50| p100|hist                                     |
+|:------------------|-----:|-----:|-----:|-----:|----:|:----------------------------------------|
+|lower              |  0.34|  0.47|  0.00|  0.00|    1|▇▁▁▁▅ |
+|multiple_prof      |  0.34|  0.47|  0.00|  0.00|    1|▇▁▁▁▅ |
+|one_credit         |  0.06|  0.23|  0.00|  0.00|    1|▇▁▁▁▁ |
+|eval_response_rate | 74.43| 16.76| 10.42| 76.92|  100|▁▂▅▇▇ |
+|students           | 55.18| 75.07|  8.00| 29.00|  581|▇▁▁▁▁ |
+
+##### Continuous variables
+Below I show the summary statistics below for the two continuous variables: the evaluation response rate (`eval_response_rate`) and the number of students taking the course (`students`). A quick look suggests that both the variables are heavily skewed. So, I'll look at each in a bit more details below.
+
+
+```r
+# identify continuous variables within the dataset
+explanatory_variables_course_cont <- explanatory_variables_course %>% 
+  select(where(~!is_binary_var(.)))
+
+explanatory_variables_course_cont %>% 
+  skim_minimal(show_data_completeness = FALSE)
+```
+
+
+
+
+**Variable type: numeric**
+
+|skim_variable      |  mean|    sd|    p0|   p50| p100|hist                                     |
+|:------------------|-----:|-----:|-----:|-----:|----:|:----------------------------------------|
+|eval_response_rate | 74.43| 16.76| 10.42| 76.92|  100|▁▂▅▇▇ |
+|students           | 55.18| 75.07|  8.00| 29.00|  581|▇▁▁▁▁ |
+**Evaluation response rate:** The histogram below shows that the distribution for `eval_response_rate` is left skewed, with the number of courses (i.e. frequency) increasing with increasing `eval_response_rate` up until around 80% response rate. Above 80% there is some evidence of a decline in the number of course with a given response rate. This makes sense as it would be challenging to get all the students of a given course to participate in an evaluation survey. 
+
+At the moment I am not sure if it will be beneficial to transform this variable ahead of modeling. As rather than approximating a normal distribution, it is also straightforward to interpret the distribution as composed of a linear trend between 0 and 80%. And, of course the choice of bin width of the histogram plays a key role in visual appearance of distribution. Again I'll come back this later during the modelling if needed.
+
+
+```r
+# create plot base
+ggplot(explanatory_variables_course_cont,
+       aes(eval_response_rate)) +
+  
+  # add the plot itself
+  geom_minimal_hist(ylim = c(0, 40), binwidth = 2.5) +
+  
+  # adjust scales to make them easier to interpret
+  scale_x_continuous(labels = scales::percent_format(scale = 1),
+                     breaks = c(0,20,40,60,80,100)) +
+  
+  # add more readible axis titles and a plot title
+  labs(x = "\nStudents participating in the course evaluation survey",
+       y = "Number of courses",
+       title = "Higher participation rates in course evaluation surveys\nare more common than lower participation rates\n")
+```
+
+<img src="03_beauty_files/figure-html/unnamed-chunk-29-1.png" width="672" />
+
+
+**Number of students:**
+
+
+```r
+# create plot base
+ggplot(explanatory_variables_course_cont,
+       aes(students)) +
+  
+  # add reference line
+  geom_vline(xintercept = 100, colour = "grey90", size = 2, alpha = 0.5) +
+  
+  # add the plot itself
+  geom_minimal_hist(ylim = c(0, 140), binwidth = 10) +
+  
+  # adjust scales to make the plot easier to interpret
+  scale_y_continuous(breaks = seq(0,140,20)) +
+  
+  # add more readible axis titles and a plot title
+  labs(x = "\nNumber of students registered on a course",
+       y = "\nNumber of courses\n",
+       title = "Most courses have 100 students or less\n but there are courses with much larger numbers of students\n")
+```
+
+<img src="03_beauty_files/figure-html/unnamed-chunk-30-1.png" width="672" />
+
+
+```r
+# create plot base
+ggplot(explanatory_variables_course_cont,
+       aes(students)) +
+  
+  # add reference line
+  geom_vline(xintercept = 100, colour = "grey90", size = 2, alpha = 0.8) +
+  
+  # add the plot itself
+  geom_density(size = 2, colour = "grey70") +
+  scale_x_log10() +
+  
+  remove_all_grid_lines() +
+  labs(x = "\nNumber of students registered on a course\n(plotted on a log scale)",
+       y = "\nEstimated density\n",
+       title = "The distriubtion of number of students registered per course\nremains left skewed after a log transformation \n")
+```
+
+<img src="03_beauty_files/figure-html/unnamed-chunk-31-1.png" width="672" />
+
+##### Discrete variables
+
+```r
+# identify continuous variables within the dataset
+explanatory_variables_course_discrete <- explanatory_variables_course %>% 
+  select(where(~is_binary_var(.)))
+
+explanatory_variables_course_discrete %>% 
+  skim_minimal()
+```
+
+
+
+
+**Variable type: numeric**
+
+|skim_variable | n_missing| complete_rate| mean|   sd| p0| p50| p100|hist                                     |
+|:-------------|---------:|-------------:|----:|----:|--:|---:|----:|:----------------------------------------|
+|lower         |         0|             1| 0.34| 0.47|  0|   0|    1|▇▁▁▁▅ |
+|multiple_prof |         0|             1| 0.34| 0.47|  0|   0|    1|▇▁▁▁▅ |
+|one_credit    |         0|             1| 0.06| 0.23|  0|   0|    1|▇▁▁▁▁ |
+
+```r
+df <- explanatory_variables_course_discrete%>%
+    skim_minimal()
+```
+
 
 ### Relationships between variables
 

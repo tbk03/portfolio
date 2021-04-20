@@ -31,8 +31,10 @@ the-response-variable
 potential-explanatory-variables
 professor-related-explanatory-variables
 continuous-variables
-binary-variables
+discrete-variables
 course-related-explanatory-variables
+continuous-variables-1
+discrete-variables-1
 relationships-between-variables
 relationships-between-continuous-variables
 relationships-between-discrete-variables-and-continuous-variables

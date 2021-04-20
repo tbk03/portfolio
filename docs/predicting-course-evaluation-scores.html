@@ -24,7 +24,7 @@
 <meta name="author" content="Chris J. Martin" />
 
 
-<meta name="date" content="2021-04-19" />
+<meta name="date" content="2021-04-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -228,7 +228,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb79-2"><a href="predicting-course-evaluation-scores.html#cb79-2" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_light</span>())</span>
 <span id="cb79-3"><a href="predicting-course-evaluation-scores.html#cb79-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb79-4"><a href="predicting-course-evaluation-scores.html#cb79-4" aria-hidden="true" tabindex="-1"></a><span class="co"># import my own plotting functions for styling plots</span></span>
-<span id="cb79-5"><a href="predicting-course-evaluation-scores.html#cb79-5" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;plotting_functions.R&quot;</span>)</span></code></pre></div>
+<span id="cb79-5"><a href="predicting-course-evaluation-scores.html#cb79-5" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;plotting_functions.R&quot;</span>)</span>
+<span id="cb79-6"><a href="predicting-course-evaluation-scores.html#cb79-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-7"><a href="predicting-course-evaluation-scores.html#cb79-7" aria-hidden="true" tabindex="-1"></a><span class="co"># import my own functions for producing summary stats (which use on skimr)</span></span>
+<span id="cb79-8"><a href="predicting-course-evaluation-scores.html#cb79-8" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;stats_functions.R&quot;</span>)</span></code></pre></div>
 <div id="data-importing-and-cleaning-1" class="section level2" number="4.1">
 <h2><span class="header-section-number">4.1</span> Data importing and cleaning</h2>
 <div id="importing-the-data" class="section level3" number="4.1.1">
@@ -419,7 +422,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="the-response-variable" class="section level3" number="4.2.1">
 <h3><span class="header-section-number">4.2.1</span> The response variable</h3>
 <p>So, I started the exploratory data analysis quickly looking at summary statistics for <code>course_evaluation</code>, which is the response variable in this exercise. This first things I noted was that the both the mean and median <code>course_evaluation</code> score is 4, and the mini-histogram indicates a potential left skew of the data. So, it appears that the <code>course_evaluation</code> scores tend to be towards the higher end of the 5 point scale. I want to look at this in a little more detail, so moved on to plotting a full histogram.</p>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="predicting-course-evaluation-scores.html#cb89-1" aria-hidden="true" tabindex="-1"></a>skimr<span class="sc">::</span><span class="fu">skim</span>(teaching_eval_clean, course_evaluation)</span></code></pre></div>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="predicting-course-evaluation-scores.html#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="fu">skim_minimal</span>(teaching_eval_clean, course_evaluation)</span></code></pre></div>
 <p><strong>Variable type: numeric</strong></p>
 <table>
 <thead>
@@ -430,9 +433,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <th align="right">mean</th>
 <th align="right">sd</th>
 <th align="right">p0</th>
-<th align="right">p25</th>
 <th align="right">p50</th>
-<th align="right">p75</th>
 <th align="right">p100</th>
 <th align="left">hist</th>
 </tr>
@@ -445,9 +446,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <td align="right">4</td>
 <td align="right">0.55</td>
 <td align="right">2.1</td>
-<td align="right">3.6</td>
 <td align="right">4</td>
-<td align="right">4.4</td>
 <td align="right">5</td>
 <td align="left">▁▂▆▇▅</td>
 </tr>
@@ -520,21 +519,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb93-3"><a href="predicting-course-evaluation-scores.html#cb93-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(prof_number, tenured<span class="sc">:</span>tenure_track)</span>
 <span id="cb93-4"><a href="predicting-course-evaluation-scores.html#cb93-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb93-5"><a href="predicting-course-evaluation-scores.html#cb93-5" aria-hidden="true" tabindex="-1"></a><span class="co"># produce summary statistics</span></span>
-<span id="cb93-6"><a href="predicting-course-evaluation-scores.html#cb93-6" aria-hidden="true" tabindex="-1"></a>skimr<span class="sc">::</span><span class="fu">skim</span>(explanatory_variables_prof <span class="sc">%&gt;%</span> </span>
-<span id="cb93-7"><a href="predicting-course-evaluation-scores.html#cb93-7" aria-hidden="true" tabindex="-1"></a>              <span class="fu">select</span>(<span class="sc">-</span>prof_number)) <span class="co"># no need to include identifer variable</span></span></code></pre></div>
+<span id="cb93-6"><a href="predicting-course-evaluation-scores.html#cb93-6" aria-hidden="true" tabindex="-1"></a><span class="fu">skim_minimal</span>(explanatory_variables_prof <span class="sc">%&gt;%</span> </span>
+<span id="cb93-7"><a href="predicting-course-evaluation-scores.html#cb93-7" aria-hidden="true" tabindex="-1"></a>              <span class="fu">select</span>(<span class="sc">-</span>prof_number), <span class="co"># no need to include identifer variable</span></span>
+<span id="cb93-8"><a href="predicting-course-evaluation-scores.html#cb93-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">show_data_completeness =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <p><strong>Variable type: numeric</strong></p>
 <table>
 <thead>
 <tr class="header">
 <th align="left">skim_variable</th>
-<th align="right">n_missing</th>
-<th align="right">complete_rate</th>
 <th align="right">mean</th>
 <th align="right">sd</th>
 <th align="right">p0</th>
-<th align="right">p25</th>
 <th align="right">p50</th>
-<th align="right">p75</th>
 <th align="right">p100</th>
 <th align="left">hist</th>
 </tr>
@@ -542,25 +538,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <tbody>
 <tr class="odd">
 <td align="left">tenured</td>
-<td align="right">0</td>
-<td align="right">1</td>
 <td align="right">0.55</td>
 <td align="right">0.50</td>
 <td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">1.00</td>
 <td align="right">1.00</td>
 <td align="right">1.00</td>
 <td align="left">▆▁▁▁▇</td>
 </tr>
 <tr class="even">
 <td align="left">minority</td>
-<td align="right">0</td>
-<td align="right">1</td>
 <td align="right">0.14</td>
 <td align="right">0.35</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
 <td align="right">0.00</td>
 <td align="right">0.00</td>
 <td align="right">1.00</td>
@@ -568,64 +556,44 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 <tr class="odd">
 <td align="left">age</td>
-<td align="right">0</td>
-<td align="right">1</td>
 <td align="right">48.37</td>
 <td align="right">9.80</td>
 <td align="right">29.00</td>
-<td align="right">42.00</td>
 <td align="right">48.00</td>
-<td align="right">57.00</td>
 <td align="right">73.00</td>
 <td align="left">▅▆▇▆▁</td>
 </tr>
 <tr class="even">
 <td align="left">prof_ave_rating</td>
-<td align="right">0</td>
-<td align="right">1</td>
 <td align="right">4.17</td>
 <td align="right">0.54</td>
 <td align="right">2.30</td>
-<td align="right">3.80</td>
 <td align="right">4.30</td>
-<td align="right">4.60</td>
 <td align="right">5.00</td>
 <td align="left">▁▁▅▇▇</td>
 </tr>
 <tr class="odd">
 <td align="left">prof_ave_beauty_rating</td>
-<td align="right">0</td>
-<td align="right">1</td>
 <td align="right">-0.09</td>
 <td align="right">0.79</td>
 <td align="right">-1.54</td>
-<td align="right">-0.74</td>
 <td align="right">-0.16</td>
-<td align="right">0.46</td>
 <td align="right">1.88</td>
 <td align="left">▃▇▇▃▂</td>
 </tr>
 <tr class="even">
 <td align="left">female</td>
-<td align="right">0</td>
-<td align="right">1</td>
 <td align="right">0.42</td>
 <td align="right">0.49</td>
 <td align="right">0.00</td>
 <td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">1.00</td>
 <td align="right">1.00</td>
 <td align="left">▇▁▁▁▆</td>
 </tr>
 <tr class="odd">
 <td align="left">formal</td>
-<td align="right">0</td>
-<td align="right">1</td>
 <td align="right">0.17</td>
 <td align="right">0.37</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
 <td align="right">0.00</td>
 <td align="right">0.00</td>
 <td align="right">1.00</td>
@@ -633,12 +601,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 <tr class="even">
 <td align="left">non_native_english</td>
-<td align="right">0</td>
-<td align="right">1</td>
 <td align="right">0.06</td>
 <td align="right">0.24</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
 <td align="right">0.00</td>
 <td align="right">0.00</td>
 <td align="right">1.00</td>
@@ -646,13 +610,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 <tr class="odd">
 <td align="left">tenure_track</td>
-<td align="right">0</td>
-<td align="right">1</td>
 <td align="right">0.78</td>
 <td align="right">0.41</td>
 <td align="right">0.00</td>
-<td align="right">1.00</td>
-<td align="right">1.00</td>
 <td align="right">1.00</td>
 <td align="right">1.00</td>
 <td align="left">▂▁▁▁▇</td>
@@ -691,21 +651,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb95-3"><a href="predicting-course-evaluation-scores.html#cb95-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">where</span>(<span class="sc">~!</span><span class="fu">is_binary_var</span>(.))) </span>
 <span id="cb95-4"><a href="predicting-course-evaluation-scores.html#cb95-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb95-5"><a href="predicting-course-evaluation-scores.html#cb95-5" aria-hidden="true" tabindex="-1"></a><span class="co"># show summary statistics</span></span>
-<span id="cb95-6"><a href="predicting-course-evaluation-scores.html#cb95-6" aria-hidden="true" tabindex="-1"></a>skimr<span class="sc">::</span><span class="fu">skim</span>(explanatory_variables_prof_cont <span class="sc">%&gt;%</span> </span>
-<span id="cb95-7"><a href="predicting-course-evaluation-scores.html#cb95-7" aria-hidden="true" tabindex="-1"></a>              <span class="fu">select</span>(<span class="sc">-</span>prof_number))</span></code></pre></div>
+<span id="cb95-6"><a href="predicting-course-evaluation-scores.html#cb95-6" aria-hidden="true" tabindex="-1"></a><span class="fu">skim_minimal</span>(explanatory_variables_prof_cont <span class="sc">%&gt;%</span> </span>
+<span id="cb95-7"><a href="predicting-course-evaluation-scores.html#cb95-7" aria-hidden="true" tabindex="-1"></a>              <span class="fu">select</span>(<span class="sc">-</span>prof_number),</span>
+<span id="cb95-8"><a href="predicting-course-evaluation-scores.html#cb95-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">show_data_completeness =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <p><strong>Variable type: numeric</strong></p>
 <table>
 <thead>
 <tr class="header">
 <th align="left">skim_variable</th>
-<th align="right">n_missing</th>
-<th align="right">complete_rate</th>
 <th align="right">mean</th>
 <th align="right">sd</th>
 <th align="right">p0</th>
-<th align="right">p25</th>
 <th align="right">p50</th>
-<th align="right">p75</th>
 <th align="right">p100</th>
 <th align="left">hist</th>
 </tr>
@@ -713,40 +670,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <tbody>
 <tr class="odd">
 <td align="left">age</td>
-<td align="right">0</td>
-<td align="right">1</td>
 <td align="right">48.37</td>
 <td align="right">9.80</td>
 <td align="right">29.00</td>
-<td align="right">42.00</td>
 <td align="right">48.00</td>
-<td align="right">57.00</td>
 <td align="right">73.00</td>
 <td align="left">▅▆▇▆▁</td>
 </tr>
 <tr class="even">
 <td align="left">prof_ave_rating</td>
-<td align="right">0</td>
-<td align="right">1</td>
 <td align="right">4.17</td>
 <td align="right">0.54</td>
 <td align="right">2.30</td>
-<td align="right">3.80</td>
 <td align="right">4.30</td>
-<td align="right">4.60</td>
 <td align="right">5.00</td>
 <td align="left">▁▁▅▇▇</td>
 </tr>
 <tr class="odd">
 <td align="left">prof_ave_beauty_rating</td>
-<td align="right">0</td>
-<td align="right">1</td>
 <td align="right">-0.09</td>
 <td align="right">0.79</td>
 <td align="right">-1.54</td>
-<td align="right">-0.74</td>
 <td align="right">-0.16</td>
-<td align="right">0.46</td>
 <td align="right">1.88</td>
 <td align="left">▃▇▇▃▂</td>
 </tr>
@@ -885,8 +830,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb104-2"><a href="predicting-course-evaluation-scores.html#cb104-2" aria-hidden="true" tabindex="-1"></a>explanatory_variables_prof_cont <span class="ot">&lt;-</span> explanatory_variables_prof_cont <span class="sc">%&gt;%</span> </span>
 <span id="cb104-3"><a href="predicting-course-evaluation-scores.html#cb104-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">age_binned =</span> <span class="fu">cut_width</span>(age, <span class="at">width =</span> <span class="dv">5</span>, <span class="at">boundary =</span> <span class="dv">20</span>))</span></code></pre></div>
 </div>
-<div id="binary-variables" class="section level5" number="4.2.2.1.2">
-<h5><span class="header-section-number">4.2.2.1.2</span> Binary variables</h5>
+<div id="discrete-variables" class="section level5" number="4.2.2.1.2">
+<h5><span class="header-section-number">4.2.2.1.2</span> Discrete variables</h5>
 <p>Moving on to look at the discrete (primarily binary) Professor related variables. I start by looking at the summary statistics. There is not too much to do in terms of visualisation of these variables at this point.</p>
 <p>For the binary variables the mean value (shown in the summary stats below) indicates the proportion of professors with the characteristic associated with the variable (e.g. The proportion of professors who are <code>tenured</code> is 0.546). So, we can see that binary variables differ in the extent to which they partition the professors in to groups of equal or unequal size.</p>
 <div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="predicting-course-evaluation-scores.html#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="co"># identify binary variables within the dataset</span></span>
@@ -901,15 +846,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb105-10"><a href="predicting-course-evaluation-scores.html#cb105-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_cols</span>(<span class="fu">select</span>(explanatory_variables_prof_cont, age_binned))</span>
 <span id="cb105-11"><a href="predicting-course-evaluation-scores.html#cb105-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb105-12"><a href="predicting-course-evaluation-scores.html#cb105-12" aria-hidden="true" tabindex="-1"></a><span class="co"># show summary statistics</span></span>
-<span id="cb105-13"><a href="predicting-course-evaluation-scores.html#cb105-13" aria-hidden="true" tabindex="-1"></a>skimr<span class="sc">::</span><span class="fu">skim</span>(explanatory_variables_prof_discrete <span class="sc">%&gt;%</span> </span>
-<span id="cb105-14"><a href="predicting-course-evaluation-scores.html#cb105-14" aria-hidden="true" tabindex="-1"></a>              <span class="fu">select</span>(<span class="sc">-</span>prof_number))</span></code></pre></div>
+<span id="cb105-13"><a href="predicting-course-evaluation-scores.html#cb105-13" aria-hidden="true" tabindex="-1"></a><span class="fu">skim_minimal</span>(explanatory_variables_prof_discrete <span class="sc">%&gt;%</span> </span>
+<span id="cb105-14"><a href="predicting-course-evaluation-scores.html#cb105-14" aria-hidden="true" tabindex="-1"></a>              <span class="fu">select</span>(<span class="sc">-</span>prof_number), </span>
+<span id="cb105-15"><a href="predicting-course-evaluation-scores.html#cb105-15" aria-hidden="true" tabindex="-1"></a>             <span class="at">show_data_completeness =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <p><strong>Variable type: factor</strong></p>
 <table>
 <thead>
 <tr class="header">
 <th align="left">skim_variable</th>
-<th align="right">n_missing</th>
-<th align="right">complete_rate</th>
 <th align="left">ordered</th>
 <th align="right">n_unique</th>
 <th align="left">top_counts</th>
@@ -918,8 +862,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <tbody>
 <tr class="odd">
 <td align="left">age_binned</td>
-<td align="right">0</td>
-<td align="right">1</td>
 <td align="left">FALSE</td>
 <td align="right">10</td>
 <td align="left">(45: 84, (50: 74, (55: 71, (30: 63</td>
@@ -931,14 +873,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <thead>
 <tr class="header">
 <th align="left">skim_variable</th>
-<th align="right">n_missing</th>
-<th align="right">complete_rate</th>
 <th align="right">mean</th>
 <th align="right">sd</th>
 <th align="right">p0</th>
-<th align="right">p25</th>
 <th align="right">p50</th>
-<th align="right">p75</th>
 <th align="right">p100</th>
 <th align="left">hist</th>
 </tr>
@@ -946,25 +884,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <tbody>
 <tr class="odd">
 <td align="left">tenured</td>
-<td align="right">0</td>
-<td align="right">1</td>
 <td align="right">0.55</td>
 <td align="right">0.50</td>
 <td align="right">0</td>
-<td align="right">0</td>
-<td align="right">1</td>
 <td align="right">1</td>
 <td align="right">1</td>
 <td align="left">▆▁▁▁▇</td>
 </tr>
 <tr class="even">
 <td align="left">minority</td>
-<td align="right">0</td>
-<td align="right">1</td>
 <td align="right">0.14</td>
 <td align="right">0.35</td>
-<td align="right">0</td>
-<td align="right">0</td>
 <td align="right">0</td>
 <td align="right">0</td>
 <td align="right">1</td>
@@ -972,25 +902,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 <tr class="odd">
 <td align="left">female</td>
-<td align="right">0</td>
-<td align="right">1</td>
 <td align="right">0.42</td>
 <td align="right">0.49</td>
 <td align="right">0</td>
 <td align="right">0</td>
-<td align="right">0</td>
-<td align="right">1</td>
 <td align="right">1</td>
 <td align="left">▇▁▁▁▆</td>
 </tr>
 <tr class="even">
 <td align="left">formal</td>
-<td align="right">0</td>
-<td align="right">1</td>
 <td align="right">0.17</td>
 <td align="right">0.37</td>
-<td align="right">0</td>
-<td align="right">0</td>
 <td align="right">0</td>
 <td align="right">0</td>
 <td align="right">1</td>
@@ -998,12 +920,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 <tr class="odd">
 <td align="left">non_native_english</td>
-<td align="right">0</td>
-<td align="right">1</td>
 <td align="right">0.06</td>
 <td align="right">0.24</td>
-<td align="right">0</td>
-<td align="right">0</td>
 <td align="right">0</td>
 <td align="right">0</td>
 <td align="right">1</td>
@@ -1011,13 +929,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 <tr class="even">
 <td align="left">tenure_track</td>
-<td align="right">0</td>
-<td align="right">1</td>
 <td align="right">0.78</td>
 <td align="right">0.41</td>
 <td align="right">0</td>
-<td align="right">1</td>
-<td align="right">1</td>
 <td align="right">1</td>
 <td align="right">1</td>
 <td align="left">▂▁▁▁▇</td>
@@ -1078,10 +992,177 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="course-related-explanatory-variables" class="section level4" number="4.2.2.2">
 <h4><span class="header-section-number">4.2.2.2</span> Course related explanatory variables</h4>
+<p>Having focused on the professor related variables above, I now move on to exploring the course related variables. Similarly to the professor related variables, there are a mix of continuous and binary course related variables. So, below I look at each of two groups of variables separately.</p>
 <div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="predicting-course-evaluation-scores.html#cb111-1" aria-hidden="true" tabindex="-1"></a>explanatory_variables_course <span class="ot">&lt;-</span> teaching_eval_clean <span class="sc">%&gt;%</span> </span>
 <span id="cb111-2"><a href="predicting-course-evaluation-scores.html#cb111-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(lower<span class="sc">:</span>students)</span>
 <span id="cb111-3"><a href="predicting-course-evaluation-scores.html#cb111-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-4"><a href="predicting-course-evaluation-scores.html#cb111-4" aria-hidden="true" tabindex="-1"></a>skimr<span class="sc">::</span><span class="fu">skim</span>(explanatory_variables_course)</span></code></pre></div>
+<span id="cb111-4"><a href="predicting-course-evaluation-scores.html#cb111-4" aria-hidden="true" tabindex="-1"></a><span class="fu">skim_minimal</span>(explanatory_variables_course, <span class="at">show_data_completeness =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<p><strong>Variable type: numeric</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">skim_variable</th>
+<th align="right">mean</th>
+<th align="right">sd</th>
+<th align="right">p0</th>
+<th align="right">p50</th>
+<th align="right">p100</th>
+<th align="left">hist</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">lower</td>
+<td align="right">0.34</td>
+<td align="right">0.47</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">1</td>
+<td align="left">▇▁▁▁▅</td>
+</tr>
+<tr class="even">
+<td align="left">multiple_prof</td>
+<td align="right">0.34</td>
+<td align="right">0.47</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">1</td>
+<td align="left">▇▁▁▁▅</td>
+</tr>
+<tr class="odd">
+<td align="left">one_credit</td>
+<td align="right">0.06</td>
+<td align="right">0.23</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">1</td>
+<td align="left">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td align="left">eval_response_rate</td>
+<td align="right">74.43</td>
+<td align="right">16.76</td>
+<td align="right">10.42</td>
+<td align="right">76.92</td>
+<td align="right">100</td>
+<td align="left">▁▂▅▇▇</td>
+</tr>
+<tr class="odd">
+<td align="left">students</td>
+<td align="right">55.18</td>
+<td align="right">75.07</td>
+<td align="right">8.00</td>
+<td align="right">29.00</td>
+<td align="right">581</td>
+<td align="left">▇▁▁▁▁</td>
+</tr>
+</tbody>
+</table>
+<div id="continuous-variables-1" class="section level5" number="4.2.2.2.1">
+<h5><span class="header-section-number">4.2.2.2.1</span> Continuous variables</h5>
+<p>Below I show the summary statistics below for the two continuous variables: the evaluation response rate (<code>eval_response_rate</code>) and the number of students taking the course (<code>students</code>). A quick look suggests that both the variables are heavily skewed. So, I’ll look at each in a bit more details below.</p>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="predicting-course-evaluation-scores.html#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="co"># identify continuous variables within the dataset</span></span>
+<span id="cb112-2"><a href="predicting-course-evaluation-scores.html#cb112-2" aria-hidden="true" tabindex="-1"></a>explanatory_variables_course_cont <span class="ot">&lt;-</span> explanatory_variables_course <span class="sc">%&gt;%</span> </span>
+<span id="cb112-3"><a href="predicting-course-evaluation-scores.html#cb112-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">where</span>(<span class="sc">~!</span><span class="fu">is_binary_var</span>(.)))</span>
+<span id="cb112-4"><a href="predicting-course-evaluation-scores.html#cb112-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb112-5"><a href="predicting-course-evaluation-scores.html#cb112-5" aria-hidden="true" tabindex="-1"></a>explanatory_variables_course_cont <span class="sc">%&gt;%</span> </span>
+<span id="cb112-6"><a href="predicting-course-evaluation-scores.html#cb112-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">skim_minimal</span>(<span class="at">show_data_completeness =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<p><strong>Variable type: numeric</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">skim_variable</th>
+<th align="right">mean</th>
+<th align="right">sd</th>
+<th align="right">p0</th>
+<th align="right">p50</th>
+<th align="right">p100</th>
+<th align="left">hist</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">eval_response_rate</td>
+<td align="right">74.43</td>
+<td align="right">16.76</td>
+<td align="right">10.42</td>
+<td align="right">76.92</td>
+<td align="right">100</td>
+<td align="left">▁▂▅▇▇</td>
+</tr>
+<tr class="even">
+<td align="left">students</td>
+<td align="right">55.18</td>
+<td align="right">75.07</td>
+<td align="right">8.00</td>
+<td align="right">29.00</td>
+<td align="right">581</td>
+<td align="left">▇▁▁▁▁</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Evaluation response rate:</strong> The histogram below shows that the distribution for <code>eval_response_rate</code> is left skewed, with the number of courses (i.e. frequency) increasing with increasing <code>eval_response_rate</code> up until around 80% response rate. Above 80% there is some evidence of a decline in the number of course with a given response rate. This makes sense as it would be challenging to get all the students of a given course to participate in an evaluation survey.</p>
+<p>At the moment I am not sure if it will be beneficial to transform this variable ahead of modeling. As rather than approximating a normal distribution, it is also straightforward to interpret the distribution as composed of a linear trend between 0 and 80%. And, of course the choice of bin width of the histogram plays a key role in visual appearance of distribution. Again I’ll come back this later during the modelling if needed.</p>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="predicting-course-evaluation-scores.html#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create plot base</span></span>
+<span id="cb113-2"><a href="predicting-course-evaluation-scores.html#cb113-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(explanatory_variables_course_cont,</span>
+<span id="cb113-3"><a href="predicting-course-evaluation-scores.html#cb113-3" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(eval_response_rate)) <span class="sc">+</span></span>
+<span id="cb113-4"><a href="predicting-course-evaluation-scores.html#cb113-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb113-5"><a href="predicting-course-evaluation-scores.html#cb113-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add the plot itself</span></span>
+<span id="cb113-6"><a href="predicting-course-evaluation-scores.html#cb113-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_minimal_hist</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">40</span>), <span class="at">binwidth =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
+<span id="cb113-7"><a href="predicting-course-evaluation-scores.html#cb113-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb113-8"><a href="predicting-course-evaluation-scores.html#cb113-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># adjust scales to make them easier to interpret</span></span>
+<span id="cb113-9"><a href="predicting-course-evaluation-scores.html#cb113-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">percent_format</span>(<span class="at">scale =</span> <span class="dv">1</span>),</span>
+<span id="cb113-10"><a href="predicting-course-evaluation-scores.html#cb113-10" aria-hidden="true" tabindex="-1"></a>                     <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">20</span>,<span class="dv">40</span>,<span class="dv">60</span>,<span class="dv">80</span>,<span class="dv">100</span>)) <span class="sc">+</span></span>
+<span id="cb113-11"><a href="predicting-course-evaluation-scores.html#cb113-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb113-12"><a href="predicting-course-evaluation-scores.html#cb113-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add more readible axis titles and a plot title</span></span>
+<span id="cb113-13"><a href="predicting-course-evaluation-scores.html#cb113-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st">Students participating in the course evaluation survey&quot;</span>,</span>
+<span id="cb113-14"><a href="predicting-course-evaluation-scores.html#cb113-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Number of courses&quot;</span>,</span>
+<span id="cb113-15"><a href="predicting-course-evaluation-scores.html#cb113-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">&quot;Higher participation rates in course evaluation surveys</span><span class="sc">\n</span><span class="st">are more common than lower participation rates</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<p><img src="03_beauty_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
+<p><strong>Number of students:</strong></p>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="predicting-course-evaluation-scores.html#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create plot base</span></span>
+<span id="cb114-2"><a href="predicting-course-evaluation-scores.html#cb114-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(explanatory_variables_course_cont,</span>
+<span id="cb114-3"><a href="predicting-course-evaluation-scores.html#cb114-3" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(students)) <span class="sc">+</span></span>
+<span id="cb114-4"><a href="predicting-course-evaluation-scores.html#cb114-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb114-5"><a href="predicting-course-evaluation-scores.html#cb114-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add reference line</span></span>
+<span id="cb114-6"><a href="predicting-course-evaluation-scores.html#cb114-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">100</span>, <span class="at">colour =</span> <span class="st">&quot;grey90&quot;</span>, <span class="at">size =</span> <span class="dv">2</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb114-7"><a href="predicting-course-evaluation-scores.html#cb114-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb114-8"><a href="predicting-course-evaluation-scores.html#cb114-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add the plot itself</span></span>
+<span id="cb114-9"><a href="predicting-course-evaluation-scores.html#cb114-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_minimal_hist</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">140</span>), <span class="at">binwidth =</span> <span class="dv">10</span>) <span class="sc">+</span></span>
+<span id="cb114-10"><a href="predicting-course-evaluation-scores.html#cb114-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb114-11"><a href="predicting-course-evaluation-scores.html#cb114-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># adjust scales to make the plot easier to interpret</span></span>
+<span id="cb114-12"><a href="predicting-course-evaluation-scores.html#cb114-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">140</span>,<span class="dv">20</span>)) <span class="sc">+</span></span>
+<span id="cb114-13"><a href="predicting-course-evaluation-scores.html#cb114-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb114-14"><a href="predicting-course-evaluation-scores.html#cb114-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add more readible axis titles and a plot title</span></span>
+<span id="cb114-15"><a href="predicting-course-evaluation-scores.html#cb114-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st">Number of students registered on a course&quot;</span>,</span>
+<span id="cb114-16"><a href="predicting-course-evaluation-scores.html#cb114-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st">Number of courses</span><span class="sc">\n</span><span class="st">&quot;</span>,</span>
+<span id="cb114-17"><a href="predicting-course-evaluation-scores.html#cb114-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">&quot;Most courses have 100 students or less</span><span class="sc">\n</span><span class="st"> but there are courses with much larger numbers of students</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<p><img src="03_beauty_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="predicting-course-evaluation-scores.html#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create plot base</span></span>
+<span id="cb115-2"><a href="predicting-course-evaluation-scores.html#cb115-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(explanatory_variables_course_cont,</span>
+<span id="cb115-3"><a href="predicting-course-evaluation-scores.html#cb115-3" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(students)) <span class="sc">+</span></span>
+<span id="cb115-4"><a href="predicting-course-evaluation-scores.html#cb115-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb115-5"><a href="predicting-course-evaluation-scores.html#cb115-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add reference line</span></span>
+<span id="cb115-6"><a href="predicting-course-evaluation-scores.html#cb115-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">100</span>, <span class="at">colour =</span> <span class="st">&quot;grey90&quot;</span>, <span class="at">size =</span> <span class="dv">2</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb115-7"><a href="predicting-course-evaluation-scores.html#cb115-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb115-8"><a href="predicting-course-evaluation-scores.html#cb115-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add the plot itself</span></span>
+<span id="cb115-9"><a href="predicting-course-evaluation-scores.html#cb115-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">size =</span> <span class="dv">2</span>, <span class="at">colour =</span> <span class="st">&quot;grey70&quot;</span>) <span class="sc">+</span></span>
+<span id="cb115-10"><a href="predicting-course-evaluation-scores.html#cb115-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>() <span class="sc">+</span></span>
+<span id="cb115-11"><a href="predicting-course-evaluation-scores.html#cb115-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb115-12"><a href="predicting-course-evaluation-scores.html#cb115-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">remove_all_grid_lines</span>() <span class="sc">+</span></span>
+<span id="cb115-13"><a href="predicting-course-evaluation-scores.html#cb115-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st">Number of students registered on a course</span><span class="sc">\n</span><span class="st">(plotted on a log scale)&quot;</span>,</span>
+<span id="cb115-14"><a href="predicting-course-evaluation-scores.html#cb115-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st">Estimated density</span><span class="sc">\n</span><span class="st">&quot;</span>,</span>
+<span id="cb115-15"><a href="predicting-course-evaluation-scores.html#cb115-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">&quot;The distriubtion of number of students registered per course</span><span class="sc">\n</span><span class="st">remains left skewed after a log transformation </span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<p><img src="03_beauty_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
+</div>
+<div id="discrete-variables-1" class="section level5" number="4.2.2.2.2">
+<h5><span class="header-section-number">4.2.2.2.2</span> Discrete variables</h5>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="predicting-course-evaluation-scores.html#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="co"># identify continuous variables within the dataset</span></span>
+<span id="cb116-2"><a href="predicting-course-evaluation-scores.html#cb116-2" aria-hidden="true" tabindex="-1"></a>explanatory_variables_course_discrete <span class="ot">&lt;-</span> explanatory_variables_course <span class="sc">%&gt;%</span> </span>
+<span id="cb116-3"><a href="predicting-course-evaluation-scores.html#cb116-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">where</span>(<span class="sc">~</span><span class="fu">is_binary_var</span>(.)))</span>
+<span id="cb116-4"><a href="predicting-course-evaluation-scores.html#cb116-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb116-5"><a href="predicting-course-evaluation-scores.html#cb116-5" aria-hidden="true" tabindex="-1"></a>explanatory_variables_course_discrete <span class="sc">%&gt;%</span> </span>
+<span id="cb116-6"><a href="predicting-course-evaluation-scores.html#cb116-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">skim_minimal</span>()</span></code></pre></div>
 <p><strong>Variable type: numeric</strong></p>
 <table>
 <thead>
@@ -1092,9 +1173,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <th align="right">mean</th>
 <th align="right">sd</th>
 <th align="right">p0</th>
-<th align="right">p25</th>
 <th align="right">p50</th>
-<th align="right">p75</th>
 <th align="right">p100</th>
 <th align="left">hist</th>
 </tr>
@@ -1106,10 +1185,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <td align="right">1</td>
 <td align="right">0.34</td>
 <td align="right">0.47</td>
-<td align="right">0.00</td>
-<td align="right">0.0</td>
-<td align="right">0.00</td>
-<td align="right">1.00</td>
+<td align="right">0</td>
+<td align="right">0</td>
 <td align="right">1</td>
 <td align="left">▇▁▁▁▅</td>
 </tr>
@@ -1119,10 +1196,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <td align="right">1</td>
 <td align="right">0.34</td>
 <td align="right">0.47</td>
-<td align="right">0.00</td>
-<td align="right">0.0</td>
-<td align="right">0.00</td>
-<td align="right">1.00</td>
+<td align="right">0</td>
+<td align="right">0</td>
 <td align="right">1</td>
 <td align="left">▇▁▁▁▅</td>
 </tr>
@@ -1132,41 +1207,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <td align="right">1</td>
 <td align="right">0.06</td>
 <td align="right">0.23</td>
-<td align="right">0.00</td>
-<td align="right">0.0</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">1</td>
-<td align="left">▇▁▁▁▁</td>
-</tr>
-<tr class="even">
-<td align="left">eval_response_rate</td>
+<td align="right">0</td>
 <td align="right">0</td>
 <td align="right">1</td>
-<td align="right">74.43</td>
-<td align="right">16.76</td>
-<td align="right">10.42</td>
-<td align="right">62.7</td>
-<td align="right">76.92</td>
-<td align="right">87.25</td>
-<td align="right">100</td>
-<td align="left">▁▂▅▇▇</td>
-</tr>
-<tr class="odd">
-<td align="left">students</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">55.18</td>
-<td align="right">75.07</td>
-<td align="right">8.00</td>
-<td align="right">19.0</td>
-<td align="right">29.00</td>
-<td align="right">60.00</td>
-<td align="right">581</td>
 <td align="left">▇▁▁▁▁</td>
 </tr>
 </tbody>
 </table>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="predicting-course-evaluation-scores.html#cb117-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> explanatory_variables_course_discrete<span class="sc">%&gt;%</span></span>
+<span id="cb117-2"><a href="predicting-course-evaluation-scores.html#cb117-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">skim_minimal</span>()</span></code></pre></div>
+</div>
 </div>
 </div>
 <div id="relationships-between-variables" class="section level3" number="4.2.3">
