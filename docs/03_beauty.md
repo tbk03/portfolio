@@ -12,10 +12,12 @@ suppressPackageStartupMessages({
     library(tidyverse)
           
     # helper libraries
-    library(janitor)  # for cleaning names
-    library(skimr)    # for summary statistic reports
-    library(glue)     # for string formatting
-    library(infer)    # for exploratory inference
+    library(janitor)    # for cleaning names
+    library(skimr)      # for summary statistic reports
+    library(glue)       # for string formatting
+    library(infer)      # for exploratory inference
+    library(patchwork)  # for displaying multiple plots together
+    library(corrr)      # for correlation analysis
   })
 })
 ```
@@ -741,6 +743,7 @@ null_distn %>%
 I think I'll leave that there in terms of exploratory inference, and just assume for that there interactions between the discrete variables and come back to that issue if and when required in the modeling process.
 
 #### Course related explanatory variables
+
 Having focused on the professor related variables above, I now move on to exploring the course related variables. Similarly to the professor related variables, there are a mix of continuous and binary course related variables. So, below I look at each of two groups of variables separately.
 
 
@@ -765,6 +768,7 @@ skim_minimal(explanatory_variables_course, show_data_completeness = FALSE)
 |students           | 55.18| 75.07|  8.00| 29.00|  581|▇▁▁▁▁ |
 
 ##### Continuous variables
+
 Below I show the summary statistics below for the two continuous variables: the evaluation response rate (`eval_response_rate`) and the number of students taking the course (`students`). A quick look suggests that both the variables are heavily skewed. So, I'll look at each in a bit more details below.
 
 
@@ -786,7 +790,8 @@ explanatory_variables_course_cont %>%
 |:------------------|-----:|-----:|-----:|-----:|----:|:----------------------------------------|
 |eval_response_rate | 74.43| 16.76| 10.42| 76.92|  100|▁▂▅▇▇ |
 |students           | 55.18| 75.07|  8.00| 29.00|  581|▇▁▁▁▁ |
-**Evaluation response rate:** The histogram below shows that the distribution for `eval_response_rate` is left skewed, with the number of courses (i.e. frequency) increasing with increasing `eval_response_rate` up until around 80% response rate. Above 80% there is some evidence of a decline in the number of course with a given response rate. This makes sense as it would be challenging to get all the students of a given course to participate in an evaluation survey. 
+
+**Evaluation response rate:** The histogram below shows that the distribution for `eval_response_rate` is left skewed, with the number of courses (i.e. frequency) increasing with increasing `eval_response_rate` up until around 80% response rate. Above 80% there is some evidence of a decline in the number of course with a given response rate. This makes sense as it would be challenging to get all the students of a given course to participate in an evaluation survey.
 
 At the moment I am not sure if it will be beneficial to transform this variable ahead of modeling. As rather than approximating a normal distribution, it is also straightforward to interpret the distribution as composed of a linear trend between 0 and 80%. And, of course the choice of bin width of the histogram plays a key role in visual appearance of distribution. Again I'll come back this later during the modelling if needed.
 
@@ -811,13 +816,16 @@ ggplot(explanatory_variables_course_cont,
 
 <img src="03_beauty_files/figure-html/unnamed-chunk-29-1.png" width="672" />
 
-
-**Number of students:**
+**Number of students:** Moving on to look at the last course related continuous variable, below is the code to contruct the plots.
 
 
 ```r
+#*************************************************************************
+# Untransformed data
+#*************************************************************************
+
 # create plot base
-ggplot(explanatory_variables_course_cont,
+p_num_stud_1 <- ggplot(explanatory_variables_course_cont,
        aes(students)) +
   
   # add reference line
@@ -833,14 +841,13 @@ ggplot(explanatory_variables_course_cont,
   labs(x = "\nNumber of students registered on a course",
        y = "\nNumber of courses\n",
        title = "Most courses have 100 students or less\n but there are courses with much larger numbers of students\n")
-```
 
-<img src="03_beauty_files/figure-html/unnamed-chunk-30-1.png" width="672" />
+#*************************************************************************
+# Transformed data
+#*************************************************************************
 
-
-```r
 # create plot base
-ggplot(explanatory_variables_course_cont,
+p_num_stud_2 <- ggplot(explanatory_variables_course_cont,
        aes(students)) +
   
   # add reference line
@@ -853,12 +860,28 @@ ggplot(explanatory_variables_course_cont,
   remove_all_grid_lines() +
   labs(x = "\nNumber of students registered on a course\n(plotted on a log scale)",
        y = "\nEstimated density\n",
-       title = "The distriubtion of number of students registered per course\nremains left skewed after a log transformation \n")
+       title = "The distribution of number of students registered per course\nremains left skewed after a log transformation \n")
+```
+
+The first plot shows that most courses have less than 100 students. There some course with several hundred students, I assume these outliers are first year courses which are mandatory for students taking a given degree. The distribution of the number of students registered per course is heavily left skewed, and after a log transformation some (albeit less) left skew remains. So, when it comes to pre-processing the data ahead of modeling I might take a look at other transformations, which could bring the distribution closer to approximating the normal distribution.
+
+
+```r
+p_num_stud_1
 ```
 
 <img src="03_beauty_files/figure-html/unnamed-chunk-31-1.png" width="672" />
 
+```r
+p_num_stud_2
+```
+
+<img src="03_beauty_files/figure-html/unnamed-chunk-31-2.png" width="672" />
+
 ##### Discrete variables
+
+The final variables to look at in isolation are the binary variables related to the courses themselves. The summary statistics below shows that approximately 5% of courses are `one_credit`, so I think it is unlikely to be a particularly important predictor of `course_evaluation` scores and I drop it from from the analysis going forward. I am happy to keep the other two binary variables in the analysis for now without looking at them in further detail at this stage.
+
 
 ```r
 # identify continuous variables within the dataset
@@ -882,19 +905,102 @@ explanatory_variables_course_discrete %>%
 
 ```r
 df <- explanatory_variables_course_discrete%>%
-    skim_minimal()
+    skim_minimal(show_data_completeness = FALSE)
 ```
 
 
+```r
+# omit one_credit variable
+explanatory_variables_course_discrete <- explanatory_variables_course_discrete %>% 
+  select(-one_credit)
+```
+
 ### Relationships between variables
+
+Having looked in detail at each variable in isolation, I now turn to look at the relationships between the variables.
 
 #### Relationships between continuous variables
 
-Look for colinearity of predictors
+First looking at the correlation between each of the continuous variables. Reviewing the correlation matrix below, the key points I noted were:
+
+-   There is no co-linearity of concern between the continuous explanatory variables. The correlation coefficent of 0.8 between `prof_ave_rating` and `ave_teaching_qual` are to be expected given the later is calculated based on the former. This isn't of concern as I wouldn't expect to use both teaching related variables in the same model.
+
+-   Only `prof_ave_rating` and `ave_teaching_qual` are strongly correlated with the response variable (`course_evaluation`). I have concerns that `prof_ave_rating` is so closely correlated `course_evaluation`, suggesting that may be students do not delineate the quality of the professor from the quality of the course (particularly given the coarse granularity of the Likhert scales used to collect the data).
+
+
+```r
+# create a dataframe of all continuous variables (including the response variable)
+variables_all_cont <- explanatory_variables_prof_cont %>%
+  bind_cols(explanatory_variables_course_cont) %>%
+  bind_cols(select(teaching_eval_clean, course_evaluation)) %>% 
+  select(-prof_number, -age_binned)
+
+# produce correlation plot - default is Pearson  
+GGally::ggcorr(variables_all_cont, label = TRUE) +
+  
+  # note key observations
+  labs(title = "There are no colinearity of concern between continuous explanatory variable",
+       subtitle = "Unsuprisngly, teaching ratings are closely correlated with course evaluation scores",
+       caption = "Pairwise Pearson's correlation coefficents are shown") +
+
+  # adjust text size given plot sizes 
+  theme(plot.title = element_text(size = 18),
+        plot.subtitle = element_text(size = 14),
+        plot.caption = element_text(size = 12),
+        legend.position = "none") 
+```
+
+<img src="03_beauty_files/figure-html/unnamed-chunk-34-1.png" width="960" />
 
 #### Relationships between discrete variables and continuous variables
 
-Looking for interactions
+
+```r
+interactions_plot_df <- variables_all_cont %>% 
+  bind_cols(explanatory_variables_course_discrete,
+            select(explanatory_variables_prof_discrete, -prof_number)) %>% 
+  select(course_evaluation, ave_teaching_qual, female, minority, tenure_track)
+
+
+plot_interaction <- function(binary_var){
+  
+  p <- ggplot(interactions_plot_df,
+         aes(ave_teaching_qual, course_evaluation, 
+             colour = factor({{binary_var}}))
+         ) +
+    
+    geom_point(alpha = 0.2) +
+    geom_smooth(se = FALSE, method = "lm", size = 1.3) +
+    
+    scale_color_brewer(type = "qual", palette = "Set1",
+                       labels = c("No", "Yes")) +
+    
+    expand_limits(x = 0, y = 0) +
+    
+    labs(x = "\nAverage teaching quality delivered by professor",
+         y = "Course evaluation score\n")
+    
+    theme(panel.grid.minor = element_blank(),
+          legend.position = "top")
+
+  return(p)
+}
+
+p_f <- plot_interaction(female) +
+  labs(colour = "Female professor",
+       x ="",
+       title = "Interaction between prof gender and course evaluation score?")
+p_m <- plot_interaction(minority) +
+  labs(colour = "Professor with\nminority ethnic\nbackground",
+       x = "",title = "Interaction between prof background and course evaluation score?")
+p_tt <- plot_interaction(tenure_track) +
+  labs(colour = "Professor with\ntenure track",
+       title = "Interaction between prof tenure track status and course evaluation score?")
+
+p_f / p_m / p_tt
+```
+
+<img src="03_beauty_files/figure-html/unnamed-chunk-35-1.png" width="672" />
 
 ## Modelling
 
