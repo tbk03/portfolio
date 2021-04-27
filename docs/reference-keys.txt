@@ -39,4 +39,8 @@ relationships-between-variables
 relationships-between-continuous-variables
 relationships-between-discrete-variables-and-continuous-variables
 modelling
+splitting-the-data
+minimal-and-maximal-models
+iteration-1-adding-two-continuous-variables
+iteration-2
 visualising-green-space-deprivation-across-the-english-regions

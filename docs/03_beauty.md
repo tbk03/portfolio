@@ -10,6 +10,8 @@ suppressPackageStartupMessages({
     
     # core libraries
     library(tidyverse)
+    library(tidymodels)
+    library(rstanarm)
           
     # helper libraries
     library(janitor)    # for cleaning names
@@ -18,6 +20,7 @@ suppressPackageStartupMessages({
     library(infer)      # for exploratory inference
     library(patchwork)  # for displaying multiple plots together
     library(corrr)      # for correlation analysis
+    library(broom.mixed)# for tidying stan objects
   })
 })
 ```
@@ -954,54 +957,379 @@ GGally::ggcorr(variables_all_cont, label = TRUE) +
 
 #### Relationships between discrete variables and continuous variables
 
+As a final stage of the exploratory data analysis I wanted to quickly look at the relationships between the discrete and continuous predictors. In particular, I was interested in if there might be any interactions between the some of the discrete variables and the most promising predictor (`ave_teaching_qual`) of `course_evaluation`. In the code below I construct three plots to look at this.
+
 
 ```r
+# combine the different types of variables in to a single dataframe
+# so, I can look at interactions
 interactions_plot_df <- variables_all_cont %>% 
   bind_cols(explanatory_variables_course_discrete,
             select(explanatory_variables_prof_discrete, -prof_number)) %>% 
   select(course_evaluation, ave_teaching_qual, female, minority, tenure_track)
 
 
+#' Plots interactions between a specified bianry variable and the 
+#' the most promising predictor (ave_teaching_qaul) of course_evaluation
+#'
+#' @param binary_var: a tidy select name for a column containing a binary variable
+#'
+#' @return: a ggplot object
+#' 
 plot_interaction <- function(binary_var){
   
+  # create plot base
   p <- ggplot(interactions_plot_df,
          aes(ave_teaching_qual, course_evaluation, 
              colour = factor({{binary_var}}))
          ) +
     
+    # add data layers
     geom_point(alpha = 0.2) +
     geom_smooth(se = FALSE, method = "lm", size = 1.3) +
     
+    # customise coloring to make plot easier to interpret
     scale_color_brewer(type = "qual", palette = "Set1",
                        labels = c("No", "Yes")) +
     
+    # so full x and y axis
     expand_limits(x = 0, y = 0) +
     
+    # add plot labels
     labs(x = "\nAverage teaching quality delivered by professor",
          y = "Course evaluation score\n")
     
+    # remove some clutter to make plot easier to interpret
     theme(panel.grid.minor = element_blank(),
           legend.position = "top")
 
   return(p)
 }
 
+# produce and label plots for the three potential interactions of interest
 p_f <- plot_interaction(female) +
   labs(colour = "Female professor",
        x ="",
        title = "Interaction between prof gender and course evaluation score?")
+
 p_m <- plot_interaction(minority) +
   labs(colour = "Professor with\nminority ethnic\nbackground",
        x = "",title = "Interaction between prof background and course evaluation score?")
+
 p_tt <- plot_interaction(tenure_track) +
   labs(colour = "Professor with\ntenure track",
        title = "Interaction between prof tenure track status and course evaluation score?")
+```
 
+In each of the plots below, the dataset is partitioned based on the binary variable in question, and separate linear regression lines are plotted. So, for example, the first plot show the data partitioned into two group females and males (i.e. `female` = Yes and `female` = No).
+
+Considering each of the binary variables in turn:
+
+-   `female`: there is a difference in the slopes of the regression lines for the two groups, so there could be an interaction worth exploring in the model.
+
+-   `minority`: the regression lines for the two groups look pretty much the same, so there probably is not an interaction worth exploring in the model.
+
+-   `tenure_track`: there is a difference in the slopes of the regression lines for the two groups, so there could be an interaction worth exploring in the model.
+
+
+```r
+# combine plots to make them easier to interpret as a group
 p_f / p_m / p_tt
 ```
 
-<img src="03_beauty_files/figure-html/unnamed-chunk-35-1.png" width="672" />
+<img src="03_beauty_files/figure-html/unnamed-chunk-36-1.png" width="672" />
 
 ## Modelling
 
-Remember to split into test and training sets
+Approach to developing the model
+
+-   Establish a starting point
+
+-   Incremental add to the model
+
+### Splitting the data
+
+
+```r
+# bring together all variables into a single data frame
+all_variables <- select(teaching_eval_clean, course_evaluation) %>% 
+  bind_cols(explanatory_variables_prof_cont,
+            select(explanatory_variables_prof_discrete, 
+                   -prof_number, - age_binned),
+            explanatory_variables_course_cont,
+            explanatory_variables_course_discrete) %>% 
+  clean_names() 
+
+all_variables
+```
+
+```
+## # A tibble: 463 x 17
+##    course_evaluation prof_number   age prof_ave_rating prof_ave_beauty_rating
+##                <dbl>       <dbl> <dbl>           <dbl>                  <dbl>
+##  1               4.3           1    36             4.7                 0.202 
+##  2               4.5           2    59             4.6                -0.826 
+##  3               3.7           3    51             4.1                -0.660 
+##  4               4.3           4    40             4.5                -0.766 
+##  5               4.4           5    31             4.8                 1.42  
+##  6               4.2           6    62             4.4                 0.500 
+##  7               4             7    33             4.4                -0.214 
+##  8               3.4           8    51             3.4                -0.347 
+##  9               4.5           9    33             4.8                 0.0613
+## 10               3.9          10    47             4                   0.453 
+## # ... with 453 more rows, and 12 more variables: ave_teaching_qual <dbl>,
+## #   age_binned <fct>, tenured <dbl>, minority <dbl>, female <dbl>,
+## #   formal <dbl>, non_native_english <dbl>, tenure_track <dbl>,
+## #   eval_response_rate <dbl>, students <dbl>, lower <dbl>, multiple_prof <dbl>
+```
+
+```r
+# %>% 
+#  rename_with(.fn = ~ str_remove(., pattern = '_\\d'))
+```
+
+
+```r
+# to ensure split is reproducible
+set.seed(123456)
+
+# create train and test datasets
+teaching_split <- rsample::initial_split(all_variables, prop = 0.8)
+teaching_train <- rsample::training(teaching_split)
+teaching_test <- rsample::testing(teaching_split)
+```
+
+### Minimal and maximal models
+
+Minimal model: the most promising predictor identified in the EDA
+
+Maximal model: all predictors, where there are multiple predictors relating to the same underlying construct (e.g. `age` and `age_binned`) only one is retained.
+
+Comparing the log scores from the leave-one-out cross validation the minimal model performs slightly better. So, I'll use the minimal model as the starting point for building a better model.
+
+
+```r
+lm_min <- stan_glm(course_evaluation ~ ave_teaching_qual, data = teaching_train, 
+                   refresh = 0)
+
+lm_max <- stan_glm(course_evaluation ~ ., 
+                   data = select(teaching_train,
+                                 - prof_number,
+                                 - prof_ave_rating,
+                                 - age_binned), 
+                   refresh = 0)
+
+lm_min
+```
+
+```
+## stan_glm
+##  family:       gaussian [identity]
+##  formula:      course_evaluation ~ ave_teaching_qual
+##  observations: 371
+##  predictors:   2
+## ------
+##                   Median MAD_SD
+## (Intercept)       -0.1    0.2  
+## ave_teaching_qual  1.0    0.0  
+## 
+## Auxiliary parameter(s):
+##       Median MAD_SD
+## sigma 0.4    0.0   
+## 
+## ------
+## * For help interpreting the printed output see ?print.stanreg
+## * For info on the priors used see ?prior_summary.stanreg
+```
+
+```r
+lm_max
+```
+
+```
+## stan_glm
+##  family:       gaussian [identity]
+##  formula:      course_evaluation ~ .
+##  observations: 371
+##  predictors:   14
+## ------
+##                        Median MAD_SD
+## (Intercept)             0.0    0.3  
+## age                     0.0    0.0  
+## prof_ave_beauty_rating  0.0    0.0  
+## ave_teaching_qual       0.9    0.1  
+## tenured                 0.0    0.1  
+## minority                0.0    0.1  
+## female                 -0.1    0.0  
+## formal                  0.1    0.1  
+## non_native_english     -0.2    0.1  
+## tenure_track            0.0    0.1  
+## eval_response_rate      0.0    0.0  
+## students                0.0    0.0  
+## lower                   0.0    0.0  
+## multiple_prof          -0.1    0.0  
+## 
+## Auxiliary parameter(s):
+##       Median MAD_SD
+## sigma 0.4    0.0   
+## 
+## ------
+## * For help interpreting the printed output see ?print.stanreg
+## * For info on the priors used see ?prior_summary.stanreg
+```
+
+```r
+loo_lm_min <- loo(lm_min)
+loo_lm_max <- loo(lm_max)
+
+loo_compare(loo_lm_min, loo_lm_max)
+```
+
+```
+##        elpd_diff se_diff
+## lm_min  0.0       0.0   
+## lm_max -1.0       4.7
+```
+
+```r
+median(loo_R2(lm_min))
+```
+
+```
+## [1] 0.5398558
+```
+
+```r
+model_perf_comp <- function(lm_1, lm_2){
+  tibble(
+    loo_log_score = nest(as_tibble(loo(lm_1)$estimates)),
+    loo_med_R2 = median(loo_R2(lm_1))
+    )
+}
+
+stan_glm_metric_summary <- function(stan_lm_mod){
+  
+  r2 <- loo_R2(stan_lm_mod)
+  
+  loo(stan_lm_mod)$estimates %>% 
+    data.frame() %>% 
+    rownames_to_column(var = "Metric") %>%
+    add_row(Metric = "r2",
+            Estimate = median(r2),
+            SE = sd(r2))
+}
+
+stan_glm_metric_summary(lm_min)
+```
+
+```
+##     Metric     Estimate          SE
+## 1 elpd_loo -173.0884824 16.49844359
+## 2    p_loo    3.1546102  0.54672462
+## 3    looic  346.1769648 32.99688718
+## 4       r2    0.5398558  0.03778417
+```
+
+```r
+stan_glm_loo_comp <- function(mod_1, mod_2){
+  
+  comp <- loo_compare(loo(mod_1), loo(mod_2))
+  
+  res <- comp %>% 
+    
+    data.frame() %>% 
+    
+    rownames_to_column(var = "Model") %>% 
+    pivot_longer(cols = elpd_diff:se_looic, 
+                 names_to = "Metric", 
+                 values_to = "Estimate") %>% 
+    
+    pivot_wider(names_from = "Model", 
+                values_from = "Estimate") %>% 
+    
+    add_row(Metric = "r2", 
+            mod_1 = median(loo_R2(mod_1)),
+            mod_2 = median(loo_R2(mod_2)))
+  
+  names(res) <- c("Metric", 
+                  deparse(substitute(mod_1)), 
+                  deparse(substitute(mod_2)))
+  
+  return(res)
+}
+
+stan_glm_loo_comp(lm_min, lm_max)
+```
+
+```
+## # A tibble: 9 x 3
+##   Metric        lm_min   lm_max
+##   <chr>          <dbl>    <dbl>
+## 1 elpd_diff      0       -0.961
+## 2 se_diff        0        4.68 
+## 3 elpd_loo    -173.    -174.   
+## 4 se_elpd_loo   16.5     17.1  
+## 5 p_loo          3.15    14.9  
+## 6 se_p_loo       0.547    1.46 
+## 7 looic        346.     348.   
+## 8 se_looic      33.0     34.3  
+## 9 r2             0.540    0.538
+```
+
+### Iteration 1: Adding two continuous variables
+
+Next I try adding two continuous variables (`prof_ave_beauty_rating` and `eval_response_rate`) as predictors. These were the two variables after `ave_teaching_qual` with the next highest (albeit low) levels of correlation with `course_evaluation`. After adding these variables the model performance is the same as the minimal model. So, I'll keep working with the minimal model as the best performing model for now.
+
+
+```r
+lm_1 <- stan_glm(course_evaluation ~ 
+           ave_teaching_qual + eval_response_rate +
+           prof_ave_beauty_rating,
+         data = teaching_train, 
+         refresh = 0)
+
+stan_glm_loo_comp(lm_min, lm_1)
+```
+
+```
+## # A tibble: 9 x 3
+##   Metric        lm_min     lm_1
+##   <chr>          <dbl>    <dbl>
+## 1 elpd_diff      0       -0.240
+## 2 se_diff        0        2.42 
+## 3 elpd_loo    -173.    -173.   
+## 4 se_elpd_loo   17.0     16.5  
+## 5 p_loo          5.29     3.15 
+## 6 se_p_loo       0.784    0.547
+## 7 looic        346.     346.   
+## 8 se_looic      34.0     33.0  
+## 9 r2             0.542    0.540
+```
+
+### Iteration 2: 
+
+
+```r
+lm_2 <- stan_glm(course_evaluation ~ 
+           ave_teaching_qual +
+             non_native_english,
+         data = teaching_train, 
+         refresh = 0)
+
+stan_glm_loo_comp(lm_min,lm_2)
+```
+
+```
+## # A tibble: 9 x 3
+##   Metric        lm_min     lm_2
+##   <chr>          <dbl>    <dbl>
+## 1 elpd_diff      0       -0.326
+## 2 se_diff        0        1.57 
+## 3 elpd_loo    -173.    -173.   
+## 4 se_elpd_loo   16.5     16.6  
+## 5 p_loo          3.15     4.49 
+## 6 se_p_loo       0.547    0.727
+## 7 looic        346.     347.   
+## 8 se_looic      33.0     33.2  
+## 9 r2             0.540    0.540
+```

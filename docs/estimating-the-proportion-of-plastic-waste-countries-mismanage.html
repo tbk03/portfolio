@@ -24,7 +24,7 @@
 <meta name="author" content="Chris J. Martin" />
 
 
-<meta name="date" content="2021-04-23" />
+<meta name="date" content="2021-04-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -184,7 +184,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.2.2" data-path="predicting-course-evaluation-scores.html"><a href="predicting-course-evaluation-scores.html#potential-explanatory-variables"><i class="fa fa-check"></i><b>4.2.2</b> Potential explanatory variables</a></li>
 <li class="chapter" data-level="4.2.3" data-path="predicting-course-evaluation-scores.html"><a href="predicting-course-evaluation-scores.html#relationships-between-variables"><i class="fa fa-check"></i><b>4.2.3</b> Relationships between variables</a></li>
 </ul></li>
-<li class="chapter" data-level="4.3" data-path="predicting-course-evaluation-scores.html"><a href="predicting-course-evaluation-scores.html#modelling"><i class="fa fa-check"></i><b>4.3</b> Modelling</a></li>
+<li class="chapter" data-level="4.3" data-path="predicting-course-evaluation-scores.html"><a href="predicting-course-evaluation-scores.html#modelling"><i class="fa fa-check"></i><b>4.3</b> Modelling</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="predicting-course-evaluation-scores.html"><a href="predicting-course-evaluation-scores.html#splitting-the-data"><i class="fa fa-check"></i><b>4.3.1</b> Splitting the data</a></li>
+<li class="chapter" data-level="4.3.2" data-path="predicting-course-evaluation-scores.html"><a href="predicting-course-evaluation-scores.html#minimal-and-maximal-models"><i class="fa fa-check"></i><b>4.3.2</b> Minimal and maximal models</a></li>
+<li class="chapter" data-level="4.3.3" data-path="predicting-course-evaluation-scores.html"><a href="predicting-course-evaluation-scores.html#iteration-1-adding-two-continuous-variables"><i class="fa fa-check"></i><b>4.3.3</b> Iteration 1: Adding two continuous variables</a></li>
+<li class="chapter" data-level="4.3.4" data-path="predicting-course-evaluation-scores.html"><a href="predicting-course-evaluation-scores.html#iteration-2"><i class="fa fa-check"></i><b>4.3.4</b> Iteration 2:</a></li>
+</ul></li>
 </ul></li>
 <li class="part"><span><b>II Data Vizualisation Projects</b></span></li>
 <li class="chapter" data-level="5" data-path="visualising-green-space-deprivation-across-the-english-regions.html"><a href="visualising-green-space-deprivation-across-the-english-regions.html"><i class="fa fa-check"></i><b>5</b> Visualising green space deprivation across the English regions</a></li>
@@ -661,7 +667,7 @@ x
 (Intercept)
 </td>
 <td style="text-align:right;">
-1.1345662
+1.1399690
 </td>
 </tr>
 <tr>
@@ -672,7 +678,7 @@ x
 log(gdp_per_cap)
 </td>
 <td style="text-align:right;">
--0.0420099
+-0.0427150
 </td>
 </tr>
 <tr>
@@ -683,7 +689,7 @@ log(gdp_per_cap)
 (Intercept)
 </td>
 <td style="text-align:right;">
-4.0436148
+4.0530963
 </td>
 </tr>
 <tr>
@@ -694,7 +700,7 @@ log(gdp_per_cap)
 log(gdp_per_cap)
 </td>
 <td style="text-align:right;">
--0.3885825
+-0.3894805
 </td>
 </tr>
 <tr>
@@ -705,7 +711,7 @@ log(gdp_per_cap)
 (Intercept)
 </td>
 <td style="text-align:right;">
-0.4330521
+0.4300941
 </td>
 </tr>
 <tr>
@@ -716,7 +722,7 @@ log(gdp_per_cap)
 log(gdp_per_cap)
 </td>
 <td style="text-align:right;">
--0.0365711
+-0.0362773
 </td>
 </tr>
 </tbody>
@@ -808,13 +814,13 @@ abs_residuals_mean
 ‘Lower’ income countries
 </td>
 <td style="text-align:right;">
-0.0350000
+0.0367068
 </td>
 <td style="text-align:right;">
 0.1137020
 </td>
 <td style="text-align:right;">
-0.0645904
+0.0646123
 </td>
 </tr>
 <tr>
@@ -825,13 +831,13 @@ abs_residuals_mean
 ‘Middle’ income countries
 </td>
 <td style="text-align:right;">
-0.4600978
+0.4572047
 </td>
 <td style="text-align:right;">
 0.2520905
 </td>
 <td style="text-align:right;">
-0.1553130
+0.1552780
 </td>
 </tr>
 <tr>
@@ -842,13 +848,13 @@ abs_residuals_mean
 ‘Higher’ income countries
 </td>
 <td style="text-align:right;">
-0.0430862
+0.0425967
 </td>
 <td style="text-align:right;">
 0.0613529
 </td>
 <td style="text-align:right;">
-0.0344628
+0.0345336
 </td>
 </tr>
 </tbody>
