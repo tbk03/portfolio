@@ -24,7 +24,7 @@
 <meta name="author" content="Chris J. Martin" />
 
 
-<meta name="date" content="2021-04-26" />
+<meta name="date" content="2021-04-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -184,12 +184,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.2.2" data-path="predicting-course-evaluation-scores.html"><a href="predicting-course-evaluation-scores.html#potential-explanatory-variables"><i class="fa fa-check"></i><b>4.2.2</b> Potential explanatory variables</a></li>
 <li class="chapter" data-level="4.2.3" data-path="predicting-course-evaluation-scores.html"><a href="predicting-course-evaluation-scores.html#relationships-between-variables"><i class="fa fa-check"></i><b>4.2.3</b> Relationships between variables</a></li>
 </ul></li>
-<li class="chapter" data-level="4.3" data-path="predicting-course-evaluation-scores.html"><a href="predicting-course-evaluation-scores.html#modelling"><i class="fa fa-check"></i><b>4.3</b> Modelling</a>
+<li class="chapter" data-level="4.3" data-path="predicting-course-evaluation-scores.html"><a href="predicting-course-evaluation-scores.html#fitting-the-model-1"><i class="fa fa-check"></i><b>4.3</b> Fitting the model</a>
 <ul>
 <li class="chapter" data-level="4.3.1" data-path="predicting-course-evaluation-scores.html"><a href="predicting-course-evaluation-scores.html#splitting-the-data"><i class="fa fa-check"></i><b>4.3.1</b> Splitting the data</a></li>
 <li class="chapter" data-level="4.3.2" data-path="predicting-course-evaluation-scores.html"><a href="predicting-course-evaluation-scores.html#minimal-and-maximal-models"><i class="fa fa-check"></i><b>4.3.2</b> Minimal and maximal models</a></li>
 <li class="chapter" data-level="4.3.3" data-path="predicting-course-evaluation-scores.html"><a href="predicting-course-evaluation-scores.html#iteration-1-adding-two-continuous-variables"><i class="fa fa-check"></i><b>4.3.3</b> Iteration 1: Adding two continuous variables</a></li>
-<li class="chapter" data-level="4.3.4" data-path="predicting-course-evaluation-scores.html"><a href="predicting-course-evaluation-scores.html#iteration-2"><i class="fa fa-check"></i><b>4.3.4</b> Iteration 2:</a></li>
+<li class="chapter" data-level="4.3.4" data-path="predicting-course-evaluation-scores.html"><a href="predicting-course-evaluation-scores.html#iteration-2-adding-in-discrete-variables"><i class="fa fa-check"></i><b>4.3.4</b> Iteration 2: adding in discrete variables</a></li>
+<li class="chapter" data-level="4.3.5" data-path="predicting-course-evaluation-scores.html"><a href="predicting-course-evaluation-scores.html#iteration-3-adding-in-interactions"><i class="fa fa-check"></i><b>4.3.5</b> Iteration 3: adding in interactions</a></li>
+<li class="chapter" data-level="4.3.6" data-path="predicting-course-evaluation-scores.html"><a href="predicting-course-evaluation-scores.html#iteration-4-reducing-number-of-discrete-predictors-used-to-simplify-the-model"><i class="fa fa-check"></i><b>4.3.6</b> Iteration 4: reducing number of discrete predictors used to simplify the model</a></li>
+<li class="chapter" data-level="4.3.7" data-path="predicting-course-evaluation-scores.html"><a href="predicting-course-evaluation-scores.html#summary-of-model-fitting-process"><i class="fa fa-check"></i><b>4.3.7</b> Summary of model fitting process</a></li>
 </ul></li>
 </ul></li>
 <li class="part"><span><b>II Data Vizualisation Projects</b></span></li>
@@ -667,7 +670,7 @@ x
 (Intercept)
 </td>
 <td style="text-align:right;">
-1.1399690
+1.1385232
 </td>
 </tr>
 <tr>
@@ -678,7 +681,7 @@ x
 log(gdp_per_cap)
 </td>
 <td style="text-align:right;">
--0.0427150
+-0.0424019
 </td>
 </tr>
 <tr>
@@ -689,7 +692,7 @@ log(gdp_per_cap)
 (Intercept)
 </td>
 <td style="text-align:right;">
-4.0530963
+4.0550296
 </td>
 </tr>
 <tr>
@@ -700,7 +703,7 @@ log(gdp_per_cap)
 log(gdp_per_cap)
 </td>
 <td style="text-align:right;">
--0.3894805
+-0.3895086
 </td>
 </tr>
 <tr>
@@ -711,7 +714,7 @@ log(gdp_per_cap)
 (Intercept)
 </td>
 <td style="text-align:right;">
-0.4300941
+0.4349172
 </td>
 </tr>
 <tr>
@@ -722,7 +725,7 @@ log(gdp_per_cap)
 log(gdp_per_cap)
 </td>
 <td style="text-align:right;">
--0.0362773
+-0.0368891
 </td>
 </tr>
 </tbody>
@@ -814,13 +817,13 @@ abs_residuals_mean
 ‘Lower’ income countries
 </td>
 <td style="text-align:right;">
-0.0367068
+0.0356263
 </td>
 <td style="text-align:right;">
 0.1137020
 </td>
 <td style="text-align:right;">
-0.0646123
+0.0640732
 </td>
 </tr>
 <tr>
@@ -831,13 +834,13 @@ abs_residuals_mean
 ‘Middle’ income countries
 </td>
 <td style="text-align:right;">
-0.4572047
+0.4598803
 </td>
 <td style="text-align:right;">
 0.2520905
 </td>
 <td style="text-align:right;">
-0.1552780
+0.1553732
 </td>
 </tr>
 <tr>
@@ -848,13 +851,13 @@ abs_residuals_mean
 ‘Higher’ income countries
 </td>
 <td style="text-align:right;">
-0.0425967
+0.0426978
 </td>
 <td style="text-align:right;">
 0.0613529
 </td>
 <td style="text-align:right;">
-0.0345336
+0.0336369
 </td>
 </tr>
 </tbody>

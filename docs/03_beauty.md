@@ -270,7 +270,7 @@ So, I started the exploratory data analysis quickly looking at summary statistic
 
 
 ```r
-skim_minimal(teaching_eval_clean, course_evaluation)
+skim_minimal(df = teaching_eval_clean, course_evaluation)
 ```
 
 
@@ -333,6 +333,10 @@ p
 ```
 
 <img src="03_beauty_files/figure-html/unnamed-chunk-12-1.png" width="672" />
+
+```r
+ggsave("test.svg")
+```
 
 So, I took a quick look at `course_evaluation` centered around the mean. This looks like a close enough approximation to the normal distribution to me. So, ahead of modeling I don't need to think about transforming `course_evaluation` scores to address the limited amount of skew evident in the plot. However, it might be worth centering the `course_evaluation` scores as this might help make the regression coefficients easier to interpret. But I'll come back to that later on.
 
@@ -470,7 +474,7 @@ The plot below compares `course_evaluation` and `prof_ave_rating` at each observ
 
 
 ```r
-teaching_eval_clean %>% 
+p <- teaching_eval_clean %>% 
   
   # focus on the two variables to be comparted for each observation
   select(course_evaluation, prof_ave_rating) %>% 
@@ -513,9 +517,15 @@ teaching_eval_clean %>%
         axis.line.y = element_blank(),
         legend.position = "top",
         legend.text = element_text(size = 10))
+
+p
 ```
 
 <img src="03_beauty_files/figure-html/unnamed-chunk-18-1.png" width="672" />
+
+```r
+ggsave("test1.svg")
+```
 
 Professors can appear multiple times in the dataset, where they have been involved in teaching multiple courses. The `prof_ave_rating` is the average of the ratings given by students to the professor for an individual course. The plot below shows the `prof_ave_rating`s for 10 randomly selected professors. So, highlighting that as expected there is some variability in the average ratings that professors received from course to course.
 
@@ -939,7 +949,7 @@ variables_all_cont <- explanatory_variables_prof_cont %>%
   select(-prof_number, -age_binned)
 
 # produce correlation plot - default is Pearson  
-GGally::ggcorr(variables_all_cont, label = TRUE) +
+p <- GGally::ggcorr(variables_all_cont, label = TRUE) +
   
   # note key observations
   labs(title = "There are no colinearity of concern between continuous explanatory variable",
@@ -951,9 +961,15 @@ GGally::ggcorr(variables_all_cont, label = TRUE) +
         plot.subtitle = element_text(size = 14),
         plot.caption = element_text(size = 12),
         legend.position = "none") 
+
+p
 ```
 
 <img src="03_beauty_files/figure-html/unnamed-chunk-34-1.png" width="960" />
+
+```r
+ggsave("test2.svg")
+```
 
 #### Relationships between discrete variables and continuous variables
 
@@ -1034,18 +1050,24 @@ Considering each of the binary variables in turn:
 
 ```r
 # combine plots to make them easier to interpret as a group
-p_f / p_m / p_tt
+p <- p_f / p_m / p_tt
+
+p
 ```
 
 <img src="03_beauty_files/figure-html/unnamed-chunk-36-1.png" width="672" />
 
-## Modelling
+```r
+ggsave("test4.svg")
+```
+
+## Fitting the model
 
 Approach to developing the model
 
 -   Establish a starting point
 
--   Incremental add to the model
+-   Incremental add to the model and compare using loo log score (`elpd_loo`)
 
 ### Splitting the data
 
@@ -1101,11 +1123,83 @@ teaching_test <- rsample::testing(teaching_split)
 
 ### Minimal and maximal models
 
+
+```r
+#' Provides a summary of loo cross validation metrics for stan_glm model
+#'
+#' @param stan_lm_mod: an object with the classes "stanreg", "glm" and "lm"   
+#'
+#' @return: a tibble of metrics
+
+stan_glm_metric_summary <- function(stan_lm_mod, as_kable = FALSE){
+  
+  # calculate r2 metrics mod
+  r2 <- loo_R2(stan_lm_mod)
+  
+  # calculate loo metrics
+  metrics <- loo(stan_lm_mod)$estimates %>% 
+    
+    #reformat for ease of use
+    data.frame() %>% 
+    rownames_to_column(var = "Metric") %>%
+    
+    # add r2 to loo metrics
+    add_row(Metric = "r2",
+            Estimate = median(r2),
+            SE = sd(r2))
+  
+  #return results
+  if (as_kable == FALSE) return(metrics)
+  else return(knitr::kable(metrics))
+}
+
+
+#' Compares to two stan_glm models by loo cross validation metrics
+#'
+#' @param mod_1: an object with the classes "stanreg", "glm" and "lm"   
+#' @param mod_2: an object with the classes "stanreg", "glm" and "lm"   
+#'
+#' @return: a tibble of metrics
+
+stan_glm_loo_comp <- function(mod_1, mod_2, as_kable = FALSE){
+  
+  # compare the two models
+  comp <- loo_compare(loo(mod_1), loo(mod_2))
+  
+  # convert comparision output to make it easier to process
+  res <- comp %>% 
+    data.frame() %>% 
+    
+    # reformat output for ease of interpretation
+    rownames_to_column(var = "Model") %>% 
+    pivot_longer(cols = elpd_diff:se_looic, 
+                 names_to = "Metric", 
+                 values_to = "Estimate") %>% 
+    
+    pivot_wider(names_from = "Model", 
+                values_from = "Estimate") %>% 
+    
+    # add in r2 metrics
+    add_row(Metric = "r2", 
+            mod_1 = median(loo_R2(mod_1)),
+            mod_2 = median(loo_R2(mod_2)))
+  
+  # rename columns to the names of the objects passed to the function
+  names(res) <- c("Metric", 
+                  deparse(substitute(mod_1)), 
+                  deparse(substitute(mod_2)))
+  
+  # return results
+  if (as_kable == FALSE) return(res)
+  else return(knitr::kable(res))
+}
+```
+
+
 Minimal model: the most promising predictor identified in the EDA
 
 Maximal model: all predictors, where there are multiple predictors relating to the same underlying construct (e.g. `age` and `age_binned`) only one is retained.
 
-Comparing the log scores from the leave-one-out cross validation the minimal model performs slightly better. So, I'll use the minimal model as the starting point for building a better model.
 
 
 ```r
@@ -1177,104 +1271,53 @@ lm_max
 ## * For help interpreting the printed output see ?print.stanreg
 ## * For info on the priors used see ?prior_summary.stanreg
 ```
+Comparing the log scores from the leave-one-out cross validation (`elpd_loo`) the minimal model performs slightly better. So, I'll use the minimal model as the starting point for building a better model.
+
 
 ```r
-loo_lm_min <- loo(lm_min)
-loo_lm_max <- loo(lm_max)
-
-loo_compare(loo_lm_min, loo_lm_max)
+stan_glm_metric_summary(lm_min, as_kable = TRUE)
 ```
 
-```
-##        elpd_diff se_diff
-## lm_min  0.0       0.0   
-## lm_max -1.0       4.7
-```
 
-```r
-median(loo_R2(lm_min))
-```
 
-```
-## [1] 0.5398558
-```
+|Metric   |     Estimate|         SE|
+|:--------|------------:|----------:|
+|elpd_loo | -173.0884824| 16.4984436|
+|p_loo    |    3.1546102|  0.5467246|
+|looic    |  346.1769648| 32.9968872|
+|r2       |    0.5398558|  0.0377842|
 
 ```r
-model_perf_comp <- function(lm_1, lm_2){
-  tibble(
-    loo_log_score = nest(as_tibble(loo(lm_1)$estimates)),
-    loo_med_R2 = median(loo_R2(lm_1))
-    )
-}
-
-stan_glm_metric_summary <- function(stan_lm_mod){
-  
-  r2 <- loo_R2(stan_lm_mod)
-  
-  loo(stan_lm_mod)$estimates %>% 
-    data.frame() %>% 
-    rownames_to_column(var = "Metric") %>%
-    add_row(Metric = "r2",
-            Estimate = median(r2),
-            SE = sd(r2))
-}
-
-stan_glm_metric_summary(lm_min)
+stan_glm_metric_summary(lm_max, as_kable = TRUE)
 ```
 
-```
-##     Metric     Estimate          SE
-## 1 elpd_loo -173.0884824 16.49844359
-## 2    p_loo    3.1546102  0.54672462
-## 3    looic  346.1769648 32.99688718
-## 4       r2    0.5398558  0.03778417
-```
+
+
+|Metric   |     Estimate|         SE|
+|:--------|------------:|----------:|
+|elpd_loo | -174.0492755| 17.1412991|
+|p_loo    |   14.9007741|  1.4595946|
+|looic    |  348.0985510| 34.2825982|
+|r2       |    0.5376852|  0.0390503|
 
 ```r
-stan_glm_loo_comp <- function(mod_1, mod_2){
-  
-  comp <- loo_compare(loo(mod_1), loo(mod_2))
-  
-  res <- comp %>% 
-    
-    data.frame() %>% 
-    
-    rownames_to_column(var = "Model") %>% 
-    pivot_longer(cols = elpd_diff:se_looic, 
-                 names_to = "Metric", 
-                 values_to = "Estimate") %>% 
-    
-    pivot_wider(names_from = "Model", 
-                values_from = "Estimate") %>% 
-    
-    add_row(Metric = "r2", 
-            mod_1 = median(loo_R2(mod_1)),
-            mod_2 = median(loo_R2(mod_2)))
-  
-  names(res) <- c("Metric", 
-                  deparse(substitute(mod_1)), 
-                  deparse(substitute(mod_2)))
-  
-  return(res)
-}
-
-stan_glm_loo_comp(lm_min, lm_max)
+stan_glm_loo_comp(lm_min, lm_max, as_kable = TRUE)
 ```
 
-```
-## # A tibble: 9 x 3
-##   Metric        lm_min   lm_max
-##   <chr>          <dbl>    <dbl>
-## 1 elpd_diff      0       -0.961
-## 2 se_diff        0        4.68 
-## 3 elpd_loo    -173.    -174.   
-## 4 se_elpd_loo   16.5     17.1  
-## 5 p_loo          3.15    14.9  
-## 6 se_p_loo       0.547    1.46 
-## 7 looic        346.     348.   
-## 8 se_looic      33.0     34.3  
-## 9 r2             0.540    0.538
-```
+
+
+|Metric      |       lm_min|       lm_max|
+|:-----------|------------:|------------:|
+|elpd_diff   |    0.0000000|   -0.9607931|
+|se_diff     |    0.0000000|    4.6783376|
+|elpd_loo    | -173.0884824| -174.0492755|
+|se_elpd_loo |   16.4984436|   17.1412991|
+|p_loo       |    3.1546102|   14.9007741|
+|se_p_loo    |    0.5467246|    1.4595946|
+|looic       |  346.1769648|  348.0985510|
+|se_looic    |   32.9968872|   34.2825982|
+|r2          |    0.5398558|    0.5376852|
+
 
 ### Iteration 1: Adding two continuous variables
 
@@ -1288,48 +1331,264 @@ lm_1 <- stan_glm(course_evaluation ~
          data = teaching_train, 
          refresh = 0)
 
-stan_glm_loo_comp(lm_min, lm_1)
+stan_glm_loo_comp(lm_min, lm_1, as_kable = TRUE)
 ```
 
-```
-## # A tibble: 9 x 3
-##   Metric        lm_min     lm_1
-##   <chr>          <dbl>    <dbl>
-## 1 elpd_diff      0       -0.240
-## 2 se_diff        0        2.42 
-## 3 elpd_loo    -173.    -173.   
-## 4 se_elpd_loo   17.0     16.5  
-## 5 p_loo          5.29     3.15 
-## 6 se_p_loo       0.784    0.547
-## 7 looic        346.     346.   
-## 8 se_looic      34.0     33.0  
-## 9 r2             0.542    0.540
-```
 
-### Iteration 2: 
+
+|Metric      |       lm_min|         lm_1|
+|:-----------|------------:|------------:|
+|elpd_diff   |    0.0000000|   -0.2398614|
+|se_diff     |    0.0000000|    2.4155078|
+|elpd_loo    | -172.8486210| -173.0884824|
+|se_elpd_loo |   16.9855842|   16.4984436|
+|p_loo       |    5.2861458|    3.1546102|
+|se_p_loo    |    0.7842139|    0.5467246|
+|looic       |  345.6972420|  346.1769648|
+|se_looic    |   33.9711684|   32.9968872|
+|r2          |    0.5423901|    0.5398558|
+
+### Iteration 2: adding in discrete variables
+Next I try adding in the three discrete variables which had non-zero coefficients in the maximal model (`non_native_english` + `female` + `multiple_prof`). Again this doesn't result in any improvements to model performance as measured by the cross validation log score (elpd_loo)
 
 
 ```r
 lm_2 <- stan_glm(course_evaluation ~ 
-           ave_teaching_qual +
-             non_native_english,
-         data = teaching_train, 
-         refresh = 0)
+                   ave_teaching_qual +
+                   # add discrete predictors
+                   non_native_english + female + multiple_prof,
+                 data = teaching_train, 
+                 refresh = 0)
 
-stan_glm_loo_comp(lm_min,lm_2)
+stan_glm_loo_comp(lm_min,lm_2, as_kable = TRUE)
+```
+
+
+
+|Metric      |       lm_min|         lm_2|
+|:-----------|------------:|------------:|
+|elpd_diff   |    0.0000000|   -0.9209362|
+|se_diff     |    0.0000000|    2.2909954|
+|elpd_loo    | -173.0884824| -174.0094186|
+|se_elpd_loo |   16.4984436|   16.7649547|
+|p_loo       |    3.1546102|    6.3682923|
+|se_p_loo    |    0.5467246|    0.8387327|
+|looic       |  346.1769648|  348.0188372|
+|se_looic    |   32.9968872|   33.5299094|
+|r2          |    0.5398558|    0.5386075|
+
+```r
+lm_2
 ```
 
 ```
-## # A tibble: 9 x 3
-##   Metric        lm_min     lm_2
-##   <chr>          <dbl>    <dbl>
-## 1 elpd_diff      0       -0.326
-## 2 se_diff        0        1.57 
-## 3 elpd_loo    -173.    -173.   
-## 4 se_elpd_loo   16.5     16.6  
-## 5 p_loo          3.15     4.49 
-## 6 se_p_loo       0.547    0.727
-## 7 looic        346.     347.   
-## 8 se_looic      33.0     33.2  
-## 9 r2             0.540    0.540
+## stan_glm
+##  family:       gaussian [identity]
+##  formula:      course_evaluation ~ ave_teaching_qual + non_native_english + 
+## 	   female + multiple_prof
+##  observations: 371
+##  predictors:   5
+## ------
+##                    Median MAD_SD
+## (Intercept)         0.1    0.2  
+## ave_teaching_qual   1.0    0.0  
+## non_native_english -0.1    0.1  
+## female             -0.1    0.0  
+## multiple_prof       0.0    0.0  
+## 
+## Auxiliary parameter(s):
+##       Median MAD_SD
+## sigma 0.4    0.0   
+## 
+## ------
+## * For help interpreting the printed output see ?print.stanreg
+## * For info on the priors used see ?prior_summary.stanreg
 ```
+### Iteration 3: adding in interactions
+Next I try adding in interaction between the discrete predictors and `ave_teaching_qual`. As I would assume that if they are associated with the `course_evaluation` scores given by students, they will also be associated with the `prof_ratings` given by students (which have been average to give `ave_teaching_qual`).
+
+Adding in these interactions seems to make things worse, and the minimal model remains the best model to date (in terms of log score).
+
+
+```r
+lm_3 <- stan_glm(course_evaluation ~ 
+                   ave_teaching_qual +
+                   non_native_english + female + multiple_prof +
+                   # add interactions between discrete predictors and the continuous predictor
+                   ave_teaching_qual:non_native_english + ave_teaching_qual:female + 
+                   ave_teaching_qual:multiple_prof,
+                 data = teaching_train, 
+                 refresh = 0)
+
+stan_glm_loo_comp(lm_min,lm_3, as_kable = TRUE)
+```
+
+
+
+|Metric      |       lm_min|         lm_3|
+|:-----------|------------:|------------:|
+|elpd_diff   |    0.0000000|   -3.1455579|
+|se_diff     |    0.0000000|    2.4034963|
+|elpd_loo    | -173.0884824| -176.2340403|
+|se_elpd_loo |   16.4984436|   16.6240223|
+|p_loo       |    3.1546102|    8.6670133|
+|se_p_loo    |    0.5467246|    1.0750751|
+|looic       |  346.1769648|  352.4680806|
+|se_looic    |   32.9968872|   33.2480447|
+|r2          |    0.5398558|    0.5342003|
+
+```r
+lm_3
+```
+
+```
+## stan_glm
+##  family:       gaussian [identity]
+##  formula:      course_evaluation ~ ave_teaching_qual + non_native_english + 
+## 	   female + multiple_prof + ave_teaching_qual:non_native_english + 
+## 	   ave_teaching_qual:female + ave_teaching_qual:multiple_prof
+##  observations: 371
+##  predictors:   8
+## ------
+##                                      Median MAD_SD
+## (Intercept)                          -0.1    0.3  
+## ave_teaching_qual                     1.0    0.1  
+## non_native_english                    0.4    1.4  
+## female                                0.3    0.4  
+## multiple_prof                         0.1    0.4  
+## ave_teaching_qual:non_native_english -0.1    0.4  
+## ave_teaching_qual:female             -0.1    0.1  
+## ave_teaching_qual:multiple_prof       0.0    0.1  
+## 
+## Auxiliary parameter(s):
+##       Median MAD_SD
+## sigma 0.4    0.0   
+## 
+## ------
+## * For help interpreting the printed output see ?print.stanreg
+## * For info on the priors used see ?prior_summary.stanreg
+```
+### Iteration 4: reducing number of discrete predictors used to simplify the model
+Next I tried simplifying the model by reducing the number of discrete predictors and interaction. I leave `non_native_english` speaker in as a predictor as in the previous model it had a non-zero coefficient (albeit with considerable uncertainty around it). However, the revised model also performs marginally worse than the minimal model.
+
+
+```r
+lm_4 <- stan_glm(course_evaluation ~ 
+                   ave_teaching_qual +
+                   non_native_english +
+
+                   ave_teaching_qual:non_native_english,
+                 data = teaching_train, 
+                 refresh = 0)
+
+stan_glm_loo_comp(lm_min,lm_4, as_kable = TRUE)
+```
+
+
+
+|Metric      |       lm_min|         lm_4|
+|:-----------|------------:|------------:|
+|elpd_diff   |    0.0000000|   -1.1228167|
+|se_diff     |    0.0000000|    1.8001823|
+|elpd_loo    | -173.0884824| -174.2112991|
+|se_elpd_loo |   16.4984436|   16.5730517|
+|p_loo       |    3.1546102|    5.3133395|
+|se_p_loo    |    0.5467246|    0.8779247|
+|looic       |  346.1769648|  348.4225982|
+|se_looic    |   32.9968872|   33.1461033|
+|r2          |    0.5398558|    0.5383073|
+
+```r
+lm_4
+```
+
+```
+## stan_glm
+##  family:       gaussian [identity]
+##  formula:      course_evaluation ~ ave_teaching_qual + non_native_english + 
+## 	   ave_teaching_qual:non_native_english
+##  observations: 371
+##  predictors:   4
+## ------
+##                                      Median MAD_SD
+## (Intercept)                           0.0    0.2  
+## ave_teaching_qual                     1.0    0.0  
+## non_native_english                    0.5    1.4  
+## ave_teaching_qual:non_native_english -0.2    0.4  
+## 
+## Auxiliary parameter(s):
+##       Median MAD_SD
+## sigma 0.4    0.0   
+## 
+## ------
+## * For help interpreting the printed output see ?print.stanreg
+## * For info on the priors used see ?prior_summary.stanreg
+```
+
+
+```r
+lm_5 <- stan_glm(course_evaluation ~ 
+                   eval_response_rate + prof_ave_beauty_rating +
+                   non_native_english + female + multiple_prof +
+                   ave_teaching_qual:non_native_english + ave_teaching_qual:female + 
+                   ave_teaching_qual:multiple_prof,
+                 data = teaching_train, 
+                 refresh = 0)
+
+stan_glm_loo_comp(lm_min,lm_5, as_kable = TRUE)
+```
+
+
+
+|Metric      |       lm_min|        lm_5|
+|:-----------|------------:|-----------:|
+|elpd_diff   |    0.0000000|  -77.887273|
+|se_diff     |    0.0000000|   13.981130|
+|elpd_loo    | -173.0884824| -250.975755|
+|se_elpd_loo |   16.4984436|   16.917053|
+|p_loo       |    3.1546102|    9.256360|
+|se_p_loo    |    0.5467246|    1.197869|
+|looic       |  346.1769648|  501.951510|
+|se_looic    |   32.9968872|   33.834106|
+|r2          |    0.5398558|    0.301848|
+
+```r
+lm_5
+```
+
+```
+## stan_glm
+##  family:       gaussian [identity]
+##  formula:      course_evaluation ~ eval_response_rate + prof_ave_beauty_rating + 
+## 	   non_native_english + female + multiple_prof + ave_teaching_qual:non_native_english + 
+## 	   ave_teaching_qual:female + ave_teaching_qual:multiple_prof
+##  observations: 371
+##  predictors:   9
+## ------
+##                                      Median MAD_SD
+## (Intercept)                           3.7    0.1  
+## eval_response_rate                    0.0    0.0  
+## prof_ave_beauty_rating                0.1    0.0  
+## non_native_english                   -0.5    1.6  
+## female                               -2.8    0.4  
+## multiple_prof                        -2.1    0.5  
+## non_native_english:ave_teaching_qual  0.1    0.4  
+## female:ave_teaching_qual              0.6    0.1  
+## multiple_prof:ave_teaching_qual       0.5    0.1  
+## 
+## Auxiliary parameter(s):
+##       Median MAD_SD
+## sigma 0.5    0.0   
+## 
+## ------
+## * For help interpreting the printed output see ?print.stanreg
+## * For info on the priors used see ?prior_summary.stanreg
+```
+
+
+### Summary of model fitting process
+This looks like about the end of the road in terms of trying out combinations of features to improve the predictive performance of the model (as estimated by the log score). I could try some feature engineering on the predictors and outcome variable (e.g. centering and scaling, transformation aimed at producing more normal distributions). However, in light of the findings of the 4 model fitting iterations above I think it is unlikely that feature engineering would considerably improve the performance of the model. Unfortunately, with the data to hand it looks like it is going to be challenging greatly improve the model's performance. So, ideally it would be a case of conducting further studies gather data on a wider range of variables. Perhaps including variables that qualitatively encode something of a professor teaching style/approach. And/or variables such as the average marks awarded to students on the course before the evaluation had taken place. 
+
+The r squared value for the minimal and best performing model is 0.542. Which indicates that the very simple one-predictor model is explaining just over half the variance in `course_evaluation`. 
+
+

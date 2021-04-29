@@ -38,9 +38,12 @@ discrete-variables-1
 relationships-between-variables
 relationships-between-continuous-variables
 relationships-between-discrete-variables-and-continuous-variables
-modelling
+fitting-the-model-1
 splitting-the-data
 minimal-and-maximal-models
 iteration-1-adding-two-continuous-variables
-iteration-2
+iteration-2-adding-in-discrete-variables
+iteration-3-adding-in-interactions
+iteration-4-reducing-number-of-discrete-predictors-used-to-simplify-the-model
+summary-of-model-fitting-process
 visualising-green-space-deprivation-across-the-english-regions

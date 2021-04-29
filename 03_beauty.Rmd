@@ -148,7 +148,7 @@ glimpse(teaching_eval_clean)
 So, I started the exploratory data analysis quickly looking at summary statistics for `course_evaluation`, which is the response variable in this exercise. This first things I noted was that the both the mean and median `course_evaluation` score is 4, and the mini-histogram indicates a potential left skew of the data. So, it appears that the `course_evaluation` scores tend to be towards the higher end of the 5 point scale. I want to look at this in a little more detail, so moved on to plotting a full histogram.
 
 ```{r, skimr_include_summary = FALSE}
-skim_minimal(teaching_eval_clean, course_evaluation)
+skim_minimal(df = teaching_eval_clean, course_evaluation)
 ```
 
 ```{r}
@@ -198,6 +198,7 @@ So, it full plot there is some indication of left skew, in the form of the longe
 
 ```{r}
 p
+ggsave("test.svg")
 ```
 
 So, I took a quick look at `course_evaluation` centered around the mean. This looks like a close enough approximation to the normal distribution to me. So, ahead of modeling I don't need to think about transforming `course_evaluation` scores to address the limited amount of skew evident in the plot. However, it might be worth centering the `course_evaluation` scores as this might help make the regression coefficients easier to interpret. But I'll come back to that later on.
@@ -303,7 +304,7 @@ ggplot(data = explanatory_variables_prof_cont,
 The plot below compares `course_evaluation` and `prof_ave_rating` at each observation in the dataset. This shows that for a given course-professor pair the `prof_ave_rating` tends to be higher than the `course_evaluation` score.
 
 ```{r, fig.height= 7.5}
-teaching_eval_clean %>% 
+p <- teaching_eval_clean %>% 
   
   # focus on the two variables to be comparted for each observation
   select(course_evaluation, prof_ave_rating) %>% 
@@ -346,6 +347,9 @@ teaching_eval_clean %>%
         axis.line.y = element_blank(),
         legend.position = "top",
         legend.text = element_text(size = 10))
+
+p
+ggsave("test1.svg")
 ```
 
 Professors can appear multiple times in the dataset, where they have been involved in teaching multiple courses. The `prof_ave_rating` is the average of the ratings given by students to the professor for an individual course. The plot below shows the `prof_ave_rating`s for 10 randomly selected professors. So, highlighting that as expected there is some variability in the average ratings that professors received from course to course.
@@ -658,7 +662,7 @@ variables_all_cont <- explanatory_variables_prof_cont %>%
   select(-prof_number, -age_binned)
 
 # produce correlation plot - default is Pearson  
-GGally::ggcorr(variables_all_cont, label = TRUE) +
+p <- GGally::ggcorr(variables_all_cont, label = TRUE) +
   
   # note key observations
   labs(title = "There are no colinearity of concern between continuous explanatory variable",
@@ -670,6 +674,9 @@ GGally::ggcorr(variables_all_cont, label = TRUE) +
         plot.subtitle = element_text(size = 14),
         plot.caption = element_text(size = 12),
         legend.position = "none") 
+
+p
+ggsave("test2.svg")
 ```
 
 #### Relationships between discrete variables and continuous variables
@@ -749,16 +756,19 @@ Considering each of the binary variables in turn:
 
 ```{r, fig.height=10}
 # combine plots to make them easier to interpret as a group
-p_f / p_m / p_tt
+p <- p_f / p_m / p_tt
+
+p
+ggsave("test4.svg")
 ```
 
-## Modelling
+## Fitting the model
 
 Approach to developing the model
 
 -   Establish a starting point
 
--   Incremental add to the model
+-   Incremental add to the model and compare using loo log score (`elpd_loo`)
 
 ### Splitting the data
 
@@ -790,11 +800,83 @@ teaching_test <- rsample::testing(teaching_split)
 
 ### Minimal and maximal models
 
+```{r, model-processing-output-functions}
+
+#' Provides a summary of loo cross validation metrics for stan_glm model
+#'
+#' @param stan_lm_mod: an object with the classes "stanreg", "glm" and "lm"   
+#'
+#' @return: a tibble of metrics
+
+stan_glm_metric_summary <- function(stan_lm_mod, as_kable = FALSE){
+  
+  # calculate r2 metrics mod
+  r2 <- loo_R2(stan_lm_mod)
+  
+  # calculate loo metrics
+  metrics <- loo(stan_lm_mod)$estimates %>% 
+    
+    #reformat for ease of use
+    data.frame() %>% 
+    rownames_to_column(var = "Metric") %>%
+    
+    # add r2 to loo metrics
+    add_row(Metric = "r2",
+            Estimate = median(r2),
+            SE = sd(r2))
+  
+  #return results
+  if (as_kable == FALSE) return(metrics)
+  else return(knitr::kable(metrics))
+}
+
+
+#' Compares to two stan_glm models by loo cross validation metrics
+#'
+#' @param mod_1: an object with the classes "stanreg", "glm" and "lm"   
+#' @param mod_2: an object with the classes "stanreg", "glm" and "lm"   
+#'
+#' @return: a tibble of metrics
+
+stan_glm_loo_comp <- function(mod_1, mod_2, as_kable = FALSE){
+  
+  # compare the two models
+  comp <- loo_compare(loo(mod_1), loo(mod_2))
+  
+  # convert comparision output to make it easier to process
+  res <- comp %>% 
+    data.frame() %>% 
+    
+    # reformat output for ease of interpretation
+    rownames_to_column(var = "Model") %>% 
+    pivot_longer(cols = elpd_diff:se_looic, 
+                 names_to = "Metric", 
+                 values_to = "Estimate") %>% 
+    
+    pivot_wider(names_from = "Model", 
+                values_from = "Estimate") %>% 
+    
+    # add in r2 metrics
+    add_row(Metric = "r2", 
+            mod_1 = median(loo_R2(mod_1)),
+            mod_2 = median(loo_R2(mod_2)))
+  
+  # rename columns to the names of the objects passed to the function
+  names(res) <- c("Metric", 
+                  deparse(substitute(mod_1)), 
+                  deparse(substitute(mod_2)))
+  
+  # return results
+  if (as_kable == FALSE) return(res)
+  else return(knitr::kable(res))
+}
+```
+
+
 Minimal model: the most promising predictor identified in the EDA
 
 Maximal model: all predictors, where there are multiple predictors relating to the same underlying construct (e.g. `age` and `age_binned`) only one is retained.
 
-Comparing the log scores from the leave-one-out cross validation the minimal model performs slightly better. So, I'll use the minimal model as the starting point for building a better model.
 
 ```{r}
 lm_min <- stan_glm(course_evaluation ~ ave_teaching_qual, data = teaching_train, 
@@ -809,66 +891,16 @@ lm_max <- stan_glm(course_evaluation ~ .,
 
 lm_min
 lm_max
-
-loo_lm_min <- loo(lm_min)
-loo_lm_max <- loo(lm_max)
-
-loo_compare(loo_lm_min, loo_lm_max)
-
-median(loo_R2(lm_min))
-
-model_perf_comp <- function(lm_1, lm_2){
-  tibble(
-    loo_log_score = nest(as_tibble(loo(lm_1)$estimates)),
-    loo_med_R2 = median(loo_R2(lm_1))
-    )
-}
-
-stan_glm_metric_summary <- function(stan_lm_mod){
-  
-  r2 <- loo_R2(stan_lm_mod)
-  
-  loo(stan_lm_mod)$estimates %>% 
-    data.frame() %>% 
-    rownames_to_column(var = "Metric") %>%
-    add_row(Metric = "r2",
-            Estimate = median(r2),
-            SE = sd(r2))
-}
-
-stan_glm_metric_summary(lm_min)
-
-stan_glm_loo_comp <- function(mod_1, mod_2){
-  
-  comp <- loo_compare(loo(mod_1), loo(mod_2))
-  
-  res <- comp %>% 
-    
-    data.frame() %>% 
-    
-    rownames_to_column(var = "Model") %>% 
-    pivot_longer(cols = elpd_diff:se_looic, 
-                 names_to = "Metric", 
-                 values_to = "Estimate") %>% 
-    
-    pivot_wider(names_from = "Model", 
-                values_from = "Estimate") %>% 
-    
-    add_row(Metric = "r2", 
-            mod_1 = median(loo_R2(mod_1)),
-            mod_2 = median(loo_R2(mod_2)))
-  
-  names(res) <- c("Metric", 
-                  deparse(substitute(mod_1)), 
-                  deparse(substitute(mod_2)))
-  
-  return(res)
-}
-
-stan_glm_loo_comp(lm_min, lm_max)
-
- 
 ```
+Comparing the log scores from the leave-one-out cross validation (`elpd_loo`) the minimal model performs slightly better. So, I'll use the minimal model as the starting point for building a better model.
+
+```{r}
+stan_glm_metric_summary(lm_min, as_kable = TRUE)
+stan_glm_metric_summary(lm_max, as_kable = TRUE)
+
+stan_glm_loo_comp(lm_min, lm_max, as_kable = TRUE)
+```
+
 
 ### Iteration 1: Adding two continuous variables
 
@@ -881,17 +913,74 @@ lm_1 <- stan_glm(course_evaluation ~
          data = teaching_train, 
          refresh = 0)
 
-stan_glm_loo_comp(lm_min, lm_1)
+stan_glm_loo_comp(lm_min, lm_1, as_kable = TRUE)
 ```
 
-### Iteration 2: 
+### Iteration 2: adding in discrete variables
+Next I try adding in the three discrete variables which had non-zero coefficients in the maximal model (`non_native_english` + `female` + `multiple_prof`). Again this doesn't result in any improvements to model performance as measured by the cross validation log score (elpd_loo)
 
 ```{r}
 lm_2 <- stan_glm(course_evaluation ~ 
-           ave_teaching_qual +
-             non_native_english,
-         data = teaching_train, 
-         refresh = 0)
+                   ave_teaching_qual +
+                   # add discrete predictors
+                   non_native_english + female + multiple_prof,
+                 data = teaching_train, 
+                 refresh = 0)
 
-stan_glm_loo_comp(lm_min,lm_2)
+stan_glm_loo_comp(lm_min,lm_2, as_kable = TRUE)
+lm_2
 ```
+### Iteration 3: adding in interactions
+Next I try adding in interaction between the discrete predictors and `ave_teaching_qual`. As I would assume that if they are associated with the `course_evaluation` scores given by students, they will also be associated with the `prof_ratings` given by students (which have been average to give `ave_teaching_qual`).
+
+Adding in these interactions seems to make things worse, and the minimal model remains the best model to date (in terms of log score).
+
+```{r}
+lm_3 <- stan_glm(course_evaluation ~ 
+                   ave_teaching_qual +
+                   non_native_english + female + multiple_prof +
+                   # add interactions between discrete predictors and the continuous predictor
+                   ave_teaching_qual:non_native_english + ave_teaching_qual:female + 
+                   ave_teaching_qual:multiple_prof,
+                 data = teaching_train, 
+                 refresh = 0)
+
+stan_glm_loo_comp(lm_min,lm_3, as_kable = TRUE)
+lm_3
+```
+### Iteration 4: reducing number of discrete predictors used to simplify the model
+Next I tried simplifying the model by reducing the number of discrete predictors and interaction. I leave `non_native_english` speaker in as a predictor as in the previous model it had a non-zero coefficient (albeit with considerable uncertainty around it). However, the revised model also performs marginally worse than the minimal model.
+
+```{r}
+lm_4 <- stan_glm(course_evaluation ~ 
+                   ave_teaching_qual +
+                   non_native_english +
+
+                   ave_teaching_qual:non_native_english,
+                 data = teaching_train, 
+                 refresh = 0)
+
+stan_glm_loo_comp(lm_min,lm_4, as_kable = TRUE)
+lm_4
+```
+
+```{r}
+lm_5 <- stan_glm(course_evaluation ~ 
+                   eval_response_rate + prof_ave_beauty_rating +
+                   non_native_english + female + multiple_prof +
+                   ave_teaching_qual:non_native_english + ave_teaching_qual:female + 
+                   ave_teaching_qual:multiple_prof,
+                 data = teaching_train, 
+                 refresh = 0)
+
+stan_glm_loo_comp(lm_min,lm_5, as_kable = TRUE)
+lm_5
+```
+
+
+### Summary of model fitting process
+This looks like about the end of the road in terms of trying out combinations of features to improve the predictive performance of the model (as estimated by the log score). I could try some feature engineering on the predictors and outcome variable (e.g. centering and scaling, transformation aimed at producing more normal distributions). However, in light of the findings of the 4 model fitting iterations above I think it is unlikely that feature engineering would considerably improve the performance of the model. Unfortunately, with the data to hand it looks like it is going to be challenging greatly improve the model's performance. So, ideally it would be a case of conducting further studies gather data on a wider range of variables. Perhaps including variables that qualitatively encode something of a professor teaching style/approach. And/or variables such as the average marks awarded to students on the course before the evaluation had taken place. 
+
+The r squared value for the minimal and best performing model is 0.542. Which indicates that the very simple one-predictor model is explaining just over half the variance in `course_evaluation`. 
+
+
