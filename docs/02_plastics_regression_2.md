@@ -507,32 +507,32 @@ summary_table_1 %>%
   <tr>
    <td style="text-align:right;"> 1 </td>
    <td style="text-align:left;"> (Intercept) </td>
-   <td style="text-align:right;"> 1.1385232 </td>
+   <td style="text-align:right;"> 1.1314382 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 1 </td>
    <td style="text-align:left;"> log(gdp_per_cap) </td>
-   <td style="text-align:right;"> -0.0424019 </td>
+   <td style="text-align:right;"> -0.0417206 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 2 </td>
    <td style="text-align:left;"> (Intercept) </td>
-   <td style="text-align:right;"> 4.0550296 </td>
+   <td style="text-align:right;"> 4.0432000 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 2 </td>
    <td style="text-align:left;"> log(gdp_per_cap) </td>
-   <td style="text-align:right;"> -0.3895086 </td>
+   <td style="text-align:right;"> -0.3882044 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 3 </td>
    <td style="text-align:left;"> (Intercept) </td>
-   <td style="text-align:right;"> 0.4349172 </td>
+   <td style="text-align:right;"> 0.4284576 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 3 </td>
    <td style="text-align:left;"> log(gdp_per_cap) </td>
-   <td style="text-align:right;"> -0.0368891 </td>
+   <td style="text-align:right;"> -0.0361674 </td>
   </tr>
 </tbody>
 </table>
@@ -625,23 +625,23 @@ summary_table_2 %>%
   <tr>
    <td style="text-align:right;"> 1 </td>
    <td style="text-align:left;"> 'Lower' income countries </td>
-   <td style="text-align:right;"> 0.0356263 </td>
+   <td style="text-align:right;"> 0.0353142 </td>
    <td style="text-align:right;"> 0.1137020 </td>
-   <td style="text-align:right;"> 0.0640732 </td>
+   <td style="text-align:right;"> 0.0650874 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 2 </td>
    <td style="text-align:left;"> 'Middle' income countries </td>
-   <td style="text-align:right;"> 0.4598803 </td>
+   <td style="text-align:right;"> 0.4585049 </td>
    <td style="text-align:right;"> 0.2520905 </td>
-   <td style="text-align:right;"> 0.1553732 </td>
+   <td style="text-align:right;"> 0.1555382 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 3 </td>
    <td style="text-align:left;"> 'Higher' income countries </td>
-   <td style="text-align:right;"> 0.0426978 </td>
+   <td style="text-align:right;"> 0.0423899 </td>
    <td style="text-align:right;"> 0.0613529 </td>
-   <td style="text-align:right;"> 0.0336369 </td>
+   <td style="text-align:right;"> 0.0342624 </td>
   </tr>
 </tbody>
 </table>

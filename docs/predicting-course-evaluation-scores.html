@@ -24,7 +24,7 @@
 <meta name="author" content="Chris J. Martin" />
 
 
-<meta name="date" content="2021-04-29" />
+<meta name="date" content="2021-05-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -186,14 +186,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="4.3" data-path="predicting-course-evaluation-scores.html"><a href="predicting-course-evaluation-scores.html#fitting-the-model-1"><i class="fa fa-check"></i><b>4.3</b> Fitting the model</a>
 <ul>
-<li class="chapter" data-level="4.3.1" data-path="predicting-course-evaluation-scores.html"><a href="predicting-course-evaluation-scores.html#splitting-the-data"><i class="fa fa-check"></i><b>4.3.1</b> Splitting the data</a></li>
-<li class="chapter" data-level="4.3.2" data-path="predicting-course-evaluation-scores.html"><a href="predicting-course-evaluation-scores.html#minimal-and-maximal-models"><i class="fa fa-check"></i><b>4.3.2</b> Minimal and maximal models</a></li>
-<li class="chapter" data-level="4.3.3" data-path="predicting-course-evaluation-scores.html"><a href="predicting-course-evaluation-scores.html#iteration-1-adding-two-continuous-variables"><i class="fa fa-check"></i><b>4.3.3</b> Iteration 1: Adding two continuous variables</a></li>
-<li class="chapter" data-level="4.3.4" data-path="predicting-course-evaluation-scores.html"><a href="predicting-course-evaluation-scores.html#iteration-2-adding-in-discrete-variables"><i class="fa fa-check"></i><b>4.3.4</b> Iteration 2: adding in discrete variables</a></li>
-<li class="chapter" data-level="4.3.5" data-path="predicting-course-evaluation-scores.html"><a href="predicting-course-evaluation-scores.html#iteration-3-adding-in-interactions"><i class="fa fa-check"></i><b>4.3.5</b> Iteration 3: adding in interactions</a></li>
-<li class="chapter" data-level="4.3.6" data-path="predicting-course-evaluation-scores.html"><a href="predicting-course-evaluation-scores.html#iteration-4-reducing-number-of-discrete-predictors-used-to-simplify-the-model"><i class="fa fa-check"></i><b>4.3.6</b> Iteration 4: reducing number of discrete predictors used to simplify the model</a></li>
-<li class="chapter" data-level="4.3.7" data-path="predicting-course-evaluation-scores.html"><a href="predicting-course-evaluation-scores.html#summary-of-model-fitting-process"><i class="fa fa-check"></i><b>4.3.7</b> Summary of model fitting process</a></li>
+<li class="chapter" data-level="4.3.1" data-path="predicting-course-evaluation-scores.html"><a href="predicting-course-evaluation-scores.html#specifying-an-initial-model"><i class="fa fa-check"></i><b>4.3.1</b> Specifying an initial model</a></li>
+<li class="chapter" data-level="4.3.2" data-path="predicting-course-evaluation-scores.html"><a href="predicting-course-evaluation-scores.html#iteration-1-adding-two-continuous-variables"><i class="fa fa-check"></i><b>4.3.2</b> Iteration 1: Adding two continuous variables</a></li>
+<li class="chapter" data-level="4.3.3" data-path="predicting-course-evaluation-scores.html"><a href="predicting-course-evaluation-scores.html#iteration-2-adding-in-discrete-variables"><i class="fa fa-check"></i><b>4.3.3</b> Iteration 2: adding in discrete variables</a></li>
+<li class="chapter" data-level="4.3.4" data-path="predicting-course-evaluation-scores.html"><a href="predicting-course-evaluation-scores.html#iteration-3-adding-in-interactions"><i class="fa fa-check"></i><b>4.3.4</b> Iteration 3: adding in interactions</a></li>
+<li class="chapter" data-level="4.3.5" data-path="predicting-course-evaluation-scores.html"><a href="predicting-course-evaluation-scores.html#iteration-4-reducing-number-of-discrete-predictors-used-to-simplify-the-model"><i class="fa fa-check"></i><b>4.3.5</b> Iteration 4: reducing number of discrete predictors used to simplify the model</a></li>
+<li class="chapter" data-level="4.3.6" data-path="predicting-course-evaluation-scores.html"><a href="predicting-course-evaluation-scores.html#summary-of-model-fitting-process"><i class="fa fa-check"></i><b>4.3.6</b> Summary of model fitting process</a></li>
 </ul></li>
+<li class="chapter" data-level="4.4" data-path="predicting-course-evaluation-scores.html"><a href="predicting-course-evaluation-scores.html#using-the-model-for-prediction"><i class="fa fa-check"></i><b>4.4</b> Using the model for prediction</a></li>
 </ul></li>
 <li class="part"><span><b>II Data Vizualisation Projects</b></span></li>
 <li class="chapter" data-level="5" data-path="visualising-green-space-deprivation-across-the-english-regions.html"><a href="visualising-green-space-deprivation-across-the-english-regions.html"><i class="fa fa-check"></i><b>5</b> Visualising green space deprivation across the English regions</a></li>
@@ -219,6 +219,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="predicting-course-evaluation-scores" class="section level1" number="4">
 <h1><span class="header-section-number">Chapter 4</span> Predicting course evaluation scores</h1>
+<p>In this notebook I use a dataset provided in the textbook <a href="https://avehtari.github.io/ROS-Examples/">Regression and Other Stories</a>. The dataset represents a sample of course evaluation scores given by university students. The original purpose of the dataset was to explore the question of if the attractiveness of the professor teaching a course affected the course evaluation scores given by students. In this notebook I use the dataset for a different purpose. That is I try to develop a linear regression model that can predict course evaluation scores using a number of potential predictor variables (e.g. the number of students registered on a course) that also provided within the dataset.</p>
+<p>The notebook consists of four sections addressing the following activities in turn:</p>
+<ul>
+<li><p>Importing and processing the data;</p></li>
+<li><p>Exploratory data analysis;</p></li>
+<li><p>Fitting the model;</p></li>
+<li><p>And, finally using the model for prediction.</p></li>
+</ul>
 <div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="predicting-course-evaluation-scores.html#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="co"># import packages used in this notebook</span></span>
 <span id="cb78-2"><a href="predicting-course-evaluation-scores.html#cb78-2" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>({</span>
 <span id="cb78-3"><a href="predicting-course-evaluation-scores.html#cb78-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">suppressWarnings</span>({</span>
@@ -436,7 +444,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="the-response-variable" class="section level3" number="4.2.1">
 <h3><span class="header-section-number">4.2.1</span> The response variable</h3>
 <p>So, I started the exploratory data analysis quickly looking at summary statistics for <code>course_evaluation</code>, which is the response variable in this exercise. This first things I noted was that the both the mean and median <code>course_evaluation</code> score is 4, and the mini-histogram indicates a potential left skew of the data. So, it appears that the <code>course_evaluation</code> scores tend to be towards the higher end of the 5 point scale. I want to look at this in a little more detail, so moved on to plotting a full histogram.</p>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="predicting-course-evaluation-scores.html#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="fu">skim_minimal</span>(<span class="at">df =</span> teaching_eval_clean, course_evaluation)</span></code></pre></div>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="predicting-course-evaluation-scores.html#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="fu">skim_minimal</span>(<span class="at">.df =</span> teaching_eval_clean, course_evaluation)</span></code></pre></div>
 <p><strong>Variable type: numeric</strong></p>
 <table>
 <thead>
@@ -536,7 +544,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb94-5"><a href="predicting-course-evaluation-scores.html#cb94-5" aria-hidden="true" tabindex="-1"></a><span class="co"># produce summary statistics</span></span>
 <span id="cb94-6"><a href="predicting-course-evaluation-scores.html#cb94-6" aria-hidden="true" tabindex="-1"></a><span class="fu">skim_minimal</span>(explanatory_variables_prof <span class="sc">%&gt;%</span> </span>
 <span id="cb94-7"><a href="predicting-course-evaluation-scores.html#cb94-7" aria-hidden="true" tabindex="-1"></a>              <span class="fu">select</span>(<span class="sc">-</span>prof_number), <span class="co"># no need to include identifer variable</span></span>
-<span id="cb94-8"><a href="predicting-course-evaluation-scores.html#cb94-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">show_data_completeness =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<span id="cb94-8"><a href="predicting-course-evaluation-scores.html#cb94-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">.show_data_completeness =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <p><strong>Variable type: numeric</strong></p>
 <table>
 <thead>
@@ -668,7 +676,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb96-5"><a href="predicting-course-evaluation-scores.html#cb96-5" aria-hidden="true" tabindex="-1"></a><span class="co"># show summary statistics</span></span>
 <span id="cb96-6"><a href="predicting-course-evaluation-scores.html#cb96-6" aria-hidden="true" tabindex="-1"></a><span class="fu">skim_minimal</span>(explanatory_variables_prof_cont <span class="sc">%&gt;%</span> </span>
 <span id="cb96-7"><a href="predicting-course-evaluation-scores.html#cb96-7" aria-hidden="true" tabindex="-1"></a>              <span class="fu">select</span>(<span class="sc">-</span>prof_number),</span>
-<span id="cb96-8"><a href="predicting-course-evaluation-scores.html#cb96-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">show_data_completeness =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<span id="cb96-8"><a href="predicting-course-evaluation-scores.html#cb96-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">.show_data_completeness =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <p><strong>Variable type: numeric</strong></p>
 <table>
 <thead>
@@ -866,7 +874,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb107-12"><a href="predicting-course-evaluation-scores.html#cb107-12" aria-hidden="true" tabindex="-1"></a><span class="co"># show summary statistics</span></span>
 <span id="cb107-13"><a href="predicting-course-evaluation-scores.html#cb107-13" aria-hidden="true" tabindex="-1"></a><span class="fu">skim_minimal</span>(explanatory_variables_prof_discrete <span class="sc">%&gt;%</span> </span>
 <span id="cb107-14"><a href="predicting-course-evaluation-scores.html#cb107-14" aria-hidden="true" tabindex="-1"></a>              <span class="fu">select</span>(<span class="sc">-</span>prof_number), </span>
-<span id="cb107-15"><a href="predicting-course-evaluation-scores.html#cb107-15" aria-hidden="true" tabindex="-1"></a>             <span class="at">show_data_completeness =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<span id="cb107-15"><a href="predicting-course-evaluation-scores.html#cb107-15" aria-hidden="true" tabindex="-1"></a>             <span class="at">.show_data_completeness =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <p><strong>Variable type: factor</strong></p>
 <table>
 <thead>
@@ -1014,7 +1022,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="predicting-course-evaluation-scores.html#cb113-1" aria-hidden="true" tabindex="-1"></a>explanatory_variables_course <span class="ot">&lt;-</span> teaching_eval_clean <span class="sc">%&gt;%</span> </span>
 <span id="cb113-2"><a href="predicting-course-evaluation-scores.html#cb113-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(lower<span class="sc">:</span>students)</span>
 <span id="cb113-3"><a href="predicting-course-evaluation-scores.html#cb113-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb113-4"><a href="predicting-course-evaluation-scores.html#cb113-4" aria-hidden="true" tabindex="-1"></a><span class="fu">skim_minimal</span>(explanatory_variables_course, <span class="at">show_data_completeness =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<span id="cb113-4"><a href="predicting-course-evaluation-scores.html#cb113-4" aria-hidden="true" tabindex="-1"></a><span class="fu">skim_minimal</span>(explanatory_variables_course, <span class="at">.show_data_completeness =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <p><strong>Variable type: numeric</strong></p>
 <table>
 <thead>
@@ -1084,7 +1092,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb114-3"><a href="predicting-course-evaluation-scores.html#cb114-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">where</span>(<span class="sc">~!</span><span class="fu">is_binary_var</span>(.)))</span>
 <span id="cb114-4"><a href="predicting-course-evaluation-scores.html#cb114-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb114-5"><a href="predicting-course-evaluation-scores.html#cb114-5" aria-hidden="true" tabindex="-1"></a>explanatory_variables_course_cont <span class="sc">%&gt;%</span> </span>
-<span id="cb114-6"><a href="predicting-course-evaluation-scores.html#cb114-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">skim_minimal</span>(<span class="at">show_data_completeness =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<span id="cb114-6"><a href="predicting-course-evaluation-scores.html#cb114-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">skim_minimal</span>(<span class="at">.show_data_completeness =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <p><strong>Variable type: numeric</strong></p>
 <table>
 <thead>
@@ -1246,7 +1254,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 <div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="predicting-course-evaluation-scores.html#cb120-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> explanatory_variables_course_discrete<span class="sc">%&gt;%</span></span>
-<span id="cb120-2"><a href="predicting-course-evaluation-scores.html#cb120-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">skim_minimal</span>(<span class="at">show_data_completeness =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<span id="cb120-2"><a href="predicting-course-evaluation-scores.html#cb120-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">skim_minimal</span>(<span class="at">.show_data_completeness =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="predicting-course-evaluation-scores.html#cb121-1" aria-hidden="true" tabindex="-1"></a><span class="co"># omit one_credit variable</span></span>
 <span id="cb121-2"><a href="predicting-course-evaluation-scores.html#cb121-2" aria-hidden="true" tabindex="-1"></a>explanatory_variables_course_discrete <span class="ot">&lt;-</span> explanatory_variables_course_discrete <span class="sc">%&gt;%</span> </span>
 <span id="cb121-3"><a href="predicting-course-evaluation-scores.html#cb121-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>one_credit)</span></code></pre></div>
@@ -1366,13 +1374,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="fitting-the-model-1" class="section level2" number="4.3">
 <h2><span class="header-section-number">4.3</span> Fitting the model</h2>
-<p>Approach to developing the model</p>
-<ul>
-<li><p>Establish a starting point</p></li>
-<li><p>Incremental add to the model and compare using loo log score (<code>elpd_loo</code>)</p></li>
-</ul>
-<div id="splitting-the-data" class="section level3" number="4.3.1">
-<h3><span class="header-section-number">4.3.1</span> Splitting the data</h3>
+<p>My approach to developing the model is relatively straight forward. First, based on the understanding of the data I have developed in the exploratory data analysis above, I specify an initial model. I then iteratively develop the model, at each stage comparing the performance of that iteration’s model with that of the current ‘best’ model. Based on this comparison updating my view of which model is the ‘best’ performing. But before getting into the iterative model development process, I first need to split the data into training and test sets.</p>
 <div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="predicting-course-evaluation-scores.html#cb127-1" aria-hidden="true" tabindex="-1"></a><span class="co"># bring together all variables into a single data frame</span></span>
 <span id="cb127-2"><a href="predicting-course-evaluation-scores.html#cb127-2" aria-hidden="true" tabindex="-1"></a>all_variables <span class="ot">&lt;-</span> <span class="fu">select</span>(teaching_eval_clean, course_evaluation) <span class="sc">%&gt;%</span> </span>
 <span id="cb127-3"><a href="predicting-course-evaluation-scores.html#cb127-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_cols</span>(explanatory_variables_prof_cont,</span>
@@ -1382,117 +1384,102 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb127-7"><a href="predicting-course-evaluation-scores.html#cb127-7" aria-hidden="true" tabindex="-1"></a>            explanatory_variables_course_discrete) <span class="sc">%&gt;%</span> </span>
 <span id="cb127-8"><a href="predicting-course-evaluation-scores.html#cb127-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>() </span>
 <span id="cb127-9"><a href="predicting-course-evaluation-scores.html#cb127-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb127-10"><a href="predicting-course-evaluation-scores.html#cb127-10" aria-hidden="true" tabindex="-1"></a>all_variables</span></code></pre></div>
-<pre><code>## # A tibble: 463 x 17
-##    course_evaluation prof_number   age prof_ave_rating prof_ave_beauty_rating
-##                &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl&gt;           &lt;dbl&gt;                  &lt;dbl&gt;
-##  1               4.3           1    36             4.7                 0.202 
-##  2               4.5           2    59             4.6                -0.826 
-##  3               3.7           3    51             4.1                -0.660 
-##  4               4.3           4    40             4.5                -0.766 
-##  5               4.4           5    31             4.8                 1.42  
-##  6               4.2           6    62             4.4                 0.500 
-##  7               4             7    33             4.4                -0.214 
-##  8               3.4           8    51             3.4                -0.347 
-##  9               4.5           9    33             4.8                 0.0613
-## 10               3.9          10    47             4                   0.453 
-## # ... with 453 more rows, and 12 more variables: ave_teaching_qual &lt;dbl&gt;,
-## #   age_binned &lt;fct&gt;, tenured &lt;dbl&gt;, minority &lt;dbl&gt;, female &lt;dbl&gt;,
-## #   formal &lt;dbl&gt;, non_native_english &lt;dbl&gt;, tenure_track &lt;dbl&gt;,
-## #   eval_response_rate &lt;dbl&gt;, students &lt;dbl&gt;, lower &lt;dbl&gt;, multiple_prof &lt;dbl&gt;</code></pre>
-<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="predicting-course-evaluation-scores.html#cb129-1" aria-hidden="true" tabindex="-1"></a><span class="co"># %&gt;% </span></span>
-<span id="cb129-2"><a href="predicting-course-evaluation-scores.html#cb129-2" aria-hidden="true" tabindex="-1"></a><span class="co">#  rename_with(.fn = ~ str_remove(., pattern = &#39;_\\d&#39;))</span></span></code></pre></div>
-<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="predicting-course-evaluation-scores.html#cb130-1" aria-hidden="true" tabindex="-1"></a><span class="co"># to ensure split is reproducible</span></span>
-<span id="cb130-2"><a href="predicting-course-evaluation-scores.html#cb130-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123456</span>)</span>
-<span id="cb130-3"><a href="predicting-course-evaluation-scores.html#cb130-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-4"><a href="predicting-course-evaluation-scores.html#cb130-4" aria-hidden="true" tabindex="-1"></a><span class="co"># create train and test datasets</span></span>
-<span id="cb130-5"><a href="predicting-course-evaluation-scores.html#cb130-5" aria-hidden="true" tabindex="-1"></a>teaching_split <span class="ot">&lt;-</span> rsample<span class="sc">::</span><span class="fu">initial_split</span>(all_variables, <span class="at">prop =</span> <span class="fl">0.8</span>)</span>
-<span id="cb130-6"><a href="predicting-course-evaluation-scores.html#cb130-6" aria-hidden="true" tabindex="-1"></a>teaching_train <span class="ot">&lt;-</span> rsample<span class="sc">::</span><span class="fu">training</span>(teaching_split)</span>
-<span id="cb130-7"><a href="predicting-course-evaluation-scores.html#cb130-7" aria-hidden="true" tabindex="-1"></a>teaching_test <span class="ot">&lt;-</span> rsample<span class="sc">::</span><span class="fu">testing</span>(teaching_split)</span></code></pre></div>
-</div>
-<div id="minimal-and-maximal-models" class="section level3" number="4.3.2">
-<h3><span class="header-section-number">4.3.2</span> Minimal and maximal models</h3>
-<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="predicting-course-evaluation-scores.html#cb131-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; Provides a summary of loo cross validation metrics for stan_glm model</span></span>
-<span id="cb131-2"><a href="predicting-course-evaluation-scores.html#cb131-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;</span></span>
-<span id="cb131-3"><a href="predicting-course-evaluation-scores.html#cb131-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @param stan_lm_mod: an object with the classes &quot;stanreg&quot;, &quot;glm&quot; and &quot;lm&quot;   </span></span>
-<span id="cb131-4"><a href="predicting-course-evaluation-scores.html#cb131-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;</span></span>
-<span id="cb131-5"><a href="predicting-course-evaluation-scores.html#cb131-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @return: a tibble of metrics</span></span>
-<span id="cb131-6"><a href="predicting-course-evaluation-scores.html#cb131-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb131-7"><a href="predicting-course-evaluation-scores.html#cb131-7" aria-hidden="true" tabindex="-1"></a>stan_glm_metric_summary <span class="ot">&lt;-</span> <span class="cf">function</span>(stan_lm_mod, <span class="at">as_kable =</span> <span class="cn">FALSE</span>){</span>
-<span id="cb131-8"><a href="predicting-course-evaluation-scores.html#cb131-8" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb131-9"><a href="predicting-course-evaluation-scores.html#cb131-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># calculate r2 metrics mod</span></span>
-<span id="cb131-10"><a href="predicting-course-evaluation-scores.html#cb131-10" aria-hidden="true" tabindex="-1"></a>  r2 <span class="ot">&lt;-</span> <span class="fu">loo_R2</span>(stan_lm_mod)</span>
-<span id="cb131-11"><a href="predicting-course-evaluation-scores.html#cb131-11" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb131-12"><a href="predicting-course-evaluation-scores.html#cb131-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># calculate loo metrics</span></span>
-<span id="cb131-13"><a href="predicting-course-evaluation-scores.html#cb131-13" aria-hidden="true" tabindex="-1"></a>  metrics <span class="ot">&lt;-</span> <span class="fu">loo</span>(stan_lm_mod)<span class="sc">$</span>estimates <span class="sc">%&gt;%</span> </span>
-<span id="cb131-14"><a href="predicting-course-evaluation-scores.html#cb131-14" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb131-15"><a href="predicting-course-evaluation-scores.html#cb131-15" aria-hidden="true" tabindex="-1"></a>    <span class="co">#reformat for ease of use</span></span>
-<span id="cb131-16"><a href="predicting-course-evaluation-scores.html#cb131-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb131-17"><a href="predicting-course-evaluation-scores.html#cb131-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">&quot;Metric&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb131-18"><a href="predicting-course-evaluation-scores.html#cb131-18" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb131-19"><a href="predicting-course-evaluation-scores.html#cb131-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># add r2 to loo metrics</span></span>
-<span id="cb131-20"><a href="predicting-course-evaluation-scores.html#cb131-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_row</span>(<span class="at">Metric =</span> <span class="st">&quot;r2&quot;</span>,</span>
-<span id="cb131-21"><a href="predicting-course-evaluation-scores.html#cb131-21" aria-hidden="true" tabindex="-1"></a>            <span class="at">Estimate =</span> <span class="fu">median</span>(r2),</span>
-<span id="cb131-22"><a href="predicting-course-evaluation-scores.html#cb131-22" aria-hidden="true" tabindex="-1"></a>            <span class="at">SE =</span> <span class="fu">sd</span>(r2))</span>
-<span id="cb131-23"><a href="predicting-course-evaluation-scores.html#cb131-23" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb131-24"><a href="predicting-course-evaluation-scores.html#cb131-24" aria-hidden="true" tabindex="-1"></a>  <span class="co">#return results</span></span>
-<span id="cb131-25"><a href="predicting-course-evaluation-scores.html#cb131-25" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (as_kable <span class="sc">==</span> <span class="cn">FALSE</span>) <span class="fu">return</span>(metrics)</span>
-<span id="cb131-26"><a href="predicting-course-evaluation-scores.html#cb131-26" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> <span class="fu">return</span>(knitr<span class="sc">::</span><span class="fu">kable</span>(metrics))</span>
-<span id="cb131-27"><a href="predicting-course-evaluation-scores.html#cb131-27" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb131-28"><a href="predicting-course-evaluation-scores.html#cb131-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb131-29"><a href="predicting-course-evaluation-scores.html#cb131-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb131-30"><a href="predicting-course-evaluation-scores.html#cb131-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; Compares to two stan_glm models by loo cross validation metrics</span></span>
-<span id="cb131-31"><a href="predicting-course-evaluation-scores.html#cb131-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;</span></span>
-<span id="cb131-32"><a href="predicting-course-evaluation-scores.html#cb131-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @param mod_1: an object with the classes &quot;stanreg&quot;, &quot;glm&quot; and &quot;lm&quot;   </span></span>
-<span id="cb131-33"><a href="predicting-course-evaluation-scores.html#cb131-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @param mod_2: an object with the classes &quot;stanreg&quot;, &quot;glm&quot; and &quot;lm&quot;   </span></span>
-<span id="cb131-34"><a href="predicting-course-evaluation-scores.html#cb131-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;</span></span>
-<span id="cb131-35"><a href="predicting-course-evaluation-scores.html#cb131-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @return: a tibble of metrics</span></span>
-<span id="cb131-36"><a href="predicting-course-evaluation-scores.html#cb131-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb131-37"><a href="predicting-course-evaluation-scores.html#cb131-37" aria-hidden="true" tabindex="-1"></a>stan_glm_loo_comp <span class="ot">&lt;-</span> <span class="cf">function</span>(mod_1, mod_2, <span class="at">as_kable =</span> <span class="cn">FALSE</span>){</span>
-<span id="cb131-38"><a href="predicting-course-evaluation-scores.html#cb131-38" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb131-39"><a href="predicting-course-evaluation-scores.html#cb131-39" aria-hidden="true" tabindex="-1"></a>  <span class="co"># compare the two models</span></span>
-<span id="cb131-40"><a href="predicting-course-evaluation-scores.html#cb131-40" aria-hidden="true" tabindex="-1"></a>  comp <span class="ot">&lt;-</span> <span class="fu">loo_compare</span>(<span class="fu">loo</span>(mod_1), <span class="fu">loo</span>(mod_2))</span>
-<span id="cb131-41"><a href="predicting-course-evaluation-scores.html#cb131-41" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb131-42"><a href="predicting-course-evaluation-scores.html#cb131-42" aria-hidden="true" tabindex="-1"></a>  <span class="co"># convert comparision output to make it easier to process</span></span>
-<span id="cb131-43"><a href="predicting-course-evaluation-scores.html#cb131-43" aria-hidden="true" tabindex="-1"></a>  res <span class="ot">&lt;-</span> comp <span class="sc">%&gt;%</span> </span>
-<span id="cb131-44"><a href="predicting-course-evaluation-scores.html#cb131-44" aria-hidden="true" tabindex="-1"></a>    <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb131-45"><a href="predicting-course-evaluation-scores.html#cb131-45" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb131-46"><a href="predicting-course-evaluation-scores.html#cb131-46" aria-hidden="true" tabindex="-1"></a>    <span class="co"># reformat output for ease of interpretation</span></span>
-<span id="cb131-47"><a href="predicting-course-evaluation-scores.html#cb131-47" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">&quot;Model&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb131-48"><a href="predicting-course-evaluation-scores.html#cb131-48" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_longer</span>(<span class="at">cols =</span> elpd_diff<span class="sc">:</span>se_looic, </span>
-<span id="cb131-49"><a href="predicting-course-evaluation-scores.html#cb131-49" aria-hidden="true" tabindex="-1"></a>                 <span class="at">names_to =</span> <span class="st">&quot;Metric&quot;</span>, </span>
-<span id="cb131-50"><a href="predicting-course-evaluation-scores.html#cb131-50" aria-hidden="true" tabindex="-1"></a>                 <span class="at">values_to =</span> <span class="st">&quot;Estimate&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb131-51"><a href="predicting-course-evaluation-scores.html#cb131-51" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb131-52"><a href="predicting-course-evaluation-scores.html#cb131-52" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="st">&quot;Model&quot;</span>, </span>
-<span id="cb131-53"><a href="predicting-course-evaluation-scores.html#cb131-53" aria-hidden="true" tabindex="-1"></a>                <span class="at">values_from =</span> <span class="st">&quot;Estimate&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb131-54"><a href="predicting-course-evaluation-scores.html#cb131-54" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb131-55"><a href="predicting-course-evaluation-scores.html#cb131-55" aria-hidden="true" tabindex="-1"></a>    <span class="co"># add in r2 metrics</span></span>
-<span id="cb131-56"><a href="predicting-course-evaluation-scores.html#cb131-56" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_row</span>(<span class="at">Metric =</span> <span class="st">&quot;r2&quot;</span>, </span>
-<span id="cb131-57"><a href="predicting-course-evaluation-scores.html#cb131-57" aria-hidden="true" tabindex="-1"></a>            <span class="at">mod_1 =</span> <span class="fu">median</span>(<span class="fu">loo_R2</span>(mod_1)),</span>
-<span id="cb131-58"><a href="predicting-course-evaluation-scores.html#cb131-58" aria-hidden="true" tabindex="-1"></a>            <span class="at">mod_2 =</span> <span class="fu">median</span>(<span class="fu">loo_R2</span>(mod_2)))</span>
-<span id="cb131-59"><a href="predicting-course-evaluation-scores.html#cb131-59" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb131-60"><a href="predicting-course-evaluation-scores.html#cb131-60" aria-hidden="true" tabindex="-1"></a>  <span class="co"># rename columns to the names of the objects passed to the function</span></span>
-<span id="cb131-61"><a href="predicting-course-evaluation-scores.html#cb131-61" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>(res) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Metric&quot;</span>, </span>
-<span id="cb131-62"><a href="predicting-course-evaluation-scores.html#cb131-62" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">deparse</span>(<span class="fu">substitute</span>(mod_1)), </span>
-<span id="cb131-63"><a href="predicting-course-evaluation-scores.html#cb131-63" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">deparse</span>(<span class="fu">substitute</span>(mod_2)))</span>
-<span id="cb131-64"><a href="predicting-course-evaluation-scores.html#cb131-64" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb131-65"><a href="predicting-course-evaluation-scores.html#cb131-65" aria-hidden="true" tabindex="-1"></a>  <span class="co"># return results</span></span>
-<span id="cb131-66"><a href="predicting-course-evaluation-scores.html#cb131-66" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (as_kable <span class="sc">==</span> <span class="cn">FALSE</span>) <span class="fu">return</span>(res)</span>
-<span id="cb131-67"><a href="predicting-course-evaluation-scores.html#cb131-67" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> <span class="fu">return</span>(knitr<span class="sc">::</span><span class="fu">kable</span>(res))</span>
-<span id="cb131-68"><a href="predicting-course-evaluation-scores.html#cb131-68" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<p>Minimal model: the most promising predictor identified in the EDA</p>
-<p>Maximal model: all predictors, where there are multiple predictors relating to the same underlying construct (e.g. <code>age</code> and <code>age_binned</code>) only one is retained.</p>
-<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="predicting-course-evaluation-scores.html#cb132-1" aria-hidden="true" tabindex="-1"></a>lm_min <span class="ot">&lt;-</span> <span class="fu">stan_glm</span>(course_evaluation <span class="sc">~</span> ave_teaching_qual, <span class="at">data =</span> teaching_train, </span>
-<span id="cb132-2"><a href="predicting-course-evaluation-scores.html#cb132-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">refresh =</span> <span class="dv">0</span>)</span>
-<span id="cb132-3"><a href="predicting-course-evaluation-scores.html#cb132-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb132-4"><a href="predicting-course-evaluation-scores.html#cb132-4" aria-hidden="true" tabindex="-1"></a>lm_max <span class="ot">&lt;-</span> <span class="fu">stan_glm</span>(course_evaluation <span class="sc">~</span> ., </span>
-<span id="cb132-5"><a href="predicting-course-evaluation-scores.html#cb132-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">data =</span> <span class="fu">select</span>(teaching_train,</span>
-<span id="cb132-6"><a href="predicting-course-evaluation-scores.html#cb132-6" aria-hidden="true" tabindex="-1"></a>                                 <span class="sc">-</span> prof_number,</span>
-<span id="cb132-7"><a href="predicting-course-evaluation-scores.html#cb132-7" aria-hidden="true" tabindex="-1"></a>                                 <span class="sc">-</span> prof_ave_rating,</span>
-<span id="cb132-8"><a href="predicting-course-evaluation-scores.html#cb132-8" aria-hidden="true" tabindex="-1"></a>                                 <span class="sc">-</span> age_binned), </span>
-<span id="cb132-9"><a href="predicting-course-evaluation-scores.html#cb132-9" aria-hidden="true" tabindex="-1"></a>                   <span class="at">refresh =</span> <span class="dv">0</span>)</span>
-<span id="cb132-10"><a href="predicting-course-evaluation-scores.html#cb132-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb132-11"><a href="predicting-course-evaluation-scores.html#cb132-11" aria-hidden="true" tabindex="-1"></a>lm_min</span></code></pre></div>
+<span id="cb127-10"><a href="predicting-course-evaluation-scores.html#cb127-10" aria-hidden="true" tabindex="-1"></a><span class="co"># all_variables</span></span>
+<span id="cb127-11"><a href="predicting-course-evaluation-scores.html#cb127-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb127-12"><a href="predicting-course-evaluation-scores.html#cb127-12" aria-hidden="true" tabindex="-1"></a><span class="co"># to ensure split is reproducible</span></span>
+<span id="cb127-13"><a href="predicting-course-evaluation-scores.html#cb127-13" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123456</span>)</span>
+<span id="cb127-14"><a href="predicting-course-evaluation-scores.html#cb127-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb127-15"><a href="predicting-course-evaluation-scores.html#cb127-15" aria-hidden="true" tabindex="-1"></a><span class="co"># create train and test datasets</span></span>
+<span id="cb127-16"><a href="predicting-course-evaluation-scores.html#cb127-16" aria-hidden="true" tabindex="-1"></a>teaching_split <span class="ot">&lt;-</span> rsample<span class="sc">::</span><span class="fu">initial_split</span>(all_variables, <span class="at">prop =</span> <span class="fl">0.8</span>)</span>
+<span id="cb127-17"><a href="predicting-course-evaluation-scores.html#cb127-17" aria-hidden="true" tabindex="-1"></a>teaching_train <span class="ot">&lt;-</span> rsample<span class="sc">::</span><span class="fu">training</span>(teaching_split)</span>
+<span id="cb127-18"><a href="predicting-course-evaluation-scores.html#cb127-18" aria-hidden="true" tabindex="-1"></a>teaching_test <span class="ot">&lt;-</span> rsample<span class="sc">::</span><span class="fu">testing</span>(teaching_split)</span></code></pre></div>
+<div id="specifying-an-initial-model" class="section level3" number="4.3.1">
+<h3><span class="header-section-number">4.3.1</span> Specifying an initial model</h3>
+<p>Before specifying the initial model, I first include some functions I have written to process the output of <code>stan_glm</code> model into a form that is easier to present in R markdown documents.</p>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="predicting-course-evaluation-scores.html#cb128-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; Provides a summary of loo cross validation metrics for stan_glm model</span></span>
+<span id="cb128-2"><a href="predicting-course-evaluation-scores.html#cb128-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;</span></span>
+<span id="cb128-3"><a href="predicting-course-evaluation-scores.html#cb128-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @param stan_lm_mod: an object with the classes &quot;stanreg&quot;, &quot;glm&quot; and &quot;lm&quot;   </span></span>
+<span id="cb128-4"><a href="predicting-course-evaluation-scores.html#cb128-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;</span></span>
+<span id="cb128-5"><a href="predicting-course-evaluation-scores.html#cb128-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @return: a tibble of metrics</span></span>
+<span id="cb128-6"><a href="predicting-course-evaluation-scores.html#cb128-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb128-7"><a href="predicting-course-evaluation-scores.html#cb128-7" aria-hidden="true" tabindex="-1"></a>stan_glm_metric_summary <span class="ot">&lt;-</span> <span class="cf">function</span>(stan_lm_mod, <span class="at">as_kable =</span> <span class="cn">FALSE</span>){</span>
+<span id="cb128-8"><a href="predicting-course-evaluation-scores.html#cb128-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb128-9"><a href="predicting-course-evaluation-scores.html#cb128-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># calculate r2 metrics mod</span></span>
+<span id="cb128-10"><a href="predicting-course-evaluation-scores.html#cb128-10" aria-hidden="true" tabindex="-1"></a>  r2 <span class="ot">&lt;-</span> <span class="fu">loo_R2</span>(stan_lm_mod)</span>
+<span id="cb128-11"><a href="predicting-course-evaluation-scores.html#cb128-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb128-12"><a href="predicting-course-evaluation-scores.html#cb128-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># calculate loo metrics</span></span>
+<span id="cb128-13"><a href="predicting-course-evaluation-scores.html#cb128-13" aria-hidden="true" tabindex="-1"></a>  metrics <span class="ot">&lt;-</span> <span class="fu">loo</span>(stan_lm_mod)<span class="sc">$</span>estimates <span class="sc">%&gt;%</span> </span>
+<span id="cb128-14"><a href="predicting-course-evaluation-scores.html#cb128-14" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb128-15"><a href="predicting-course-evaluation-scores.html#cb128-15" aria-hidden="true" tabindex="-1"></a>    <span class="co">#reformat for ease of use</span></span>
+<span id="cb128-16"><a href="predicting-course-evaluation-scores.html#cb128-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb128-17"><a href="predicting-course-evaluation-scores.html#cb128-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">&quot;Metric&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb128-18"><a href="predicting-course-evaluation-scores.html#cb128-18" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb128-19"><a href="predicting-course-evaluation-scores.html#cb128-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># add r2 to loo metrics</span></span>
+<span id="cb128-20"><a href="predicting-course-evaluation-scores.html#cb128-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_row</span>(<span class="at">Metric =</span> <span class="st">&quot;r2&quot;</span>,</span>
+<span id="cb128-21"><a href="predicting-course-evaluation-scores.html#cb128-21" aria-hidden="true" tabindex="-1"></a>            <span class="at">Estimate =</span> <span class="fu">median</span>(r2),</span>
+<span id="cb128-22"><a href="predicting-course-evaluation-scores.html#cb128-22" aria-hidden="true" tabindex="-1"></a>            <span class="at">SE =</span> <span class="fu">sd</span>(r2))</span>
+<span id="cb128-23"><a href="predicting-course-evaluation-scores.html#cb128-23" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb128-24"><a href="predicting-course-evaluation-scores.html#cb128-24" aria-hidden="true" tabindex="-1"></a>  <span class="co">#return results</span></span>
+<span id="cb128-25"><a href="predicting-course-evaluation-scores.html#cb128-25" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (as_kable <span class="sc">==</span> <span class="cn">FALSE</span>) <span class="fu">return</span>(metrics)</span>
+<span id="cb128-26"><a href="predicting-course-evaluation-scores.html#cb128-26" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> <span class="fu">return</span>(knitr<span class="sc">::</span><span class="fu">kable</span>(metrics))</span>
+<span id="cb128-27"><a href="predicting-course-evaluation-scores.html#cb128-27" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb128-28"><a href="predicting-course-evaluation-scores.html#cb128-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb128-29"><a href="predicting-course-evaluation-scores.html#cb128-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb128-30"><a href="predicting-course-evaluation-scores.html#cb128-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; Compares to two stan_glm models by loo cross validation metrics</span></span>
+<span id="cb128-31"><a href="predicting-course-evaluation-scores.html#cb128-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;</span></span>
+<span id="cb128-32"><a href="predicting-course-evaluation-scores.html#cb128-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @param mod_1: an object with the classes &quot;stanreg&quot;, &quot;glm&quot; and &quot;lm&quot;   </span></span>
+<span id="cb128-33"><a href="predicting-course-evaluation-scores.html#cb128-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @param mod_2: an object with the classes &quot;stanreg&quot;, &quot;glm&quot; and &quot;lm&quot;   </span></span>
+<span id="cb128-34"><a href="predicting-course-evaluation-scores.html#cb128-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;</span></span>
+<span id="cb128-35"><a href="predicting-course-evaluation-scores.html#cb128-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @return: a tibble of metrics</span></span>
+<span id="cb128-36"><a href="predicting-course-evaluation-scores.html#cb128-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb128-37"><a href="predicting-course-evaluation-scores.html#cb128-37" aria-hidden="true" tabindex="-1"></a>stan_glm_loo_comp <span class="ot">&lt;-</span> <span class="cf">function</span>(mod_1, mod_2, <span class="at">as_kable =</span> <span class="cn">FALSE</span>){</span>
+<span id="cb128-38"><a href="predicting-course-evaluation-scores.html#cb128-38" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb128-39"><a href="predicting-course-evaluation-scores.html#cb128-39" aria-hidden="true" tabindex="-1"></a>  <span class="co"># compare the two models</span></span>
+<span id="cb128-40"><a href="predicting-course-evaluation-scores.html#cb128-40" aria-hidden="true" tabindex="-1"></a>  comp <span class="ot">&lt;-</span> <span class="fu">loo_compare</span>(<span class="fu">loo</span>(mod_1), <span class="fu">loo</span>(mod_2))</span>
+<span id="cb128-41"><a href="predicting-course-evaluation-scores.html#cb128-41" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb128-42"><a href="predicting-course-evaluation-scores.html#cb128-42" aria-hidden="true" tabindex="-1"></a>  <span class="co"># convert comparision output to make it easier to process</span></span>
+<span id="cb128-43"><a href="predicting-course-evaluation-scores.html#cb128-43" aria-hidden="true" tabindex="-1"></a>  res <span class="ot">&lt;-</span> comp <span class="sc">%&gt;%</span> </span>
+<span id="cb128-44"><a href="predicting-course-evaluation-scores.html#cb128-44" aria-hidden="true" tabindex="-1"></a>    <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb128-45"><a href="predicting-course-evaluation-scores.html#cb128-45" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb128-46"><a href="predicting-course-evaluation-scores.html#cb128-46" aria-hidden="true" tabindex="-1"></a>    <span class="co"># reformat output for ease of interpretation</span></span>
+<span id="cb128-47"><a href="predicting-course-evaluation-scores.html#cb128-47" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">&quot;Model&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb128-48"><a href="predicting-course-evaluation-scores.html#cb128-48" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_longer</span>(<span class="at">cols =</span> elpd_diff<span class="sc">:</span>se_looic, </span>
+<span id="cb128-49"><a href="predicting-course-evaluation-scores.html#cb128-49" aria-hidden="true" tabindex="-1"></a>                 <span class="at">names_to =</span> <span class="st">&quot;Metric&quot;</span>, </span>
+<span id="cb128-50"><a href="predicting-course-evaluation-scores.html#cb128-50" aria-hidden="true" tabindex="-1"></a>                 <span class="at">values_to =</span> <span class="st">&quot;Estimate&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb128-51"><a href="predicting-course-evaluation-scores.html#cb128-51" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb128-52"><a href="predicting-course-evaluation-scores.html#cb128-52" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="st">&quot;Model&quot;</span>, </span>
+<span id="cb128-53"><a href="predicting-course-evaluation-scores.html#cb128-53" aria-hidden="true" tabindex="-1"></a>                <span class="at">values_from =</span> <span class="st">&quot;Estimate&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb128-54"><a href="predicting-course-evaluation-scores.html#cb128-54" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb128-55"><a href="predicting-course-evaluation-scores.html#cb128-55" aria-hidden="true" tabindex="-1"></a>    <span class="co"># add in r2 metrics</span></span>
+<span id="cb128-56"><a href="predicting-course-evaluation-scores.html#cb128-56" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_row</span>(<span class="at">Metric =</span> <span class="st">&quot;r2&quot;</span>, </span>
+<span id="cb128-57"><a href="predicting-course-evaluation-scores.html#cb128-57" aria-hidden="true" tabindex="-1"></a>            <span class="at">mod_1 =</span> <span class="fu">median</span>(<span class="fu">loo_R2</span>(mod_1)),</span>
+<span id="cb128-58"><a href="predicting-course-evaluation-scores.html#cb128-58" aria-hidden="true" tabindex="-1"></a>            <span class="at">mod_2 =</span> <span class="fu">median</span>(<span class="fu">loo_R2</span>(mod_2)))</span>
+<span id="cb128-59"><a href="predicting-course-evaluation-scores.html#cb128-59" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb128-60"><a href="predicting-course-evaluation-scores.html#cb128-60" aria-hidden="true" tabindex="-1"></a>  <span class="co"># rename columns to the names of the objects passed to the function</span></span>
+<span id="cb128-61"><a href="predicting-course-evaluation-scores.html#cb128-61" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>(res) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Metric&quot;</span>, </span>
+<span id="cb128-62"><a href="predicting-course-evaluation-scores.html#cb128-62" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">deparse</span>(<span class="fu">substitute</span>(mod_1)), </span>
+<span id="cb128-63"><a href="predicting-course-evaluation-scores.html#cb128-63" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">deparse</span>(<span class="fu">substitute</span>(mod_2)))</span>
+<span id="cb128-64"><a href="predicting-course-evaluation-scores.html#cb128-64" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb128-65"><a href="predicting-course-evaluation-scores.html#cb128-65" aria-hidden="true" tabindex="-1"></a>  <span class="co"># return results</span></span>
+<span id="cb128-66"><a href="predicting-course-evaluation-scores.html#cb128-66" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (as_kable <span class="sc">==</span> <span class="cn">FALSE</span>) <span class="fu">return</span>(res)</span>
+<span id="cb128-67"><a href="predicting-course-evaluation-scores.html#cb128-67" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> <span class="fu">return</span>(knitr<span class="sc">::</span><span class="fu">kable</span>(res))</span>
+<span id="cb128-68"><a href="predicting-course-evaluation-scores.html#cb128-68" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>I start by specifying two models:</p>
+<ol style="list-style-type: decimal">
+<li><p>A <em>minimal</em> model which includes the single most promising predictor identified in the EDA (<code>ave_teaching_qual</code>);</p></li>
+<li><p>A <em>maximal</em> model which includes all the potential predictors. Where there are multiple predictors relating to the same underlying construct (e.g. <code>age</code> and <code>age_binned</code>) only one is retained.</p></li>
+</ol>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="predicting-course-evaluation-scores.html#cb129-1" aria-hidden="true" tabindex="-1"></a>lm_min <span class="ot">&lt;-</span> <span class="fu">stan_glm</span>(course_evaluation <span class="sc">~</span> ave_teaching_qual, <span class="at">data =</span> teaching_train, </span>
+<span id="cb129-2"><a href="predicting-course-evaluation-scores.html#cb129-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">refresh =</span> <span class="dv">0</span>)</span>
+<span id="cb129-3"><a href="predicting-course-evaluation-scores.html#cb129-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb129-4"><a href="predicting-course-evaluation-scores.html#cb129-4" aria-hidden="true" tabindex="-1"></a>lm_max <span class="ot">&lt;-</span> <span class="fu">stan_glm</span>(course_evaluation <span class="sc">~</span> ., </span>
+<span id="cb129-5"><a href="predicting-course-evaluation-scores.html#cb129-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">data =</span> <span class="fu">select</span>(teaching_train,</span>
+<span id="cb129-6"><a href="predicting-course-evaluation-scores.html#cb129-6" aria-hidden="true" tabindex="-1"></a>                                 <span class="sc">-</span> prof_number,</span>
+<span id="cb129-7"><a href="predicting-course-evaluation-scores.html#cb129-7" aria-hidden="true" tabindex="-1"></a>                                 <span class="sc">-</span> prof_ave_rating,</span>
+<span id="cb129-8"><a href="predicting-course-evaluation-scores.html#cb129-8" aria-hidden="true" tabindex="-1"></a>                                 <span class="sc">-</span> age_binned), </span>
+<span id="cb129-9"><a href="predicting-course-evaluation-scores.html#cb129-9" aria-hidden="true" tabindex="-1"></a>                   <span class="at">refresh =</span> <span class="dv">0</span>)</span>
+<span id="cb129-10"><a href="predicting-course-evaluation-scores.html#cb129-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb129-11"><a href="predicting-course-evaluation-scores.html#cb129-11" aria-hidden="true" tabindex="-1"></a>lm_min</span></code></pre></div>
 <pre><code>## stan_glm
 ##  family:       gaussian [identity]
 ##  formula:      course_evaluation ~ ave_teaching_qual
@@ -1510,7 +1497,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## ------
 ## * For help interpreting the printed output see ?print.stanreg
 ## * For info on the priors used see ?prior_summary.stanreg</code></pre>
-<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="predicting-course-evaluation-scores.html#cb134-1" aria-hidden="true" tabindex="-1"></a>lm_max</span></code></pre></div>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="predicting-course-evaluation-scores.html#cb131-1" aria-hidden="true" tabindex="-1"></a>lm_max</span></code></pre></div>
 <pre><code>## stan_glm
 ##  family:       gaussian [identity]
 ##  formula:      course_evaluation ~ .
@@ -1540,8 +1527,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## ------
 ## * For help interpreting the printed output see ?print.stanreg
 ## * For info on the priors used see ?prior_summary.stanreg</code></pre>
-<p>Comparing the log scores from the leave-one-out cross validation (<code>elpd_loo</code>) the minimal model performs slightly better. So, I’ll use the minimal model as the starting point for building a better model.</p>
-<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="predicting-course-evaluation-scores.html#cb136-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stan_glm_metric_summary</span>(lm_min, <span class="at">as_kable =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p>Comparing the log scores from the leave-one-out cross validation (<code>elpd_loo</code>) the minimal model performs slightly better than the maximal model. So, I’ll use the minimal model as the starting point for iteratively building a better model.</p>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="predicting-course-evaluation-scores.html#cb133-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stan_glm_metric_summary</span>(lm_min, <span class="at">as_kable =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -1573,7 +1560,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="predicting-course-evaluation-scores.html#cb137-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stan_glm_metric_summary</span>(lm_max, <span class="at">as_kable =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="predicting-course-evaluation-scores.html#cb134-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stan_glm_metric_summary</span>(lm_max, <span class="at">as_kable =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -1605,7 +1592,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="predicting-course-evaluation-scores.html#cb138-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stan_glm_loo_comp</span>(lm_min, lm_max, <span class="at">as_kable =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="predicting-course-evaluation-scores.html#cb135-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stan_glm_loo_comp</span>(lm_min, lm_max, <span class="at">as_kable =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -1663,16 +1650,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 </div>
-<div id="iteration-1-adding-two-continuous-variables" class="section level3" number="4.3.3">
-<h3><span class="header-section-number">4.3.3</span> Iteration 1: Adding two continuous variables</h3>
+<div id="iteration-1-adding-two-continuous-variables" class="section level3" number="4.3.2">
+<h3><span class="header-section-number">4.3.2</span> Iteration 1: Adding two continuous variables</h3>
 <p>Next I try adding two continuous variables (<code>prof_ave_beauty_rating</code> and <code>eval_response_rate</code>) as predictors. These were the two variables after <code>ave_teaching_qual</code> with the next highest (albeit low) levels of correlation with <code>course_evaluation</code>. After adding these variables the model performance is the same as the minimal model. So, I’ll keep working with the minimal model as the best performing model for now.</p>
-<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="predicting-course-evaluation-scores.html#cb139-1" aria-hidden="true" tabindex="-1"></a>lm_1 <span class="ot">&lt;-</span> <span class="fu">stan_glm</span>(course_evaluation <span class="sc">~</span> </span>
-<span id="cb139-2"><a href="predicting-course-evaluation-scores.html#cb139-2" aria-hidden="true" tabindex="-1"></a>           ave_teaching_qual <span class="sc">+</span> eval_response_rate <span class="sc">+</span></span>
-<span id="cb139-3"><a href="predicting-course-evaluation-scores.html#cb139-3" aria-hidden="true" tabindex="-1"></a>           prof_ave_beauty_rating,</span>
-<span id="cb139-4"><a href="predicting-course-evaluation-scores.html#cb139-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">data =</span> teaching_train, </span>
-<span id="cb139-5"><a href="predicting-course-evaluation-scores.html#cb139-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">refresh =</span> <span class="dv">0</span>)</span>
-<span id="cb139-6"><a href="predicting-course-evaluation-scores.html#cb139-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb139-7"><a href="predicting-course-evaluation-scores.html#cb139-7" aria-hidden="true" tabindex="-1"></a><span class="fu">stan_glm_loo_comp</span>(lm_min, lm_1, <span class="at">as_kable =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="predicting-course-evaluation-scores.html#cb136-1" aria-hidden="true" tabindex="-1"></a>lm_1 <span class="ot">&lt;-</span> <span class="fu">stan_glm</span>(course_evaluation <span class="sc">~</span> </span>
+<span id="cb136-2"><a href="predicting-course-evaluation-scores.html#cb136-2" aria-hidden="true" tabindex="-1"></a>           ave_teaching_qual <span class="sc">+</span> eval_response_rate <span class="sc">+</span></span>
+<span id="cb136-3"><a href="predicting-course-evaluation-scores.html#cb136-3" aria-hidden="true" tabindex="-1"></a>           prof_ave_beauty_rating,</span>
+<span id="cb136-4"><a href="predicting-course-evaluation-scores.html#cb136-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">data =</span> teaching_train, </span>
+<span id="cb136-5"><a href="predicting-course-evaluation-scores.html#cb136-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">refresh =</span> <span class="dv">0</span>)</span>
+<span id="cb136-6"><a href="predicting-course-evaluation-scores.html#cb136-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb136-7"><a href="predicting-course-evaluation-scores.html#cb136-7" aria-hidden="true" tabindex="-1"></a><span class="fu">stan_glm_loo_comp</span>(lm_min, lm_1, <span class="at">as_kable =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -1730,17 +1717,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 </div>
-<div id="iteration-2-adding-in-discrete-variables" class="section level3" number="4.3.4">
-<h3><span class="header-section-number">4.3.4</span> Iteration 2: adding in discrete variables</h3>
+<div id="iteration-2-adding-in-discrete-variables" class="section level3" number="4.3.3">
+<h3><span class="header-section-number">4.3.3</span> Iteration 2: adding in discrete variables</h3>
 <p>Next I try adding in the three discrete variables which had non-zero coefficients in the maximal model (<code>non_native_english</code> + <code>female</code> + <code>multiple_prof</code>). Again this doesn’t result in any improvements to model performance as measured by the cross validation log score (elpd_loo)</p>
-<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="predicting-course-evaluation-scores.html#cb140-1" aria-hidden="true" tabindex="-1"></a>lm_2 <span class="ot">&lt;-</span> <span class="fu">stan_glm</span>(course_evaluation <span class="sc">~</span> </span>
-<span id="cb140-2"><a href="predicting-course-evaluation-scores.html#cb140-2" aria-hidden="true" tabindex="-1"></a>                   ave_teaching_qual <span class="sc">+</span></span>
-<span id="cb140-3"><a href="predicting-course-evaluation-scores.html#cb140-3" aria-hidden="true" tabindex="-1"></a>                   <span class="co"># add discrete predictors</span></span>
-<span id="cb140-4"><a href="predicting-course-evaluation-scores.html#cb140-4" aria-hidden="true" tabindex="-1"></a>                   non_native_english <span class="sc">+</span> female <span class="sc">+</span> multiple_prof,</span>
-<span id="cb140-5"><a href="predicting-course-evaluation-scores.html#cb140-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> teaching_train, </span>
-<span id="cb140-6"><a href="predicting-course-evaluation-scores.html#cb140-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">refresh =</span> <span class="dv">0</span>)</span>
-<span id="cb140-7"><a href="predicting-course-evaluation-scores.html#cb140-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb140-8"><a href="predicting-course-evaluation-scores.html#cb140-8" aria-hidden="true" tabindex="-1"></a><span class="fu">stan_glm_loo_comp</span>(lm_min,lm_2, <span class="at">as_kable =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="predicting-course-evaluation-scores.html#cb137-1" aria-hidden="true" tabindex="-1"></a>lm_2 <span class="ot">&lt;-</span> <span class="fu">stan_glm</span>(course_evaluation <span class="sc">~</span> </span>
+<span id="cb137-2"><a href="predicting-course-evaluation-scores.html#cb137-2" aria-hidden="true" tabindex="-1"></a>                   ave_teaching_qual <span class="sc">+</span></span>
+<span id="cb137-3"><a href="predicting-course-evaluation-scores.html#cb137-3" aria-hidden="true" tabindex="-1"></a>                   <span class="co"># add discrete predictors</span></span>
+<span id="cb137-4"><a href="predicting-course-evaluation-scores.html#cb137-4" aria-hidden="true" tabindex="-1"></a>                   non_native_english <span class="sc">+</span> female <span class="sc">+</span> multiple_prof,</span>
+<span id="cb137-5"><a href="predicting-course-evaluation-scores.html#cb137-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> teaching_train, </span>
+<span id="cb137-6"><a href="predicting-course-evaluation-scores.html#cb137-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">refresh =</span> <span class="dv">0</span>)</span>
+<span id="cb137-7"><a href="predicting-course-evaluation-scores.html#cb137-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb137-8"><a href="predicting-course-evaluation-scores.html#cb137-8" aria-hidden="true" tabindex="-1"></a><span class="fu">stan_glm_loo_comp</span>(lm_min,lm_2, <span class="at">as_kable =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -1797,7 +1784,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="predicting-course-evaluation-scores.html#cb141-1" aria-hidden="true" tabindex="-1"></a>lm_2</span></code></pre></div>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="predicting-course-evaluation-scores.html#cb138-1" aria-hidden="true" tabindex="-1"></a>lm_2</span></code></pre></div>
 <pre><code>## stan_glm
 ##  family:       gaussian [identity]
 ##  formula:      course_evaluation ~ ave_teaching_qual + non_native_english + 
@@ -1820,20 +1807,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## * For help interpreting the printed output see ?print.stanreg
 ## * For info on the priors used see ?prior_summary.stanreg</code></pre>
 </div>
-<div id="iteration-3-adding-in-interactions" class="section level3" number="4.3.5">
-<h3><span class="header-section-number">4.3.5</span> Iteration 3: adding in interactions</h3>
+<div id="iteration-3-adding-in-interactions" class="section level3" number="4.3.4">
+<h3><span class="header-section-number">4.3.4</span> Iteration 3: adding in interactions</h3>
 <p>Next I try adding in interaction between the discrete predictors and <code>ave_teaching_qual</code>. As I would assume that if they are associated with the <code>course_evaluation</code> scores given by students, they will also be associated with the <code>prof_ratings</code> given by students (which have been average to give <code>ave_teaching_qual</code>).</p>
 <p>Adding in these interactions seems to make things worse, and the minimal model remains the best model to date (in terms of log score).</p>
-<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="predicting-course-evaluation-scores.html#cb143-1" aria-hidden="true" tabindex="-1"></a>lm_3 <span class="ot">&lt;-</span> <span class="fu">stan_glm</span>(course_evaluation <span class="sc">~</span> </span>
-<span id="cb143-2"><a href="predicting-course-evaluation-scores.html#cb143-2" aria-hidden="true" tabindex="-1"></a>                   ave_teaching_qual <span class="sc">+</span></span>
-<span id="cb143-3"><a href="predicting-course-evaluation-scores.html#cb143-3" aria-hidden="true" tabindex="-1"></a>                   non_native_english <span class="sc">+</span> female <span class="sc">+</span> multiple_prof <span class="sc">+</span></span>
-<span id="cb143-4"><a href="predicting-course-evaluation-scores.html#cb143-4" aria-hidden="true" tabindex="-1"></a>                   <span class="co"># add interactions between discrete predictors and the continuous predictor</span></span>
-<span id="cb143-5"><a href="predicting-course-evaluation-scores.html#cb143-5" aria-hidden="true" tabindex="-1"></a>                   ave_teaching_qual<span class="sc">:</span>non_native_english <span class="sc">+</span> ave_teaching_qual<span class="sc">:</span>female <span class="sc">+</span> </span>
-<span id="cb143-6"><a href="predicting-course-evaluation-scores.html#cb143-6" aria-hidden="true" tabindex="-1"></a>                   ave_teaching_qual<span class="sc">:</span>multiple_prof,</span>
-<span id="cb143-7"><a href="predicting-course-evaluation-scores.html#cb143-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> teaching_train, </span>
-<span id="cb143-8"><a href="predicting-course-evaluation-scores.html#cb143-8" aria-hidden="true" tabindex="-1"></a>                 <span class="at">refresh =</span> <span class="dv">0</span>)</span>
-<span id="cb143-9"><a href="predicting-course-evaluation-scores.html#cb143-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb143-10"><a href="predicting-course-evaluation-scores.html#cb143-10" aria-hidden="true" tabindex="-1"></a><span class="fu">stan_glm_loo_comp</span>(lm_min,lm_3, <span class="at">as_kable =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="predicting-course-evaluation-scores.html#cb140-1" aria-hidden="true" tabindex="-1"></a>lm_3 <span class="ot">&lt;-</span> <span class="fu">stan_glm</span>(course_evaluation <span class="sc">~</span> </span>
+<span id="cb140-2"><a href="predicting-course-evaluation-scores.html#cb140-2" aria-hidden="true" tabindex="-1"></a>                   ave_teaching_qual <span class="sc">+</span></span>
+<span id="cb140-3"><a href="predicting-course-evaluation-scores.html#cb140-3" aria-hidden="true" tabindex="-1"></a>                   non_native_english <span class="sc">+</span> female <span class="sc">+</span> multiple_prof <span class="sc">+</span></span>
+<span id="cb140-4"><a href="predicting-course-evaluation-scores.html#cb140-4" aria-hidden="true" tabindex="-1"></a>                   <span class="co"># add interactions between discrete predictors and the continuous predictor</span></span>
+<span id="cb140-5"><a href="predicting-course-evaluation-scores.html#cb140-5" aria-hidden="true" tabindex="-1"></a>                   ave_teaching_qual<span class="sc">:</span>non_native_english <span class="sc">+</span> ave_teaching_qual<span class="sc">:</span>female <span class="sc">+</span> </span>
+<span id="cb140-6"><a href="predicting-course-evaluation-scores.html#cb140-6" aria-hidden="true" tabindex="-1"></a>                   ave_teaching_qual<span class="sc">:</span>multiple_prof,</span>
+<span id="cb140-7"><a href="predicting-course-evaluation-scores.html#cb140-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> teaching_train, </span>
+<span id="cb140-8"><a href="predicting-course-evaluation-scores.html#cb140-8" aria-hidden="true" tabindex="-1"></a>                 <span class="at">refresh =</span> <span class="dv">0</span>)</span>
+<span id="cb140-9"><a href="predicting-course-evaluation-scores.html#cb140-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb140-10"><a href="predicting-course-evaluation-scores.html#cb140-10" aria-hidden="true" tabindex="-1"></a><span class="fu">stan_glm_loo_comp</span>(lm_min,lm_3, <span class="at">as_kable =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -1890,7 +1877,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="predicting-course-evaluation-scores.html#cb144-1" aria-hidden="true" tabindex="-1"></a>lm_3</span></code></pre></div>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="predicting-course-evaluation-scores.html#cb141-1" aria-hidden="true" tabindex="-1"></a>lm_3</span></code></pre></div>
 <pre><code>## stan_glm
 ##  family:       gaussian [identity]
 ##  formula:      course_evaluation ~ ave_teaching_qual + non_native_english + 
@@ -1917,18 +1904,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## * For help interpreting the printed output see ?print.stanreg
 ## * For info on the priors used see ?prior_summary.stanreg</code></pre>
 </div>
-<div id="iteration-4-reducing-number-of-discrete-predictors-used-to-simplify-the-model" class="section level3" number="4.3.6">
-<h3><span class="header-section-number">4.3.6</span> Iteration 4: reducing number of discrete predictors used to simplify the model</h3>
+<div id="iteration-4-reducing-number-of-discrete-predictors-used-to-simplify-the-model" class="section level3" number="4.3.5">
+<h3><span class="header-section-number">4.3.5</span> Iteration 4: reducing number of discrete predictors used to simplify the model</h3>
 <p>Next I tried simplifying the model by reducing the number of discrete predictors and interaction. I leave <code>non_native_english</code> speaker in as a predictor as in the previous model it had a non-zero coefficient (albeit with considerable uncertainty around it). However, the revised model also performs marginally worse than the minimal model.</p>
-<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="predicting-course-evaluation-scores.html#cb146-1" aria-hidden="true" tabindex="-1"></a>lm_4 <span class="ot">&lt;-</span> <span class="fu">stan_glm</span>(course_evaluation <span class="sc">~</span> </span>
-<span id="cb146-2"><a href="predicting-course-evaluation-scores.html#cb146-2" aria-hidden="true" tabindex="-1"></a>                   ave_teaching_qual <span class="sc">+</span></span>
-<span id="cb146-3"><a href="predicting-course-evaluation-scores.html#cb146-3" aria-hidden="true" tabindex="-1"></a>                   non_native_english <span class="sc">+</span></span>
-<span id="cb146-4"><a href="predicting-course-evaluation-scores.html#cb146-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb146-5"><a href="predicting-course-evaluation-scores.html#cb146-5" aria-hidden="true" tabindex="-1"></a>                   ave_teaching_qual<span class="sc">:</span>non_native_english,</span>
-<span id="cb146-6"><a href="predicting-course-evaluation-scores.html#cb146-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> teaching_train, </span>
-<span id="cb146-7"><a href="predicting-course-evaluation-scores.html#cb146-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">refresh =</span> <span class="dv">0</span>)</span>
-<span id="cb146-8"><a href="predicting-course-evaluation-scores.html#cb146-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb146-9"><a href="predicting-course-evaluation-scores.html#cb146-9" aria-hidden="true" tabindex="-1"></a><span class="fu">stan_glm_loo_comp</span>(lm_min,lm_4, <span class="at">as_kable =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="predicting-course-evaluation-scores.html#cb143-1" aria-hidden="true" tabindex="-1"></a>lm_4 <span class="ot">&lt;-</span> <span class="fu">stan_glm</span>(course_evaluation <span class="sc">~</span> </span>
+<span id="cb143-2"><a href="predicting-course-evaluation-scores.html#cb143-2" aria-hidden="true" tabindex="-1"></a>                   ave_teaching_qual <span class="sc">+</span></span>
+<span id="cb143-3"><a href="predicting-course-evaluation-scores.html#cb143-3" aria-hidden="true" tabindex="-1"></a>                   non_native_english <span class="sc">+</span></span>
+<span id="cb143-4"><a href="predicting-course-evaluation-scores.html#cb143-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb143-5"><a href="predicting-course-evaluation-scores.html#cb143-5" aria-hidden="true" tabindex="-1"></a>                   ave_teaching_qual<span class="sc">:</span>non_native_english,</span>
+<span id="cb143-6"><a href="predicting-course-evaluation-scores.html#cb143-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> teaching_train, </span>
+<span id="cb143-7"><a href="predicting-course-evaluation-scores.html#cb143-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">refresh =</span> <span class="dv">0</span>)</span>
+<span id="cb143-8"><a href="predicting-course-evaluation-scores.html#cb143-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb143-9"><a href="predicting-course-evaluation-scores.html#cb143-9" aria-hidden="true" tabindex="-1"></a><span class="fu">stan_glm_loo_comp</span>(lm_min,lm_4, <span class="at">as_kable =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -1985,7 +1972,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="predicting-course-evaluation-scores.html#cb147-1" aria-hidden="true" tabindex="-1"></a>lm_4</span></code></pre></div>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="predicting-course-evaluation-scores.html#cb144-1" aria-hidden="true" tabindex="-1"></a>lm_4</span></code></pre></div>
 <pre><code>## stan_glm
 ##  family:       gaussian [identity]
 ##  formula:      course_evaluation ~ ave_teaching_qual + non_native_english + 
@@ -2006,15 +1993,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## ------
 ## * For help interpreting the printed output see ?print.stanreg
 ## * For info on the priors used see ?prior_summary.stanreg</code></pre>
-<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="predicting-course-evaluation-scores.html#cb149-1" aria-hidden="true" tabindex="-1"></a>lm_5 <span class="ot">&lt;-</span> <span class="fu">stan_glm</span>(course_evaluation <span class="sc">~</span> </span>
-<span id="cb149-2"><a href="predicting-course-evaluation-scores.html#cb149-2" aria-hidden="true" tabindex="-1"></a>                   eval_response_rate <span class="sc">+</span> prof_ave_beauty_rating <span class="sc">+</span></span>
-<span id="cb149-3"><a href="predicting-course-evaluation-scores.html#cb149-3" aria-hidden="true" tabindex="-1"></a>                   non_native_english <span class="sc">+</span> female <span class="sc">+</span> multiple_prof <span class="sc">+</span></span>
-<span id="cb149-4"><a href="predicting-course-evaluation-scores.html#cb149-4" aria-hidden="true" tabindex="-1"></a>                   ave_teaching_qual<span class="sc">:</span>non_native_english <span class="sc">+</span> ave_teaching_qual<span class="sc">:</span>female <span class="sc">+</span> </span>
-<span id="cb149-5"><a href="predicting-course-evaluation-scores.html#cb149-5" aria-hidden="true" tabindex="-1"></a>                   ave_teaching_qual<span class="sc">:</span>multiple_prof,</span>
-<span id="cb149-6"><a href="predicting-course-evaluation-scores.html#cb149-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> teaching_train, </span>
-<span id="cb149-7"><a href="predicting-course-evaluation-scores.html#cb149-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">refresh =</span> <span class="dv">0</span>)</span>
-<span id="cb149-8"><a href="predicting-course-evaluation-scores.html#cb149-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb149-9"><a href="predicting-course-evaluation-scores.html#cb149-9" aria-hidden="true" tabindex="-1"></a><span class="fu">stan_glm_loo_comp</span>(lm_min,lm_5, <span class="at">as_kable =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="predicting-course-evaluation-scores.html#cb146-1" aria-hidden="true" tabindex="-1"></a>lm_5 <span class="ot">&lt;-</span> <span class="fu">stan_glm</span>(course_evaluation <span class="sc">~</span> </span>
+<span id="cb146-2"><a href="predicting-course-evaluation-scores.html#cb146-2" aria-hidden="true" tabindex="-1"></a>                   eval_response_rate <span class="sc">+</span> prof_ave_beauty_rating <span class="sc">+</span></span>
+<span id="cb146-3"><a href="predicting-course-evaluation-scores.html#cb146-3" aria-hidden="true" tabindex="-1"></a>                   non_native_english <span class="sc">+</span> female <span class="sc">+</span> multiple_prof <span class="sc">+</span></span>
+<span id="cb146-4"><a href="predicting-course-evaluation-scores.html#cb146-4" aria-hidden="true" tabindex="-1"></a>                   ave_teaching_qual<span class="sc">:</span>non_native_english <span class="sc">+</span> ave_teaching_qual<span class="sc">:</span>female <span class="sc">+</span> </span>
+<span id="cb146-5"><a href="predicting-course-evaluation-scores.html#cb146-5" aria-hidden="true" tabindex="-1"></a>                   ave_teaching_qual<span class="sc">:</span>multiple_prof,</span>
+<span id="cb146-6"><a href="predicting-course-evaluation-scores.html#cb146-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> teaching_train, </span>
+<span id="cb146-7"><a href="predicting-course-evaluation-scores.html#cb146-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">refresh =</span> <span class="dv">0</span>)</span>
+<span id="cb146-8"><a href="predicting-course-evaluation-scores.html#cb146-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb146-9"><a href="predicting-course-evaluation-scores.html#cb146-9" aria-hidden="true" tabindex="-1"></a><span class="fu">stan_glm_loo_comp</span>(lm_min,lm_5, <span class="at">as_kable =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -2071,7 +2058,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="predicting-course-evaluation-scores.html#cb150-1" aria-hidden="true" tabindex="-1"></a>lm_5</span></code></pre></div>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="predicting-course-evaluation-scores.html#cb147-1" aria-hidden="true" tabindex="-1"></a>lm_5</span></code></pre></div>
 <pre><code>## stan_glm
 ##  family:       gaussian [identity]
 ##  formula:      course_evaluation ~ eval_response_rate + prof_ave_beauty_rating + 
@@ -2099,12 +2086,48 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## * For help interpreting the printed output see ?print.stanreg
 ## * For info on the priors used see ?prior_summary.stanreg</code></pre>
 </div>
-<div id="summary-of-model-fitting-process" class="section level3" number="4.3.7">
-<h3><span class="header-section-number">4.3.7</span> Summary of model fitting process</h3>
-<p>This looks like about the end of the road in terms of trying out combinations of features to improve the predictive performance of the model (as estimated by the log score). I could try some feature engineering on the predictors and outcome variable (e.g. centering and scaling, transformation aimed at producing more normal distributions). However, in light of the findings of the 4 model fitting iterations above I think it is unlikely that feature engineering would considerably improve the performance of the model. Unfortunately, with the data to hand it looks like it is going to be challenging greatly improve the model’s performance. So, ideally it would be a case of conducting further studies gather data on a wider range of variables. Perhaps including variables that qualitatively encode something of a professor teaching style/approach. And/or variables such as the average marks awarded to students on the course before the evaluation had taken place.</p>
-<p>The r squared value for the minimal and best performing model is 0.542. Which indicates that the very simple one-predictor model is explaining just over half the variance in <code>course_evaluation</code>.</p>
-
+<div id="summary-of-model-fitting-process" class="section level3" number="4.3.6">
+<h3><span class="header-section-number">4.3.6</span> Summary of model fitting process</h3>
+<p>This looks like about the end of the road in terms of trying out combinations of features to improve the predictive performance of the model (as estimated by the log score). I could try some feature engineering on the predictors and outcome variable (e.g. centering and scaling, transformation aimed at producing more normal distributions). However, in light of the findings of the 4 model fitting iterations above I think it is unlikely that feature engineering would considerably improve the performance of the model. The r squared value for the minimal and best performing model is 0.542. Which indicates that the very simple one-predictor model is explaining just over half the variance in <code>course_evaluation</code>. I would characterise this as a poor level performance.</p>
+<p>Unfortunately, with the data to hand it looks like it is going to be challenging greatly improve the model’s performance. So, ideally it would be a case of conducting further studies gather data on a wider range of variables. Perhaps including variables that qualitatively encode something of a professor teaching style/approach. And/or variables such as the average marks awarded to students on the course before the evaluation had taken place.</p>
 </div>
+</div>
+<div id="using-the-model-for-prediction" class="section level2" number="4.4">
+<h2><span class="header-section-number">4.4</span> Using the model for prediction</h2>
+<p>Despite the fact I have not been able to develop a reasonable model of <code>course_evaluation</code> scores with the data to hand, I conclude this notebook. This primarily for my own practice, rather than in the expectation that when applying the model to training set we will see better performance.</p>
+<p>As expected the peformance of the model on the training set can also be characterised as poor.</p>
+<ul>
+<li>The Root Mean Squared error is approximately 0.4. This could be considered a relatively large error in the context of the data used to test and training the model. <code>course_evaluation</code> scores are of course on a 5 point scale, and as we saw in the exploratory data analysis above the distribution is heavily left skewed. With 96% of <code>course_evaluation</code> scores being between 3 and 5 (inclusive).</li>
+<li>Below I also plot the residuals against the predicted <code>course_evaluation</code> scores. This shows there is no readily discernible pattern in the residuals when applying the minimal model to the test data. Any patterns would have been of interests as they could provide hints as how the model might improved (e.g. if the residuals were larger for lower <code>course_evaluation</code> scores).</li>
+</ul>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="predicting-course-evaluation-scores.html#cb149-1" aria-hidden="true" tabindex="-1"></a><span class="co"># apply the model to predict course evaluation scores for the test set</span></span>
+<span id="cb149-2"><a href="predicting-course-evaluation-scores.html#cb149-2" aria-hidden="true" tabindex="-1"></a>preds <span class="ot">&lt;-</span> <span class="fu">predict</span>(lm_min, <span class="at">newdata =</span> teaching_test) </span>
+<span id="cb149-3"><a href="predicting-course-evaluation-scores.html#cb149-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb149-4"><a href="predicting-course-evaluation-scores.html#cb149-4" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate the residuals (i.e. difference between observed and predicted</span></span>
+<span id="cb149-5"><a href="predicting-course-evaluation-scores.html#cb149-5" aria-hidden="true" tabindex="-1"></a><span class="co"># course evaluation scores)</span></span>
+<span id="cb149-6"><a href="predicting-course-evaluation-scores.html#cb149-6" aria-hidden="true" tabindex="-1"></a>residuals <span class="ot">&lt;-</span> teaching_test <span class="sc">%&gt;%</span></span>
+<span id="cb149-7"><a href="predicting-course-evaluation-scores.html#cb149-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(course_evaluation) <span class="sc">%&gt;%</span> </span>
+<span id="cb149-8"><a href="predicting-course-evaluation-scores.html#cb149-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_cols</span>(<span class="fu">as_tibble</span>(preds)) <span class="sc">%&gt;%</span> </span>
+<span id="cb149-9"><a href="predicting-course-evaluation-scores.html#cb149-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">pred_course_evaluation =</span> value) <span class="sc">%&gt;%</span> </span>
+<span id="cb149-10"><a href="predicting-course-evaluation-scores.html#cb149-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">residuals =</span> course_evaluation <span class="sc">-</span> pred_course_evaluation)</span>
+<span id="cb149-11"><a href="predicting-course-evaluation-scores.html#cb149-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb149-12"><a href="predicting-course-evaluation-scores.html#cb149-12" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate the rmse</span></span>
+<span id="cb149-13"><a href="predicting-course-evaluation-scores.html#cb149-13" aria-hidden="true" tabindex="-1"></a>residuals <span class="sc">%&gt;%</span> </span>
+<span id="cb149-14"><a href="predicting-course-evaluation-scores.html#cb149-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">rmse =</span> <span class="fu">sqrt</span>(<span class="fu">mean</span>(residuals<span class="sc">^</span><span class="dv">2</span>)))</span></code></pre></div>
+<pre><code>## # A tibble: 1 x 1
+##    rmse
+##   &lt;dbl&gt;
+## 1 0.400</code></pre>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="predicting-course-evaluation-scores.html#cb151-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot the residuals</span></span>
+<span id="cb151-2"><a href="predicting-course-evaluation-scores.html#cb151-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(residuals, <span class="fu">aes</span>(pred_course_evaluation, residuals)) <span class="sc">+</span></span>
+<span id="cb151-3"><a href="predicting-course-evaluation-scores.html#cb151-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">colour =</span> <span class="st">&quot;grey70&quot;</span>, <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb151-4"><a href="predicting-course-evaluation-scores.html#cb151-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb151-5"><a href="predicting-course-evaluation-scores.html#cb151-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st">Predicted course evaluation score&quot;</span>,</span>
+<span id="cb151-6"><a href="predicting-course-evaluation-scores.html#cb151-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Residual</span><span class="sc">\n</span><span class="st">&quot;</span>,</span>
+<span id="cb151-7"><a href="predicting-course-evaluation-scores.html#cb151-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">&quot;There is no readily discernible pattern in the residuals when</span><span class="sc">\n</span><span class="st">applying the minimal model to the test data</span><span class="sc">\n</span><span class="st">&quot;</span>) <span class="sc">+</span></span>
+<span id="cb151-8"><a href="predicting-course-evaluation-scores.html#cb151-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>())</span></code></pre></div>
+<p><img src="03_beauty_files/figure-html/unnamed-chunk-45-1.png" width="672" /></p>
+
 </div>
 </div>
 

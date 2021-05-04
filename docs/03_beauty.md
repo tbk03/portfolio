@@ -1,5 +1,17 @@
 # Predicting course evaluation scores
 
+In this notebook I use a dataset provided in the textbook [Regression and Other Stories](https://avehtari.github.io/ROS-Examples/). The dataset represents a sample of course evaluation scores given by university students. The original purpose of the dataset was to explore the question of if the attractiveness of the professor teaching a course affected the course evaluation scores given by students. In this notebook I use the dataset for a different purpose. That is I try to develop a linear regression model that can predict course evaluation scores using a number of potential predictor variables (e.g. the number of students registered on a course) that also provided within the dataset.
+
+The notebook consists of four sections addressing the following activities in turn:
+
+-   Importing and processing the data;
+
+-   Exploratory data analysis;
+
+-   Fitting the model;
+
+-   And, finally using the model for prediction.
+
 
 
 
@@ -270,7 +282,7 @@ So, I started the exploratory data analysis quickly looking at summary statistic
 
 
 ```r
-skim_minimal(df = teaching_eval_clean, course_evaluation)
+skim_minimal(.df = teaching_eval_clean, course_evaluation)
 ```
 
 
@@ -374,7 +386,7 @@ explanatory_variables_prof <- teaching_eval_clean %>%
 # produce summary statistics
 skim_minimal(explanatory_variables_prof %>% 
               select(-prof_number), # no need to include identifer variable
-             show_data_completeness = FALSE)
+             .show_data_completeness = FALSE)
 ```
 
 
@@ -438,7 +450,7 @@ explanatory_variables_prof_cont <- explanatory_variables_prof %>%
 # show summary statistics
 skim_minimal(explanatory_variables_prof_cont %>% 
               select(-prof_number),
-             show_data_completeness = FALSE)
+             .show_data_completeness = FALSE)
 ```
 
 
@@ -660,7 +672,7 @@ explanatory_variables_prof_discrete <- explanatory_variables_prof %>%
 # show summary statistics
 skim_minimal(explanatory_variables_prof_discrete %>% 
               select(-prof_number), 
-             show_data_completeness = FALSE)
+             .show_data_completeness = FALSE)
 ```
 
 
@@ -764,7 +776,7 @@ Having focused on the professor related variables above, I now move on to explor
 explanatory_variables_course <- teaching_eval_clean %>% 
   select(lower:students)
 
-skim_minimal(explanatory_variables_course, show_data_completeness = FALSE)
+skim_minimal(explanatory_variables_course, .show_data_completeness = FALSE)
 ```
 
 
@@ -791,7 +803,7 @@ explanatory_variables_course_cont <- explanatory_variables_course %>%
   select(where(~!is_binary_var(.)))
 
 explanatory_variables_course_cont %>% 
-  skim_minimal(show_data_completeness = FALSE)
+  skim_minimal(.show_data_completeness = FALSE)
 ```
 
 
@@ -918,7 +930,7 @@ explanatory_variables_course_discrete %>%
 
 ```r
 df <- explanatory_variables_course_discrete%>%
-    skim_minimal(show_data_completeness = FALSE)
+    skim_minimal(.show_data_completeness = FALSE)
 ```
 
 
@@ -1063,13 +1075,7 @@ ggsave("test4.svg")
 
 ## Fitting the model
 
-Approach to developing the model
-
--   Establish a starting point
-
--   Incremental add to the model and compare using loo log score (`elpd_loo`)
-
-### Splitting the data
+My approach to developing the model is relatively straight forward. First, based on the understanding of the data I have developed in the exploratory data analysis above, I specify an initial model. I then iteratively develop the model, at each stage comparing the performance of that iteration's model with that of the current 'best' model. Based on this comparison updating my view of which model is the 'best' performing. But before getting into the iterative model development process, I first need to split the data into training and test sets.
 
 
 ```r
@@ -1082,36 +1088,8 @@ all_variables <- select(teaching_eval_clean, course_evaluation) %>%
             explanatory_variables_course_discrete) %>% 
   clean_names() 
 
-all_variables
-```
+# all_variables
 
-```
-## # A tibble: 463 x 17
-##    course_evaluation prof_number   age prof_ave_rating prof_ave_beauty_rating
-##                <dbl>       <dbl> <dbl>           <dbl>                  <dbl>
-##  1               4.3           1    36             4.7                 0.202 
-##  2               4.5           2    59             4.6                -0.826 
-##  3               3.7           3    51             4.1                -0.660 
-##  4               4.3           4    40             4.5                -0.766 
-##  5               4.4           5    31             4.8                 1.42  
-##  6               4.2           6    62             4.4                 0.500 
-##  7               4             7    33             4.4                -0.214 
-##  8               3.4           8    51             3.4                -0.347 
-##  9               4.5           9    33             4.8                 0.0613
-## 10               3.9          10    47             4                   0.453 
-## # ... with 453 more rows, and 12 more variables: ave_teaching_qual <dbl>,
-## #   age_binned <fct>, tenured <dbl>, minority <dbl>, female <dbl>,
-## #   formal <dbl>, non_native_english <dbl>, tenure_track <dbl>,
-## #   eval_response_rate <dbl>, students <dbl>, lower <dbl>, multiple_prof <dbl>
-```
-
-```r
-# %>% 
-#  rename_with(.fn = ~ str_remove(., pattern = '_\\d'))
-```
-
-
-```r
 # to ensure split is reproducible
 set.seed(123456)
 
@@ -1121,7 +1099,9 @@ teaching_train <- rsample::training(teaching_split)
 teaching_test <- rsample::testing(teaching_split)
 ```
 
-### Minimal and maximal models
+### Specifying an initial model
+
+Before specifying the initial model, I first include some functions I have written to process the output of `stan_glm` model into a form that is easier to present in R markdown documents.
 
 
 ```r
@@ -1195,11 +1175,11 @@ stan_glm_loo_comp <- function(mod_1, mod_2, as_kable = FALSE){
 }
 ```
 
+I start by specifying two models:
 
-Minimal model: the most promising predictor identified in the EDA
+1.  A *minimal* model which includes the single most promising predictor identified in the EDA (`ave_teaching_qual`);
 
-Maximal model: all predictors, where there are multiple predictors relating to the same underlying construct (e.g. `age` and `age_binned`) only one is retained.
-
+2.  A *maximal* model which includes all the potential predictors. Where there are multiple predictors relating to the same underlying construct (e.g. `age` and `age_binned`) only one is retained.
 
 
 ```r
@@ -1271,7 +1251,8 @@ lm_max
 ## * For help interpreting the printed output see ?print.stanreg
 ## * For info on the priors used see ?prior_summary.stanreg
 ```
-Comparing the log scores from the leave-one-out cross validation (`elpd_loo`) the minimal model performs slightly better. So, I'll use the minimal model as the starting point for building a better model.
+
+Comparing the log scores from the leave-one-out cross validation (`elpd_loo`) the minimal model performs slightly better than the maximal model. So, I'll use the minimal model as the starting point for iteratively building a better model.
 
 
 ```r
@@ -1318,7 +1299,6 @@ stan_glm_loo_comp(lm_min, lm_max, as_kable = TRUE)
 |se_looic    |   32.9968872|   34.2825982|
 |r2          |    0.5398558|    0.5376852|
 
-
 ### Iteration 1: Adding two continuous variables
 
 Next I try adding two continuous variables (`prof_ave_beauty_rating` and `eval_response_rate`) as predictors. These were the two variables after `ave_teaching_qual` with the next highest (albeit low) levels of correlation with `course_evaluation`. After adding these variables the model performance is the same as the minimal model. So, I'll keep working with the minimal model as the best performing model for now.
@@ -1349,6 +1329,7 @@ stan_glm_loo_comp(lm_min, lm_1, as_kable = TRUE)
 |r2          |    0.5423901|    0.5398558|
 
 ### Iteration 2: adding in discrete variables
+
 Next I try adding in the three discrete variables which had non-zero coefficients in the maximal model (`non_native_english` + `female` + `multiple_prof`). Again this doesn't result in any improvements to model performance as measured by the cross validation log score (elpd_loo)
 
 
@@ -1404,7 +1385,9 @@ lm_2
 ## * For help interpreting the printed output see ?print.stanreg
 ## * For info on the priors used see ?prior_summary.stanreg
 ```
+
 ### Iteration 3: adding in interactions
+
 Next I try adding in interaction between the discrete predictors and `ave_teaching_qual`. As I would assume that if they are associated with the `course_evaluation` scores given by students, they will also be associated with the `prof_ratings` given by students (which have been average to give `ave_teaching_qual`).
 
 Adding in these interactions seems to make things worse, and the minimal model remains the best model to date (in terms of log score).
@@ -1468,7 +1451,9 @@ lm_3
 ## * For help interpreting the printed output see ?print.stanreg
 ## * For info on the priors used see ?prior_summary.stanreg
 ```
+
 ### Iteration 4: reducing number of discrete predictors used to simplify the model
+
 Next I tried simplifying the model by reducing the number of discrete predictors and interaction. I leave `non_native_english` speaker in as a predictor as in the previous model it had a non-zero coefficient (albeit with considerable uncertainty around it). However, the revised model also performs marginally worse than the minimal model.
 
 
@@ -1585,10 +1570,55 @@ lm_5
 ## * For info on the priors used see ?prior_summary.stanreg
 ```
 
-
 ### Summary of model fitting process
-This looks like about the end of the road in terms of trying out combinations of features to improve the predictive performance of the model (as estimated by the log score). I could try some feature engineering on the predictors and outcome variable (e.g. centering and scaling, transformation aimed at producing more normal distributions). However, in light of the findings of the 4 model fitting iterations above I think it is unlikely that feature engineering would considerably improve the performance of the model. Unfortunately, with the data to hand it looks like it is going to be challenging greatly improve the model's performance. So, ideally it would be a case of conducting further studies gather data on a wider range of variables. Perhaps including variables that qualitatively encode something of a professor teaching style/approach. And/or variables such as the average marks awarded to students on the course before the evaluation had taken place. 
 
-The r squared value for the minimal and best performing model is 0.542. Which indicates that the very simple one-predictor model is explaining just over half the variance in `course_evaluation`. 
+This looks like about the end of the road in terms of trying out combinations of features to improve the predictive performance of the model (as estimated by the log score). I could try some feature engineering on the predictors and outcome variable (e.g. centering and scaling, transformation aimed at producing more normal distributions). However, in light of the findings of the 4 model fitting iterations above I think it is unlikely that feature engineering would considerably improve the performance of the model. The r squared value for the minimal and best performing model is 0.542. Which indicates that the very simple one-predictor model is explaining just over half the variance in `course_evaluation`. I would characterise this as a poor level performance.
+
+Unfortunately, with the data to hand it looks like it is going to be challenging greatly improve the model's performance. So, ideally it would be a case of conducting further studies gather data on a wider range of variables. Perhaps including variables that qualitatively encode something of a professor teaching style/approach. And/or variables such as the average marks awarded to students on the course before the evaluation had taken place.
+
+## Using the model for prediction
+
+Despite the fact I have not been able to develop a reasonable model of `course_evaluation` scores with the data to hand, I conclude this notebook. This primarily for my own practice, rather than in the expectation that when applying the model to training set we will see better performance.
+
+As expected the peformance of the model on the training set can also be characterised as poor.
+
+-   The Root Mean Squared error is approximately 0.4. This could be considered a relatively large error in the context of the data used to test and training the model. `course_evaluation` scores are of course on a 5 point scale, and as we saw in the exploratory data analysis above the distribution is heavily left skewed. With 96% of `course_evaluation` scores being between 3 and 5 (inclusive).
+-   Below I also plot the residuals against the predicted `course_evaluation` scores. This shows there is no readily discernible pattern in the residuals when applying the minimal model to the test data. Any patterns would have been of interests as they could provide hints as how the model might improved (e.g. if the residuals were larger for lower `course_evaluation` scores).
 
 
+```r
+# apply the model to predict course evaluation scores for the test set
+preds <- predict(lm_min, newdata = teaching_test) 
+
+# calculate the residuals (i.e. difference between observed and predicted
+# course evaluation scores)
+residuals <- teaching_test %>%
+  select(course_evaluation) %>% 
+  bind_cols(as_tibble(preds)) %>% 
+  rename(pred_course_evaluation = value) %>% 
+  mutate(residuals = course_evaluation - pred_course_evaluation)
+
+# calculate the rmse
+residuals %>% 
+  summarise(rmse = sqrt(mean(residuals^2)))
+```
+
+```
+## # A tibble: 1 x 1
+##    rmse
+##   <dbl>
+## 1 0.400
+```
+
+```r
+# plot the residuals
+ggplot(residuals, aes(pred_course_evaluation, residuals)) +
+  geom_hline(yintercept = 0, colour = "grey70", size = 1.5) +
+  geom_point(alpha = 0.5) +
+  labs(x = "\nPredicted course evaluation score",
+       y = "Residual\n",
+       title = "There is no readily discernible pattern in the residuals when\napplying the minimal model to the test data\n") +
+  theme(panel.grid.minor = element_blank())
+```
+
+<img src="03_beauty_files/figure-html/unnamed-chunk-45-1.png" width="672" />
